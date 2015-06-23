@@ -29,6 +29,11 @@ Configure the [[yii\base\Application::controllerMap|controller map]] in the appl
         // declares "yml" controller using a configuration array
         'yml' => [
             'class' => 'pastuhov\ymlcatalog\controllers\YmlCatalogController',
+            'shopClass' => 'frontend\models\Shop',
+            'categoryClass' => 'frontend\models\Category',
+            'offerClass' => [
+                'frontend\models\Item'
+            ],
             'fileName' => 'yml.xml',
             'enableGzip' => true,
             'publicDir' => '@frontend/web'
