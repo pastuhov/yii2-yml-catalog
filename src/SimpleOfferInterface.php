@@ -11,9 +11,10 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * Максимальная длина URL — 512 символов.
      * Необязательный элемент для магазинов-салонов.
      *
-     * @return string
+     * @return string|null
      */
     public function getUrl();
+
     /**
      * Цена.
      *
@@ -24,6 +25,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * @return string
      */
     public function getPrice();
+
     /**
      * Старая цена.
      *
@@ -31,9 +33,10 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * для автоматического расчета скидки на товар.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getOldPrice();
+
     /**
      * Идентификатор валюты.
      *
@@ -44,6 +47,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * @return string
      */
     public function getСurrencyId();
+
     /**
      * Идентификатор категории.
      *
@@ -54,6 +58,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * @return string
      */
     public function getСategoryId();
+
     /**
      * Категория товара, в которой он должен быть размещен на Яндекс.Маркете. Допустимо указывать названия категорий
      * только из товарного дерева категорий Яндекс.Маркета.
@@ -63,6 +68,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * @return string
      */
     public function getMarketCategory();
+
     /**
      * Ссылка на картинку.
      *
@@ -71,47 +77,54 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * Максимальная длина URL — 512 символов.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getPicture();
+
     /**
-     * Элемент позволяет указать возможность купить соответствующий товар в розничном магазине.
-     *    Возможные значения:
+     * Возможность купить соответствующий товар в розничном магазине.
+     *
+     * Возможные значения:
      *    1) false — возможность покупки в розничном магазине отсутствует;
      *    2) true — товар можно купить в розничном магазине.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getStore();
+
     /**
-     * Элемент позволяет указать возможность зарезервировать выбранный товар и забрать его самостоятельно.
-     *    Возможные значения:
+     * Возможность зарезервировать выбранный товар и забрать его самостоятельно.
+     *
+     * Возможные значения:
      *    1) false — возможность «самовывоза» отсутствует;
      *    2) true — товар можно забрать самостоятельно.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getPickup();
+
     /**
-     * Элемент позволяет указать возможность доставки соответствующего товара.
-     *    Возможные значения:
+     * Возможность доставки соответствующего товара.
+     *
+     * Возможные значения:
      *    - false — товар не может быть доставлен;
      *    - true — товар доставляется на условиях, которые описываются в партнерском интерфейсе на странице
      *      Параметры размещения.
      * Необязательный элемент.
      * @link http://help.yandex.ru/partnermarket/settings/placement.xml#placement
      *
-     * @return string
+     * @return string|null
      */
     public function getDelivery();
+
     /**
      * Стоимость доставки данного товара в своем регионе.
      *
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getLocalDeliveryCost();
     /**
@@ -130,7 +143,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * Не отображается в названии предложения.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getVendor();
     /**
@@ -139,7 +152,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * Не отображается в названии предложения.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getVendorCode();
     /**
@@ -149,7 +162,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * (информация внутри тегов публиковаться не будет).
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getDescription();
     /**
@@ -180,7 +193,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * элемент в YML-файле.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getCountryOfOrigin();
     /**
@@ -188,7 +201,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * либо иным образом эксплуатирующего интерес к сексу.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getAdult();
     /**
@@ -200,21 +213,21 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * unit="month": 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12.
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getAge();
     /**
      * Штрихкод товара, указанный производителем.
      * Необязательный элемент. Элемент <offer> может содержать несколько элементов <barcode>.
      *
-     * @return string
+     * @return string|null
      */
     public function getBarcode();
     /**
      * Элемент предназначен для управления участием товарных предложений в программе «Заказ на Маркете».
      * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
     public function getCpa();
     /**
@@ -222,7 +235,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * элемент <param>.
      * Необязательный элемент. Элемент <offer> может содержать несколько элементов <param>.
      *
-     * @return string
+     * @return string|null
      */
     public function getParam();
 }

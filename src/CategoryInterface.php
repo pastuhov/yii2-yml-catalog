@@ -27,7 +27,7 @@ interface CategoryInterface extends ActiveRecordInterface
      *
      * Если элемент <parentId> не указан, то категория считается корневой.
      *
-     * @return int
+     * @return int|null
      */
     public function getParentId();
 }
