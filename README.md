@@ -23,12 +23,9 @@ $ composer require pastuhov/yii2-yml-catalog
 
 Configure the [[yii\base\Application::controllerMap|controller map]] in the application configuration. For example:
 ```php
-
 [
     'controllerMap' => [
-    
         ...
-        
         // declares "yml" controller using a configuration array
         'yml' => [
             'class' => 'pastuhov\ymlcatalog\controllers\YmlCatalogController',
@@ -38,18 +35,15 @@ Configure the [[yii\base\Application::controllerMap|controller map]] in the appl
         ],
     ],
 ]
-    
 ```
 Then you may type:
-```php
-
+```bash
 $ yii yml/generate
-    
 ```
 
 ## Testing
 
-``` bash
+```bash
 $ composer test
 ```
 or
