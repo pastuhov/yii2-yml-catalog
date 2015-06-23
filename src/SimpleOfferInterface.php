@@ -3,6 +3,11 @@ namespace pastuhov\yml;
 
 use yii\db\ActiveRecordInterface;
 
+/**
+ * Простое товарное предложение.
+ *
+ * @package pastuhov\yml
+ */
 interface SimpleOfferInterface extends ActiveRecordInterface
 {
     /**

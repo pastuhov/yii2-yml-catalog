@@ -2,9 +2,7 @@
 namespace pastuhov\yml;
 
 /**
- * Interface ShopInterface
- *
- * Содержит описание магазина.
+ * Описание магазина.
  *
  * @package pastuhov\yml
  */

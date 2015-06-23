@@ -3,6 +3,11 @@ namespace pastuhov\yml;
 
 use yii\db\ActiveRecordInterface;
 
+/**
+ * Товарная категория.
+ *
+ * @package pastuhov\yml
+ */
 interface CategoryInterface extends ActiveRecordInterface
 {
     /**
