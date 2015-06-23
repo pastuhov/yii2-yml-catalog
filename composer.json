@@ -19,7 +19,7 @@
   ],
   "require": {
     "php" : ">=5.3.0",
-    "yiisoft/yii2": ">=2.0.4",
+    "yiisoft/yii2": "~2.0.0",
     "pastuhov/php-exec-command": "dev-master",
     "pastuhov/php-file-stream": "dev-master"
   },
