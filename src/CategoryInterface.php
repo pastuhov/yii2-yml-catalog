@@ -1,5 +1,5 @@
 <?php
-namespace pastuhov\yml;
+namespace pastuhov\ymlcatalog;
 
 use yii\db\ActiveRecordInterface;
 

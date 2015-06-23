@@ -27,12 +27,12 @@
   },
   "autoload": {
     "psr-4": {
-      "pastuhov\\Command\\": "src"
+      "pastuhov\\ymlcatalog\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "pastuhov\\Command\\Test\\": "tests"
+      "pastuhov\\ymlcatalog\\Test\\": "tests"
     }
   },
   "scripts": {
