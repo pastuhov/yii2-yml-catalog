@@ -21,9 +21,29 @@ $ composer require pastuhov/yii2-yml-catalog
 
 ## Usage
 
+Configure the [[yii\base\Application::controllerMap|controller map]] in the application configuration. For example:
 ```php
 
+[
+    'controllerMap' => [
+    
+        ...
+        
+        // declares "yml" controller using a configuration array
+        'yml' => [
+            'class' => 'pastuhov\ymlcatalog\controllers\YmlCatalogController',
+            'fileName' => 'yml.xml',
+            'enableGzip' => true,
+            'publicDir' => '@frontend/web'
+        ],
+    ],
+]
+    
+```
+Then you may type:
+```php
 
+$ yii yml/generate
     
 ```
 
