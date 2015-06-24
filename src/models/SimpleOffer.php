@@ -1,7 +1,7 @@
 <?php
 namespace pastuhov\ymlcatalog\models;
 
-class SimpleOffer
+class SimpleOffer extends BaseModel
 {
 
 }

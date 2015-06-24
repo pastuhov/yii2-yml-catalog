@@ -19,7 +19,7 @@ class Category extends ActiveRecord implements CategoryInterface
      */
     public function getName()
     {
-        $this->attributes['name'];
+        return $this->attributes['name'];
     }
 
     /**
@@ -32,7 +32,7 @@ class Category extends ActiveRecord implements CategoryInterface
      */
     public function getId()
     {
-        // TODO: Implement getId() method.
+        return $this->attributes['id'];
     }
 
     /**
@@ -44,6 +44,17 @@ class Category extends ActiveRecord implements CategoryInterface
      */
     public function getParentId()
     {
-        // TODO: Implement getParentId() method.
+        return $this->attributes['parent_id'];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public static function findYml()
+    {
+        $query = self::find();
+        $query->orderBy('id');
+
+        return $query;
     }
 }

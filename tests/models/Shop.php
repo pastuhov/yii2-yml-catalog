@@ -14,7 +14,7 @@ class Shop implements ShopInterface
      */
     public function getName()
     {
-        return 'Test';
+        return 'BestShop';
     }
 
     /**
@@ -22,7 +22,7 @@ class Shop implements ShopInterface
      */
     public function getCompany()
     {
-        return 'Test ltd';
+        return 'Best online seller Inc.';
     }
 
     /**
@@ -30,7 +30,7 @@ class Shop implements ShopInterface
      */
     public function getUrl()
     {
-        return 'http://www.magazin.ru/';
+        return 'http://best.seller.ru/';
     }
 
     /**
@@ -38,7 +38,7 @@ class Shop implements ShopInterface
      */
     public function getPlatform()
     {
-        return 'OtherCms';
+        return 'CMS';
     }
 
     /**
@@ -46,7 +46,7 @@ class Shop implements ShopInterface
      */
     public function getVersion()
     {
-        return '0.1';
+        return '2.3';
     }
 
     /**
@@ -54,7 +54,7 @@ class Shop implements ShopInterface
      */
     public function getAgency()
     {
-        return 'Other Web Agency';
+        return 'Agency';
     }
 
     /**
@@ -62,7 +62,7 @@ class Shop implements ShopInterface
      */
     public function getEmail()
     {
-        return null;
+        return 'CMS@CMS.ru';
     }
 
     /**

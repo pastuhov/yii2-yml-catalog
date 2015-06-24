@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
 <yml_catalog date="2015-01-01 14:00">
+<shop>
+<name>BestShop</name>
+<company>Best online seller Inc.</company>
+<url>http://best.seller.ru/</url>
+<platform>CMS</platform>
+<version>2.3</version>
+<agency>Agency</agency>
+<email>CMS@CMS.ru</email>
+<categories>
+<category id="1">Оргтехника</category>
+<category id="2">Фототехника</category>
+<category id="3">Книги</category>
+<category id="4">Музыка и видеофильмы</category>
+<category id="5">Путешествия</category>
+<category id="6">Билеты на мероприятия</category>
+<category id="10" parentId="1">Принтеры</category>
+<category id="11" parentId="2">Фотоаппараты</category>
+<category id="12" parentId="2">Объективы</category>
+<category id="13" parentId="3">Детективы</category>
+<category id="14" parentId="3">Художественная литература</category>
+<category id="15" parentId="3">Учебная литература</category>
+<category id="16" parentId="3">Детская литература</category>
+<category id="17" parentId="4">Музыка</category>
+<category id="18" parentId="4">Видеофильмы</category>
+<category id="19" parentId="5">Туры</category>
+<category id="20" parentId="5">Авиабилеты</category>
+<category id="100" parentId="10">Струйные принтеры</category>
+<category id="101" parentId="10">Лазерные принтеры</category>
+</categories>
+</shop>
 </yml_catalog>

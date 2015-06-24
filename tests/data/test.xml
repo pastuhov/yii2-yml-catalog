@@ -2,11 +2,23 @@
 <dataset>
     <item id="1" category_id="7" name="Эфирные масла для бани Успокаивающие" price="115" />
 
-    <category id="1"              name="Эксклюзивные товары" />
-    <category id="2" parent_id="1" name="Сувениры" />
-    <category id="3" parent_id="1" name="Наградная атрибутика" />
-    <category id="4" parent_id="1" name="Подарочная упаковка" />
-    <category id="5" parent_id="4" name="Бизнес-сувениры" />
-    <category id="6" parent_id="4" name="Брелоки и подвески" />
-    <category id="7" parent_id="4" name="Восточные сувениры и фэн-шуй" />
+    <category id="1" name="Оргтехника" />
+    <category id="10" parent_id="1" name="Принтеры" />
+    <category id="100" parent_id="10" name="Струйные принтеры" />
+    <category id="101" parent_id="10" name="Лазерные принтеры" />
+    <category id="2" name="Фототехника" />
+    <category id="11" parent_id="2" name="Фотоаппараты" />
+    <category id="12" parent_id="2" name="Объективы" />
+    <category id="3" name="Книги" />
+    <category id="13" parent_id="3" name="Детективы" />
+    <category id="14" parent_id="3" name="Художественная литература" />
+    <category id="15" parent_id="3" name="Учебная литература" />
+    <category id="16" parent_id="3" name="Детская литература" />
+    <category id="4" name="Музыка и видеофильмы" />
+    <category id="17" parent_id="4" name="Музыка" />
+    <category id="18" parent_id="4" name="Видеофильмы" />
+    <category id="5" name="Путешествия" />
+    <category id="19" parent_id="5" name="Туры" />
+    <category id="20" parent_id="5" name="Авиабилеты" />
+    <category id="6" name="Билеты на мероприятия" />
 </dataset>
