@@ -1,7 +1,8 @@
 <?php
 namespace pastuhov\ymlcatalog\controllers;
 
-use pastuhov\FileStream\BaseFileStream;
+use pastuhov\Command\Command;
+use pastuhov\ymlcatalog\YmlCatalog;
 use yii\console\Controller;
 
 class YmlCatalogController extends Controller
@@ -42,15 +43,44 @@ class YmlCatalogController extends Controller
     public $offerClass;
 
     /**
-     * @var \pastuhov\FileStream\BaseFileStream
+     * @var string
      */
-    protected $handler;
+    public $handleClass = 'pastuhov\FileStream\BaseFileStream';
+
+    /**
+     * @var string
+     */
+    public $gzipCommand = 'cat {src} | gzip > {dst}';
 
     public function actionGenerate()
     {
         $fileName = \Yii::getAlias($this->runtimePath) . '/' . $this->fileName;
-        $this->handler = new BaseFileStream($fileName);
+        $handle = new $this->handleClass($fileName);
 
-        return 'OK';
+        $shopClass = $this->shopClass;
+
+        $generator = new YmlCatalog(
+            $handle,
+            new $shopClass,
+            $this->categoryClass,
+            $this->offerClass
+        );
+        $generator->generate();
+
+        if ($this->enableGzip === true) {
+            $gzipedFileName = $fileName . '.gz';
+
+            Command::exec($this->gzipCommand, [
+                'src' => $fileName,
+                'dst' => $gzipedFileName
+            ]);
+
+            $fileName = $gzipedFileName;
+        }
+
+        $publicPath = \Yii::getAlias($this->publicPath);
+        rename($fileName, $publicPath . '/' . basename($fileName));
+
+        return self::EXIT_CODE_NORMAL;
     }
 }
