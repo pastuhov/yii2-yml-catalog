@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <item id="1" category_id="7" name="Эфирные масла для бани Успокаивающие" price="115" />
+
+    <category id="1"              name="Эксклюзивные товары" />
+    <category id="2" parent_id="1" name="Сувениры" />
+    <category id="3" parent_id="1" name="Наградная атрибутика" />
+    <category id="4" parent_id="1" name="Подарочная упаковка" />
+    <category id="5" parent_id="4" name="Бизнес-сувениры" />
+    <category id="6" parent_id="4" name="Брелоки и подвески" />
+    <category id="7" parent_id="4" name="Восточные сувениры и фэн-шуй" />
+</dataset>

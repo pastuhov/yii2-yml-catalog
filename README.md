@@ -36,7 +36,7 @@ Configure the [[yii\base\Application::controllerMap|controller map]] in the appl
             ],
             'fileName' => 'yml.xml',
             'enableGzip' => true,
-            'publicDir' => '@frontend/web'
+            'publicPath' => '@frontend/web'
         ],
     ],
 ]
