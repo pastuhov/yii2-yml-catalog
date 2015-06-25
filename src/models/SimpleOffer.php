@@ -90,7 +90,7 @@ class SimpleOffer extends BaseModel
                 'max' => 4,
             ],
             [
-                ['id', 'categoryId'],
+                ['id', 'categoryId', 'bid', 'cbid'],
                 'integer',
             ],
             [
@@ -98,7 +98,7 @@ class SimpleOffer extends BaseModel
                 'url',
             ],
             [
-                ['price', 'oldprice', 'bid', 'cbid'],
+                ['price', 'oldprice'],
                 'double',
             ],
             [
