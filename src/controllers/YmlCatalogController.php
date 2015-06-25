@@ -1,6 +1,7 @@
 <?php
 namespace pastuhov\ymlcatalog\controllers;
 
+use Yii;
 use pastuhov\Command\Command;
 use pastuhov\ymlcatalog\YmlCatalog;
 use yii\console\Controller;
@@ -64,6 +65,8 @@ class YmlCatalogController extends Controller
 
     public function actionGenerate()
     {
+        Yii::beginProfile('yml generate');
+
         $fileName = \Yii::getAlias($this->runtimePath) . '/' . $this->fileName;
         $handle = new $this->handleClass($fileName);
 
@@ -90,6 +93,8 @@ class YmlCatalogController extends Controller
 
         $publicPath = \Yii::getAlias($this->publicPath);
         rename($fileName, $publicPath . '/' . basename($fileName));
+
+        Yii::endProfile('yml generate');
 
         return self::EXIT_CODE_NORMAL;
     }
