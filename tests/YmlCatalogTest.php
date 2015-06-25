@@ -23,8 +23,9 @@ class YmlCatalogTest extends DatabaseTestCase
         $controller->publicPath = '@runtime/public';
         $controller->runtimePath = '@runtime';
         $controller->shopClass = 'pastuhov\ymlcatalog\Test\models\Shop';
-        $controller->localDeliveryCostClass = 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost';
+        $controller->currencyClass = 'pastuhov\ymlcatalog\Test\models\Currency';
         $controller->categoryClass = 'pastuhov\ymlcatalog\Test\models\Category';
+        $controller->localDeliveryCostClass = 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost';
         $controller->offerClass = 'pastuhov\ymlcatalog\Test\models\Offer';
 
         $response = $controller->runAction('generate');
@@ -40,8 +41,9 @@ class YmlCatalogTest extends DatabaseTestCase
         $generator = new YmlCatalog(
             $handle,
             'pastuhov\ymlcatalog\Test\models\Shop',
-            'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
+            'pastuhov\ymlcatalog\Test\models\Currency',
             'pastuhov\ymlcatalog\Test\models\Category',
+            'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
             'pastuhov\ymlcatalog\Test\models\Offer',
             '2015-01-01 14:00'
         );

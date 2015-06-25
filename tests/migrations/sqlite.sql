@@ -18,3 +18,12 @@ CREATE TABLE "category" (
   "parent_id"   INTEGER,
   "name"        TEXT    NOT NULL
 );
+
+DROP TABLE IF EXISTS "currency";
+
+CREATE TABLE "currency" (
+  "id"          INTEGER NOT NULL PRIMARY KEY,
+  "name"        TEXT    NOT NULL,
+  "rate"        TEXT,
+  "plus"        FLOAT
+);

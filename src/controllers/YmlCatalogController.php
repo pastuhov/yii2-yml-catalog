@@ -35,6 +35,11 @@ class YmlCatalogController extends Controller
     /**
      * @var string
      */
+    public $currencyClass;
+
+    /**
+     * @var string
+     */
     public $localDeliveryCostClass;
 
     /**
@@ -65,8 +70,9 @@ class YmlCatalogController extends Controller
         $generator = new YmlCatalog(
             $handle,
             $this->shopClass,
-            $this->localDeliveryCostClass,
+            $this->currencyClass,
             $this->categoryClass,
+            $this->localDeliveryCostClass,
             $this->offerClass
         );
         $generator->generate();

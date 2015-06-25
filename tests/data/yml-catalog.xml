@@ -9,6 +9,11 @@
 <version>2.3</version>
 <agency>Agency</agency>
 <email>CMS@CMS.ru</email>
+<currencies>
+<currency id="RUR" rate="1"/>
+<currency id="EUR" rate="CBRF"/>
+<currency id="UAH" rate="NBU" plus="10"/>
+</currencies>
 <categories>
 <category id="1">Оргтехника</category>
 <category id="2">Фототехника</category>

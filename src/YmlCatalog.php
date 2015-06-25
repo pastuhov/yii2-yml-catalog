@@ -3,8 +3,10 @@ namespace pastuhov\ymlcatalog;
 
 use pastuhov\ymlcatalog\models\BaseModel;
 use pastuhov\ymlcatalog\models\Category;
+use pastuhov\ymlcatalog\models\Currency;
 use pastuhov\ymlcatalog\models\LocalDeliveryCost;
 use pastuhov\ymlcatalog\models\Shop;
+use pastuhov\ymlcatalog\models\SimpleOffer;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
@@ -18,23 +20,26 @@ class YmlCatalog
 {
     protected $handle;
     protected $shopClass;
-    protected $localDeliveryCostClass;
+    protected $currencyClass;
     protected $categoryClass;
+    protected $localDeliveryCostClass;
     protected $offerClass;
     protected $date;
 
     public function __construct(
         BaseFileStream $handle,
         $shopClass,
-        $localDeliveryCostClass,
+        $currencyClass,
         $categoryClass,
+        $localDeliveryCostClass,
         $offerClass,
         $date = null
     ) {
         $this->handle = $handle;
         $this->shopClass = $shopClass;
-        $this->localDeliveryCostClass = $localDeliveryCostClass;
+        $this->currencyClass = $currencyClass;
         $this->categoryClass = $categoryClass;
+        $this->localDeliveryCostClass = $localDeliveryCostClass;
         $this->offerClass = $offerClass;
         $this->date = $date;
     }
@@ -51,6 +56,9 @@ class YmlCatalog
 
         $this->writeTag('shop');
         $this->writeModel(new Shop(), new $this->shopClass());
+        $this->writeTag('currencies');
+        $this->writeEachModel($this->currencyClass);
+        $this->writeTag('/currencies');
         $this->writeTag('categories');
         $this->writeEachModel($this->categoryClass);
         $this->writeTag('/categories');
@@ -110,13 +118,32 @@ class YmlCatalog
      */
     protected function writeEachModel($modelClass)
     {
+        $newModel = $this->getNewModel($modelClass);
+
         /* @var \yii\db\ActiveQuery $query */
         $query = $modelClass::findYml();
 
         foreach ($query->batch(100) as $models) {
             foreach ($models as $model) {
-                $this->writeModel(new Category(), $model);
+                $this->writeModel($newModel, $model);
             }
         }
+    }
+
+    protected function getNewModel($modelClass)
+    {
+        $obj = new $modelClass();
+
+        if ($obj instanceof CurrencyInterface) {
+            $model = new Currency();
+        } elseif ($obj instanceof CategoryInterface) {
+            $model = new Category();
+        } elseif ($obj instanceof SimpleOfferInterface) {
+            $model = new SimpleOffer();
+        } else {
+            throw new Exception('Model ' . $modelClass. ' has unknown interface');
+        }
+
+        return $model;
     }
 }

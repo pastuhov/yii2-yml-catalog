@@ -21,4 +21,8 @@
     <category id="19" parent_id="5" name="Туры" />
     <category id="20" parent_id="5" name="Авиабилеты" />
     <category id="6" name="Билеты на мероприятия" />
+
+    <currency id="1" name="RUR" rate="1"/>
+    <currency id="2" name="EUR" rate="CBRF"/>
+    <currency id="3" name="UAH" rate="NBU" plus="10"/>
 </dataset>
