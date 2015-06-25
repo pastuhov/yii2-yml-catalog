@@ -3,6 +3,7 @@ namespace pastuhov\ymlcatalog;
 
 use pastuhov\ymlcatalog\models\BaseModel;
 use pastuhov\ymlcatalog\models\Category;
+use pastuhov\ymlcatalog\models\LocalDeliveryCost;
 use pastuhov\ymlcatalog\models\Shop;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
@@ -16,22 +17,25 @@ use yii\base\Exception;
 class YmlCatalog
 {
     protected $handle;
-    protected $shop;
-    protected $category;
-    protected $offer;
+    protected $shopClass;
+    protected $localDeliveryCostClass;
+    protected $categoryClass;
+    protected $offerClass;
     protected $date;
 
     public function __construct(
         BaseFileStream $handle,
-        ShopInterface $shop,
-        $category,
-        $offer,
+        $shopClass,
+        $localDeliveryCostClass,
+        $categoryClass,
+        $offerClass,
         $date = null
     ) {
         $this->handle = $handle;
-        $this->shop = $shop;
-        $this->category = $category;
-        $this->offer = $offer;
+        $this->shopClass = $shopClass;
+        $this->localDeliveryCostClass = $localDeliveryCostClass;
+        $this->categoryClass = $categoryClass;
+        $this->offerClass = $offerClass;
         $this->date = $date;
     }
 
@@ -46,10 +50,11 @@ class YmlCatalog
         );
 
         $this->writeTag('shop');
-        $this->writeModel(new Shop(), $this->shop);
+        $this->writeModel(new Shop(), new $this->shopClass());
         $this->writeTag('categories');
-        $this->writeEachModel($this->category);
+        $this->writeEachModel($this->categoryClass);
         $this->writeTag('/categories');
+        $this->writeModel(new LocalDeliveryCost(), new $this->localDeliveryCostClass());
         $this->writeTag('/shop');
 
         $this->write('</yml_catalog>');

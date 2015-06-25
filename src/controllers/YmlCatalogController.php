@@ -35,6 +35,11 @@ class YmlCatalogController extends Controller
     /**
      * @var string
      */
+    public $localDeliveryCostClass;
+
+    /**
+     * @var string
+     */
     public $categoryClass;
 
     /**
@@ -57,11 +62,10 @@ class YmlCatalogController extends Controller
         $fileName = \Yii::getAlias($this->runtimePath) . '/' . $this->fileName;
         $handle = new $this->handleClass($fileName);
 
-        $shopClass = $this->shopClass;
-
         $generator = new YmlCatalog(
             $handle,
-            new $shopClass,
+            $this->shopClass,
+            $this->localDeliveryCostClass,
             $this->categoryClass,
             $this->offerClass
         );

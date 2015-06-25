@@ -30,5 +30,6 @@
 <category id="100" parentId="10">Струйные принтеры</category>
 <category id="101" parentId="10">Лазерные принтеры</category>
 </categories>
+<local_delivery_cost>300</local_delivery_cost>
 </shop>
 </yml_catalog>
