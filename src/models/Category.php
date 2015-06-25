@@ -4,7 +4,7 @@ namespace pastuhov\ymlcatalog\models;
 class Category extends BaseModel
 {
     public static $tag = 'category';
-    public static $startTagProperties = [
+    public static $tagProperties = [
         'id',
         'parentId',
     ];

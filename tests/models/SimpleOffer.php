@@ -7,8 +7,18 @@ use yii\db\ActiveRecord;
 /**
  * @inheritdoc
  */
-class Offer extends ActiveRecord implements SimpleOfferInterface
+class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
 {
+
+    /**
+     * ID.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->attributes['id'];
+    }
 
     /**
      * URL страницы товара.
@@ -20,7 +30,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getUrl()
     {
-        // TODO: Implement getUrl() method.
+        return 'http://magazin.ru/product_page.asp?pid=' . $this->attributes['id'];
     }
 
     /**
@@ -34,7 +44,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getPrice()
     {
-        // TODO: Implement getPrice() method.
+        return $this->attributes['price'];
     }
 
     /**
@@ -48,7 +58,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getOldPrice()
     {
-        // TODO: Implement getOldPrice() method.
+        return $this->attributes['old_price'];
     }
 
     /**
@@ -60,9 +70,9 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *
      * @return string
      */
-    public function getСurrencyId()
+    public function getCurrencyId()
     {
-        // TODO: Implement getСurrencyId() method.
+        return 'RUR';
     }
 
     /**
@@ -74,9 +84,9 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *
      * @return string
      */
-    public function getСategoryId()
+    public function getCategoryId()
     {
-        // TODO: Implement getСategoryId() method.
+        return $this->attributes['category_id'];
     }
 
     /**
@@ -87,9 +97,9 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *
      * @return string
      */
-    public function getMarketCategory()
+    public function getMarket_Category()
     {
-        // TODO: Implement getMarketCategory() method.
+        return null;
     }
 
     /**
@@ -104,7 +114,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getPicture()
     {
-        // TODO: Implement getPicture() method.
+        return 'http://magazin.ru/img/device' . $this->attributes['id'] . '.jpg';
     }
 
     /**
@@ -119,7 +129,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getStore()
     {
-        // TODO: Implement getStore() method.
+        return null;
     }
 
     /**
@@ -134,7 +144,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getPickup()
     {
-        // TODO: Implement getPickup() method.
+        return null;
     }
 
     /**
@@ -151,7 +161,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getDelivery()
     {
-        // TODO: Implement getDelivery() method.
+        return 'true';
     }
 
     /**
@@ -161,9 +171,9 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *
      * @return string|null
      */
-    public function getLocalDeliveryCost()
+    public function getLocal_Delivery_Cost()
     {
-        // TODO: Implement getLocalDeliveryCost() method.
+        return null;
     }
 
     /**
@@ -177,7 +187,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getName()
     {
-        // TODO: Implement getName() method.
+        return $this->attributes['name'];
     }
 
     /**
@@ -190,7 +200,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getVendor()
     {
-        // TODO: Implement getVendor() method.
+        return null;
     }
 
     /**
@@ -203,7 +213,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getVendorCode()
     {
-        // TODO: Implement getVendorCode() method.
+        return null;
     }
 
     /**
@@ -217,7 +227,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getDescription()
     {
-        // TODO: Implement getDescription() method.
+        return $this->attributes['description'];
     }
 
     /**
@@ -226,12 +236,13 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *     (указание элемента обязательно);
      *    - вариантах оплаты, описания акций и распродаж (указание элемента необязательно).
      * Допустимая длина текста в элементе — 50 символов.
+     * Необязательный элемент.
      *
      * @return string
      */
-    public function getSalesNotes()
+    public function getSales_Notes()
     {
-        // TODO: Implement getSalesNotes() method.
+        return null;
     }
 
     /**
@@ -240,12 +251,13 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *    Возможные значения:
      *    - false — товар не имеет официальной гарантии;
      *    - true — товар имеет официальную гарантию.
+     * Необязательный элемент.
      *
-     * @return string
+     * @return string|null
      */
-    public function getManufacturerWarranty()
+    public function getManufacturer_Warranty()
     {
-        // TODO: Implement getManufacturerWarranty() method.
+        return null;
     }
 
     /**
@@ -257,9 +269,9 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      *
      * @return string|null
      */
-    public function getCountryOfOrigin()
+    public function getCountry_Of_Origin()
     {
-        // TODO: Implement getCountryOfOrigin() method.
+        return null;
     }
 
     /**
@@ -271,7 +283,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getAdult()
     {
-        // TODO: Implement getAdult() method.
+        return null;
     }
 
     /**
@@ -287,7 +299,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getAge()
     {
-        // TODO: Implement getAge() method.
+        return null;
     }
 
     /**
@@ -298,7 +310,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getBarcode()
     {
-        // TODO: Implement getBarcode() method.
+        return null;
     }
 
     /**
@@ -309,7 +321,7 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getCpa()
     {
-        // TODO: Implement getCpa() method.
+        return null;
     }
 
     /**
@@ -321,6 +333,56 @@ class Offer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getParam()
     {
-        // TODO: Implement getParam() method.
+        return null;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public static function findYml()
+    {
+        $query = self::find();
+        $query->orderBy('id');
+
+        return $query;
+    }
+
+    public static function tableName()
+    {
+        return 'item';
+    }
+
+    /**
+     * Bid.
+     *
+     * @return integer
+     */
+    public function getBid()
+    {
+        return 13;
+    }
+
+    /**
+     * Cbid.
+     *
+     * @return integer
+     */
+    public function getCbid()
+    {
+        return 20;
+    }
+
+    /**
+     * Available.
+     *
+     * @return string
+     */
+    public function getAvailable()
+    {
+        if ($this->attributes['is_available']) {
+            return 'true';
+        }
+
+        return 'false';
     }
 }

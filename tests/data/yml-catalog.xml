@@ -36,5 +36,16 @@
 <category id="101" parentId="10">Лазерные принтеры</category>
 </categories>
 <local_delivery_cost>300</local_delivery_cost>
+<offers>
+<offer id="12341" bid="13" cbid="20" available="true">
+<url>http://magazin.ru/product_page.asp?pid=12341</url>
+<price>15000</price>
+<currencyId>RUR</currencyId>
+<categoryId>1</categoryId>
+<picture>http://magazin.ru/img/device12341.jpg</picture>
+<delivery>true</delivery>
+<name>Наручные часы Casio A1234567B</name>
+</offer>
+</offers>
 </shop>
 </yml_catalog>

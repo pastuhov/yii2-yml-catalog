@@ -50,21 +50,9 @@ class Shop extends BaseModel
     {
         $string = '';
 
-        foreach ($this->attributes() as $attribute) {
+        foreach ($this->getYmlAttributes() as $attribute) {
             $string .= $this->getYmlAttribute($attribute);
         }
-
-        return $string;
-    }
-
-    protected function getYmlAttribute($attribute)
-    {
-        $value = $this->getAttributeValue($attribute);
-        if ($value === null) {
-            return '';
-        }
-
-        $string = '<' . $attribute . '>' . $value . '</' . $attribute. '>' . PHP_EOL;
 
         return $string;
     }

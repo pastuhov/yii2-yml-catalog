@@ -4,7 +4,7 @@ namespace pastuhov\ymlcatalog\models;
 class Currency extends BaseModel
 {
     public static $tag = 'currency';
-    public static $startTagProperties = [
+    public static $tagProperties = [
         'id',
         'rate',
         'plus',

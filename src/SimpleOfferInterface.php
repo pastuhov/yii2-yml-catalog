@@ -11,6 +11,13 @@ use yii\db\ActiveRecordInterface;
 interface SimpleOfferInterface extends ActiveRecordInterface
 {
     /**
+     * ID.
+     *
+     * @return integer
+     */
+    public function getId();
+
+    /**
      * URL страницы товара.
      *
      * Максимальная длина URL — 512 символов.
@@ -51,7 +58,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string
      */
-    public function getСurrencyId();
+    public function getCurrencyId();
 
     /**
      * Идентификатор категории.
@@ -62,7 +69,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string
      */
-    public function getСategoryId();
+    public function getCategoryId();
 
     /**
      * Категория товара, в которой он должен быть размещен на Яндекс.Маркете. Допустимо указывать названия категорий
@@ -72,7 +79,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string
      */
-    public function getMarketCategory();
+    public function getMarket_Category();
 
     /**
      * Ссылка на картинку.
@@ -131,7 +138,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string|null
      */
-    public function getLocalDeliveryCost();
+    public function getLocal_Delivery_Cost();
     /**
      * Название товарного предложения.
      *
@@ -176,10 +183,11 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *     (указание элемента обязательно);
      *    - вариантах оплаты, описания акций и распродаж (указание элемента необязательно).
      * Допустимая длина текста в элементе — 50 символов.
+     * Необязательный элемент.
      *
      * @return string
      */
-    public function getSalesNotes();
+    public function getSales_Notes();
 
     /**
      * Элемент предназначен для отметки товаров, имеющих официальную гарантию производителя.
@@ -190,7 +198,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string
      */
-    public function getManufacturerWarranty();
+    public function getManufacturer_Warranty();
     /**
      * Элемент предназначен для указания страны производства товара. Список стран, которые могут быть указаны в этом
      * элементе, доступен по адресу: http://partner.market.yandex.ru/pages/help/Countries.pdf.
@@ -200,7 +208,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string|null
      */
-    public function getCountryOfOrigin();
+    public function getCountry_Of_Origin();
     /**
      * Элемент обязателен для обозначения товара, имеющего отношение к удовлетворению сексуальных потребностей,
      * либо иным образом эксплуатирующего интерес к сексу.
@@ -243,4 +251,30 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * @return string|null
      */
     public function getParam();
+
+    /**
+     * Bid.
+     *
+     * @return integer|null
+     */
+    public function getBid();
+
+    /**
+     * Cbid.
+     *
+     * @return integer|null
+     */
+    public function getCbid();
+
+    /**
+     * Available.
+     *
+     * @return string
+     */
+    public function getAvailable();
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public static function findYml();
 }

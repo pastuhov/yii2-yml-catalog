@@ -5,10 +5,13 @@
 DROP TABLE IF EXISTS "item";
 
 CREATE TABLE "item" (
-  "id"          INTEGER NOT NULL PRIMARY KEY,
-  "category_id" INTEGER NOT NULL,
-  "name"        TEXT    NOT NULL,
-  "price"       FLOAT   NOT NULL
+  "id"           INTEGER NOT NULL PRIMARY KEY,
+  "category_id"  INTEGER NOT NULL,
+  "name"         TEXT    NOT NULL,
+  "price"        FLOAT   NOT NULL,
+  "old_price"    FLOAT,
+  "is_available" INTEGER NOT NULL DEFAULT 0,
+  "description"  TEXT    NOT NULL
 );
 
 DROP TABLE IF EXISTS "category";

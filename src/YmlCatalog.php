@@ -32,7 +32,7 @@ class YmlCatalog
         $currencyClass,
         $categoryClass,
         $localDeliveryCostClass,
-        $offerClass,
+        Array $offerClasses,
         $date = null
     ) {
         $this->handle = $handle;
@@ -40,7 +40,7 @@ class YmlCatalog
         $this->currencyClass = $currencyClass;
         $this->categoryClass = $categoryClass;
         $this->localDeliveryCostClass = $localDeliveryCostClass;
-        $this->offerClass = $offerClass;
+        $this->offerClasses = $offerClasses;
         $this->date = $date;
     }
 
@@ -63,6 +63,11 @@ class YmlCatalog
         $this->writeEachModel($this->categoryClass);
         $this->writeTag('/categories');
         $this->writeModel(new LocalDeliveryCost(), new $this->localDeliveryCostClass());
+        $this->writeTag('offers');
+        foreach ($this->offerClasses as $offerClass) {
+            $this->writeEachModel($offerClass);
+        }
+        $this->writeTag('/offers');
         $this->writeTag('/shop');
 
         $this->write('</yml_catalog>');

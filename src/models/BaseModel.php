@@ -6,7 +6,12 @@ use yii\base\Model;
 class BaseModel extends Model
 {
     public static $tag;
-    public static $startTagProperties = [];
+    public static $tagProperties = [];
+
+    public function getYmlAttributes()
+    {
+        return $this->attributes();
+    }
 
     public function getYml()
     {
@@ -23,7 +28,7 @@ class BaseModel extends Model
     {
         $string = '';
         if (static::$tag) {
-            $string = '<' . static::$tag . $this->getYmlStartTagProperties() . '>';
+            $string = '<' . static::$tag . $this->getYmlTagProperties() . '>';
         }
 
         return $string;
@@ -44,10 +49,10 @@ class BaseModel extends Model
         return $this->name;
     }
 
-    protected function getYmlStartTagProperties()
+    protected function getYmlTagProperties()
     {
         $string = '';
-        $properties = static::$startTagProperties;
+        $properties = static::$tagProperties;
 
         foreach ($properties as $property) {
             $value = $this->getAttributeValue($property);
@@ -62,5 +67,18 @@ class BaseModel extends Model
     protected function getAttributeValue($attribute)
     {
         return $this->$attribute;
+    }
+
+
+    protected function getYmlAttribute($attribute)
+    {
+        $value = $this->getAttributeValue($attribute);
+        if ($value === null) {
+            return '';
+        }
+
+        $string = '<' . $attribute . '>' . $value . '</' . $attribute. '>' . PHP_EOL;
+
+        return $string;
     }
 }

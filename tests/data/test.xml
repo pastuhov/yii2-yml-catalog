@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <item id="1" category_id="7" name="Эфирные масла для бани Успокаивающие" price="115" />
+    <item id="12341" category_id="1" name="Наручные часы Casio A1234567B" price="15000" description="Изящные наручные часы." is_available="1"/>
 
     <category id="1" name="Оргтехника" />
     <category id="10" parent_id="1" name="Принтеры" />

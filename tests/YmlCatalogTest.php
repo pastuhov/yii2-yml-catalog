@@ -26,7 +26,9 @@ class YmlCatalogTest extends DatabaseTestCase
         $controller->currencyClass = 'pastuhov\ymlcatalog\Test\models\Currency';
         $controller->categoryClass = 'pastuhov\ymlcatalog\Test\models\Category';
         $controller->localDeliveryCostClass = 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost';
-        $controller->offerClass = 'pastuhov\ymlcatalog\Test\models\Offer';
+        $controller->offerClasses = [
+            'pastuhov\ymlcatalog\Test\models\SimpleOffer'
+        ];
 
         $response = $controller->runAction('generate');
 
@@ -44,7 +46,9 @@ class YmlCatalogTest extends DatabaseTestCase
             'pastuhov\ymlcatalog\Test\models\Currency',
             'pastuhov\ymlcatalog\Test\models\Category',
             'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
-            'pastuhov\ymlcatalog\Test\models\Offer',
+            [
+                'pastuhov\ymlcatalog\Test\models\SimpleOffer'
+            ],
             '2015-01-01 14:00'
         );
         $generator->generate();
