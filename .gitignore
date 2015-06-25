@@ -1,6 +1,5 @@
 .idea
 /vendor
-/composer.lock
 /coverage.clover
 /build
 /tests/runtime/*.xml
