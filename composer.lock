@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b33acda93fd71f951cfbe019de8b873a",
+    "hash": "97810cf7d0322b9860d21cda52c1ac22",
     "packages": [
         {
             "name": "bower-asset/jquery",
@@ -269,7 +269,7 @@
         },
         {
             "name": "pastuhov/php-exec-command",
-            "version": "dev-master",
+            "version": "v1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pastuhov/php-exec-command.git",
@@ -322,7 +322,7 @@
         },
         {
             "name": "pastuhov/php-file-stream",
-            "version": "dev-master",
+            "version": "v1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pastuhov/php-file-stream.git",
@@ -2196,10 +2196,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pastuhov/php-exec-command": 20,
-        "pastuhov/php-file-stream": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
