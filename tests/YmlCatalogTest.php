@@ -2,12 +2,11 @@
 namespace pastuhov\ymlcatalog\Test;
 
 use pastuhov\FileStream\BaseFileStream;
-use pastuhov\ymlcatalog\Test\models\Shop;
+use pastuhov\ymlcatalog\Test\controllers\GenerateController;
 use pastuhov\ymlcatalog\YmlCatalog;
 use Yii;
 use yii\console\Controller;
 use yii\db\Connection;
-use pastuhov\ymlcatalog\controllers\YmlCatalogController;
 
 class YmlCatalogTest extends DatabaseTestCase
 {
@@ -16,19 +15,7 @@ class YmlCatalogTest extends DatabaseTestCase
      */
     public function testController()
     {
-        $controller = new YmlCatalogController('yml', Yii::$app);
-
-        $controller->enableGzip = true;
-        $controller->fileName = 'yml-test.xml';
-        $controller->publicPath = '@runtime/public';
-        $controller->runtimePath = '@runtime';
-        $controller->shopClass = 'pastuhov\ymlcatalog\Test\models\Shop';
-        $controller->currencyClass = 'pastuhov\ymlcatalog\Test\models\Currency';
-        $controller->categoryClass = 'pastuhov\ymlcatalog\Test\models\Category';
-        $controller->localDeliveryCostClass = 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost';
-        $controller->offerClasses = [
-            'pastuhov\ymlcatalog\Test\models\SimpleOffer'
-        ];
+        $controller = new GenerateController('yml', Yii::$app);
 
         $response = $controller->runAction('generate');
 

@@ -1,12 +1,18 @@
 <?php
-namespace pastuhov\ymlcatalog\controllers;
+namespace pastuhov\ymlcatalog\actions;
 
 use Yii;
 use pastuhov\Command\Command;
 use pastuhov\ymlcatalog\YmlCatalog;
+use yii\base\Action;
 use yii\console\Controller;
 
-class YmlCatalogController extends Controller
+/**
+ * Генерация YML.
+ *
+ * @package pastuhov\ymlcatalog\actions
+ */
+class GenerateAction extends Action
 {
     /**
      * @var string
@@ -49,7 +55,7 @@ class YmlCatalogController extends Controller
     public $categoryClass;
 
     /**
-     * @var string|string[]
+     * @var string[]
      */
     public $offerClasses;
 
@@ -63,7 +69,10 @@ class YmlCatalogController extends Controller
      */
     public $gzipCommand = 'cat {src} | gzip > {dst}';
 
-    public function actionGenerate()
+    /**
+     * @inheritdoc
+     */
+    public function run()
     {
         Yii::beginProfile('yml generate');
 
@@ -96,6 +105,6 @@ class YmlCatalogController extends Controller
 
         Yii::endProfile('yml generate');
 
-        return self::EXIT_CODE_NORMAL;
+        return Controller::EXIT_CODE_NORMAL;
     }
 }
