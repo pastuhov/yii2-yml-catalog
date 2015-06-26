@@ -3,16 +3,34 @@ namespace pastuhov\ymlcatalog\models;
 
 use yii\base\Model;
 
+/**
+ * Base model.
+ *
+ * @package pastuhov\ymlcatalog\models
+ */
 class BaseModel extends Model
 {
+    /**
+     * @var string
+     */
     public static $tag;
+
+    /**
+     * @var string[]
+     */
     public static $tagProperties = [];
 
+    /**
+     * @return string[]
+     */
     public function getYmlAttributes()
     {
         return $this->attributes();
     }
 
+    /**
+     * @return string
+     */
     public function getYml()
     {
         $string = '';
@@ -24,6 +42,9 @@ class BaseModel extends Model
         return $string;
     }
 
+    /**
+     * @return string
+     */
     protected function getYmlStartTag()
     {
         $string = '';
@@ -34,6 +55,9 @@ class BaseModel extends Model
         return $string;
     }
 
+    /**
+     * @return string
+     */
     protected function getYmlEndTag()
     {
         $string = '';
@@ -44,11 +68,17 @@ class BaseModel extends Model
         return $string;
     }
 
+    /**
+     * @return string
+     */
     protected function getYmlBody()
     {
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     protected function getYmlTagProperties()
     {
         $string = '';
@@ -64,12 +94,19 @@ class BaseModel extends Model
         return $string;
     }
 
+    /**
+     * @param string $attribute
+     * @return string
+     */
     protected function getAttributeValue($attribute)
     {
         return $this->$attribute;
     }
 
-
+    /**
+     * @param string $attribute
+     * @return string
+     */
     protected function getYmlAttribute($attribute)
     {
         $value = $this->getAttributeValue($attribute);

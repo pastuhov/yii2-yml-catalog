@@ -3,7 +3,13 @@ namespace pastuhov\ymlcatalog\models;
 
 class SimpleOffer extends BaseModel
 {
+    /**
+     * @inheritdoc
+     */
     public static $tag = 'offer';
+    /**
+     * @inheritdoc
+     */
     public static $tagProperties = [
         'id',
         'bid',
@@ -40,6 +46,9 @@ class SimpleOffer extends BaseModel
     public $cpa;
     public $param;
 
+    /**
+     * @inheritdoc
+     */
     public function getYmlAttributes()
     {
         return [
@@ -118,6 +127,9 @@ class SimpleOffer extends BaseModel
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getYmlBody()
     {
         $string = '';

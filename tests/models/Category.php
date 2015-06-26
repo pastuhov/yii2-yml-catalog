@@ -13,9 +13,7 @@ class Category extends ActiveRecord implements CategoryInterface
 {
 
     /**
-     * Название категории.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -23,12 +21,7 @@ class Category extends ActiveRecord implements CategoryInterface
     }
 
     /**
-     * Идентификатор категории товаров.
-     *
-     * Идентификатор категории должен быть уникальным положительным целым числом. Ни у одной категории параметр id не
-     * может быть равен «0»
-     *
-     * @return int
+     * @inheritdoc
      */
     public function getId()
     {
@@ -36,11 +29,7 @@ class Category extends ActiveRecord implements CategoryInterface
     }
 
     /**
-     * Идентификатор более высокой по иерархии (родительской) категории товаров.
-     *
-     * Если элемент <parentId> не указан, то категория считается корневой.
-     *
-     * @return int|null
+     * @inheritdoc
      */
     public function getParentId()
     {
@@ -48,7 +37,7 @@ class Category extends ActiveRecord implements CategoryInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @inheritdoc
      */
     public static function findYml()
     {

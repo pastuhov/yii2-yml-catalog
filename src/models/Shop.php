@@ -3,6 +3,9 @@ namespace pastuhov\ymlcatalog\models;
 
 class Shop extends BaseModel
 {
+    /**
+     * @inheritdoc
+     */
     public static $tag = false;
 
     public $name;
@@ -46,6 +49,9 @@ class Shop extends BaseModel
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getYmlBody()
     {
         $string = '';

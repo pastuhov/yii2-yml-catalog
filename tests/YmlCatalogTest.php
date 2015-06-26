@@ -11,6 +11,8 @@ use yii\db\Connection;
 class YmlCatalogTest extends DatabaseTestCase
 {
     /**
+     * Controller with stand alone action test
+     *
      * @throws \yii\console\Exception
      */
     public function testController()
@@ -23,6 +25,9 @@ class YmlCatalogTest extends DatabaseTestCase
         $this->assertFileExists(__DIR__ . '/runtime/public/yml-test.xml.gz');
     }
 
+    /**
+     * Component test
+     */
     public function testYmlCatalogGenerate()
     {
         $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');

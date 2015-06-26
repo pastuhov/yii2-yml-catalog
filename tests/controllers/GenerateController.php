@@ -10,6 +10,9 @@ use yii\console\Controller;
  */
 class GenerateController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [

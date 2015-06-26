@@ -1,9 +1,20 @@
 <?php
 namespace pastuhov\ymlcatalog\models;
 
+/**
+ * Class Category
+ * @package pastuhov\ymlcatalog\models
+ */
 class Category extends BaseModel
 {
+    /**
+     * @inheritdoc
+     */
     public static $tag = 'category';
+
+    /**
+     * @inheritdoc
+     */
     public static $tagProperties = [
         'id',
         'parentId',

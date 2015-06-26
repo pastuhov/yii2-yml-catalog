@@ -18,14 +18,44 @@ use yii\base\Exception;
  */
 class YmlCatalog
 {
+    /**
+     * @var BaseFileStream
+     */
     protected $handle;
+    /**
+     * @var string
+     */
     protected $shopClass;
+    /**
+     * @var string
+     */
     protected $currencyClass;
+    /**
+     * @var string
+     */
     protected $categoryClass;
+    /**
+     * @var string
+     */
     protected $localDeliveryCostClass;
+    /**
+     * @var string
+     */
     protected $offerClass;
+    /**
+     * @var null|string
+     */
     protected $date;
 
+    /**
+     * @param BaseFileStream $handle
+     * @param string $shopClass class name
+     * @param string $currencyClass class name
+     * @param string $categoryClass class name
+     * @param string $localDeliveryCostClass class name
+     * @param array $offerClasses
+     * @param null|string $date
+     */
     public function __construct(
         BaseFileStream $handle,
         $shopClass,
@@ -44,6 +74,9 @@ class YmlCatalog
         $this->date = $date;
     }
 
+    /**
+     * @throws Exception
+     */
     public function generate()
     {
         $date = $this->getDate();
@@ -74,7 +107,7 @@ class YmlCatalog
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     protected function getDate()
     {
@@ -87,16 +120,28 @@ class YmlCatalog
         return $date;
     }
 
+    /**
+     * @param string $string
+     * @throws \Exception
+     */
     protected function write($string)
     {
         $this->handle->write($string);
     }
 
+    /**
+     * @param string $string tag name
+     */
     protected function writeTag($string)
     {
         $this->write('<' . $string . '>' . PHP_EOL);
     }
 
+    /**
+     * @param BaseModel $model model
+     * @param $valuesModel
+     * @throws Exception
+     */
     protected function writeModel(BaseModel $model, $valuesModel)
     {
         $attributes = [];
@@ -119,7 +164,7 @@ class YmlCatalog
     }
 
     /**
-     * @param string $modelClass
+     * @param string $modelClass class name
      */
     protected function writeEachModel($modelClass)
     {
@@ -135,6 +180,11 @@ class YmlCatalog
         }
     }
 
+    /**
+     * @param $modelClass
+     * @return Category|Currency|SimpleOffer
+     * @throws Exception
+     */
     protected function getNewModel($modelClass)
     {
         $obj = new $modelClass();
