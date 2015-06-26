@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
     <item id="12341" category_id="1" name="Наручные часы Casio A1234567B" price="15000" description="Изящные наручные часы." is_available="1"/>
+    <item id="12" category_id="10" name="Лазернй принтер 234234234" price="1000" description="Крутой принтер на лазере." is_available="0"/>
 
     <category id="1" name="Оргтехника" />
     <category id="10" parent_id="1" name="Принтеры" />
