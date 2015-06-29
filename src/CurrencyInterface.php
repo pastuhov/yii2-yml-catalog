@@ -26,7 +26,7 @@ interface CurrencyInterface extends ActiveRecordInterface
      * В качестве основной валюты (для которой установлено rate="1") могут быть использованы только рубль (RUR, RUB),
      * белорусский рубль (BYR), гривна (UAH) или тенге (KZT).
      *
-     * @return string
+     * @return string Название валюты, может иметь значение: RUR|RUB|UAH|BYR|KZT|EUR|USD
      */
     public function getId();
 
@@ -42,7 +42,7 @@ interface CurrencyInterface extends ActiveRecordInterface
      *    СВ — курс по банку той страны, к которой относится магазин по своему региону, указанному в партнерском
      *    интерфейсе.
      *
-     * @return string
+     * @return string Множитель число|CBRF|NBU|NBK|СВ
      */
     public function getRate();
 
