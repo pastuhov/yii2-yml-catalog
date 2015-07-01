@@ -6,6 +6,7 @@ use yii\db\ActiveRecordInterface;
 /**
  * Простое товарное предложение.
  *
+ * @link https://yandex.st/market-export/1.0-17/partner/help/YML.xml
  * @package pastuhov\yml
  */
 interface SimpleOfferInterface extends ActiveRecordInterface
@@ -193,8 +194,8 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * Элемент предназначен для отметки товаров, имеющих официальную гарантию производителя.
      *    Необязательный элемент.
      *    Возможные значения:
-     *    - false — товар не имеет официальной гарантии;
-     *    - true — товар имеет официальную гарантию.
+     *    - "false" — товар не имеет официальной гарантии;
+     *    - "true" — товар имеет официальную гарантию.
      *
      * @return string
      */
@@ -253,21 +254,33 @@ interface SimpleOfferInterface extends ActiveRecordInterface
     public function getParam();
 
     /**
-     * Bid.
+     * Основная ставка.
+     * 
+     * Действует на всех местах размещения с возможностью управления ценой клика, если не указана ставка для отдельного места.
      *
+     * @link http://help.yandex.ru/partnermarket/auction/placement.xml#placement
      * @return integer|null
      */
     public function getBid();
 
     /**
-     * Cbid.
+     * Ставка на клик для карточек.
+     * 
+     * Действует только на карточках моделей.
      *
+     * @link http://help.yandex.ru/partnermarket/about/placement-positions.xml#mesto2
      * @return integer|null
      */
     public function getCbid();
 
     /**
-     * Available.
+     * Статус доступности товара.
+     * 
+     * "false" — товарное предложение на заказ. Магазин готов принять заказ и осуществить поставку товара в течение 
+     *  согласованного с покупателем срока, не превышающего двух месяцев (за исключением товаров, изготавливаемых на заказ, 
+     *  ориентировочный срок поставки которых оговаривается с покупателем во время заказа).
+     * "true" — товарное предложение в наличии. Магазин готов доставить либо отправить товар покупателю в течение двух 
+     *  рабочих дней.
      *
      * @return string
      */
