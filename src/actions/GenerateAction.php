@@ -70,7 +70,7 @@ class GenerateAction extends Action
     public $gzipCommand = 'cat {src} | gzip > {dst}';
 
     /**
-     * @inheritdoc
+     * Генерация YML.
      */
     public function run()
     {
