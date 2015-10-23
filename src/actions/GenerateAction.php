@@ -25,6 +25,11 @@ class GenerateAction extends Action
     public $enableGzip = true;
 
     /**
+     * @var bool
+     */
+    public $keepBoth = false;
+
+    /**
      * @var string
      */
     public $publicPath;
@@ -77,6 +82,7 @@ class GenerateAction extends Action
         Yii::beginProfile('yml generate');
 
         $fileName = \Yii::getAlias($this->runtimePath) . '/' . $this->fileName;
+        $gzipedFileName = $fileName . '.gz';
         $handle = new $this->handleClass($fileName);
 
         $generator = new YmlCatalog(
@@ -90,19 +96,20 @@ class GenerateAction extends Action
         $generator->generate();
 
         if ($this->enableGzip === true) {
-            $gzipedFileName = $fileName . '.gz';
-
             Command::exec($this->gzipCommand, [
                 'src' => $fileName,
                 'dst' => $gzipedFileName
             ]);
-
-            $fileName = $gzipedFileName;
+            if (!$this->keepBoth) {
+                $fileName = $gzipedFileName;
+            }
         }
 
         $publicPath = \Yii::getAlias($this->publicPath);
         rename($fileName, $publicPath . '/' . basename($fileName));
-
+        if ($this->enableGzip && $this->keepBoth) {
+            rename($gzipedFileName, $publicPath . '/' . basename($gzipedFileName));
+        }
         Yii::endProfile('yml generate');
 
         return Controller::EXIT_CODE_NORMAL;
