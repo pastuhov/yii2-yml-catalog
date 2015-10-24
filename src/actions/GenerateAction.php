@@ -25,6 +25,8 @@ class GenerateAction extends Action
     public $enableGzip = true;
 
     /**
+     * Publish yml and .gz
+     * 
      * @var bool
      */
     public $keepBoth = false;
