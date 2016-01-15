@@ -124,6 +124,11 @@ class SimpleOffer extends BaseModel
                     'EUR'
                 ],
             ],
+            [
+                ['description'],
+                'string',
+                'max' => 175,
+            ],
         ];
     }
 
