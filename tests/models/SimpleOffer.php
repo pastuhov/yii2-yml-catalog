@@ -69,9 +69,9 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     /**
      * @inheritdoc
      */
-    public function getPicture()
+    public function getPictures()
     {
-        return 'http://magazin.ru/img/device' . $this->attributes['id'] . '.jpg';
+        return ['http://magazin.ru/img/device' . $this->attributes['id'] . '.jpg'];
     }
 
     /**
@@ -197,7 +197,7 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     /**
      * @inheritdoc
      */
-    public function getParam()
+    public function getParams()
     {
         return null;
     }

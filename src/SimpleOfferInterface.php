@@ -83,16 +83,16 @@ interface SimpleOfferInterface extends ActiveRecordInterface
     public function getMarket_Category();
 
     /**
-     * Ссылка на картинку.
+     * Ссылки на картинку.
      *
      * Ссылка на картинку соответствующего товарного предложения. Недопустимо давать ссылку на «заглушку»,
      * т. е. на страницу, где написано «картинка отсутствует», или на логотип магазина.
      * Максимальная длина URL — 512 символов.
      * Необязательный элемент.
      *
-     * @return string|null
+     * @return array
      */
-    public function getPicture();
+    public function getPictures();
 
     /**
      * Возможность купить соответствующий товар в розничном магазине.
@@ -249,9 +249,9 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * элемент <param>.
      * Необязательный элемент. Элемент <offer> может содержать несколько элементов <param>.
      *
-     * @return string|null
+     * @return array
      */
-    public function getParam();
+    public function getParams();
 
     /**
      * Основная ставка.
