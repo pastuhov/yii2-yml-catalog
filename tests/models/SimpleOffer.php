@@ -199,7 +199,7 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getParams()
     {
-        return null;
+        return [];
     }
 
     /**
