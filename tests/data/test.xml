@@ -26,4 +26,8 @@
     <currency id="1" name="RUR" rate="1"/>
     <currency id="2" name="EUR" rate="CBRF"/>
     <currency id="3" name="UAH" rate="NBU" plus="10"/>
+
+    <picture item_id="12" url="http://magazin.ru/img/device12.jpg" />
+    <picture item_id="12" url="http://magazin.ru/img/device12_2.jpg" />
+    <picture item_id="12341" url="http://magazin.ru/img/device12341.jpg" />
 </dataset>

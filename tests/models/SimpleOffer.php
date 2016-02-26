@@ -71,7 +71,13 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getPictures()
     {
-        return ['http://magazin.ru/img/device' . $this->attributes['id'] . '.jpg'];
+        $pictures = Picture::find()->andWhere(['item_id' => $this->getId()])->all();
+        $result = [];
+        foreach ($pictures as $picture) {
+            $result[] = $picture->getUrl();
+        }
+
+        return $result;
     }
 
     /**
