@@ -17,7 +17,8 @@ $ composer require pastuhov/yii2-yml-catalog
 
 ## Features
 
-* 
+* lightweight
+* based on https://yandex.ru/support/partnermarket/yml/about-yml.xml
 
 ## Usage
 
