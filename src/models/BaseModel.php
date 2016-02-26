@@ -43,6 +43,22 @@ class BaseModel extends Model
     }
 
     /**
+     * @param array $params
+     */
+    public function setParams(array $params)
+    {
+
+    }
+
+    /**
+     * @param array $pictures
+     */
+    public function setPictures(array $pictures)
+    {
+
+    }
+
+    /**
      * @return string
      */
     protected function getYmlStartTag()

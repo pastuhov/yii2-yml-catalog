@@ -42,20 +42,21 @@
 <price>1000</price>
 <currencyId>RUR</currencyId>
 <categoryId>10</categoryId>
-<picture>http://magazin.ru/img/device12.jpg</picture>
 <delivery>true</delivery>
 <name>Лазернй принтер 234234234</name>
 <description>Крутой принтер на лазере.</description>
+<picture>http://magazin.ru/img/device12.jpg</picture>
+<picture>http://magazin.ru/img/device12_2.jpg</picture>
 </offer>
 <offer id="12341" bid="13" cbid="20" available="true">
 <url>http://magazin.ru/product_page.asp?pid=12341</url>
 <price>15000</price>
 <currencyId>RUR</currencyId>
 <categoryId>1</categoryId>
-<picture>http://magazin.ru/img/device12341.jpg</picture>
 <delivery>true</delivery>
 <name>Наручные часы Casio A1234567B</name>
 <description>Изящные наручные часы.</description>
+<picture>http://magazin.ru/img/device12341.jpg</picture>
 </offer>
 </offers>
 </shop>

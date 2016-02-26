@@ -28,7 +28,6 @@ class SimpleOffer extends BaseModel
     public $currencyId;
     public $categoryId;
     public $market_Category;
-    public $picture;
     public $store;
     public $pickup;
     public $delivery;
@@ -44,7 +43,8 @@ class SimpleOffer extends BaseModel
     public $age;
     public $barcode;
     public $cpa;
-    public $param;
+    public $params = [];
+    public $pictures = [];
 
     /**
      * @inheritdoc
@@ -58,7 +58,6 @@ class SimpleOffer extends BaseModel
             'currencyId',
             'categoryId',
             'market_Category',
-            'picture',
             'store',
             'pickup',
             'delivery',
@@ -74,7 +73,6 @@ class SimpleOffer extends BaseModel
             'age',
             'barcode',
             'cpa',
-            'param',
         ];
     }
 
@@ -89,9 +87,14 @@ class SimpleOffer extends BaseModel
                 'required',
             ],
             [
-                ['name'],
+                ['sales_Notes'],
                 'string',
-                'max' => 255,
+                'max' => 50,
+            ],
+            [
+                ['name', 'vendor'],
+                'string',
+                'max' => 120,
             ],
             [
                 ['delivery'],
@@ -103,7 +106,7 @@ class SimpleOffer extends BaseModel
                 'integer',
             ],
             [
-                ['url', 'picture'],
+                ['url'],
                 'url',
             ],
             [
@@ -129,7 +132,41 @@ class SimpleOffer extends BaseModel
                 'string',
                 'max' => 175,
             ],
+            [
+                ['pictures'],
+                function ($attribute, $params) {
+                    if (count($this->pictures) > 10) {
+                        $this->addError('pictures', 'maximum 10 pictures');
+                    }
+                }
+            ],
+            [
+                ['params'],
+                'each',
+                'rule' => ['string']
+            ],
+            [
+                ['pictures'],
+                'each',
+                'rule' => ['url']
+            ]
         ];
+    }
+
+    /**
+     * @param array $params
+     */
+    public function setParams(array $params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * @param array $pictures
+     */
+    public function setPictures(array $pictures)
+    {
+        $this->pictures = $pictures;
     }
 
     /**
@@ -142,6 +179,46 @@ class SimpleOffer extends BaseModel
         foreach ($this->getYmlAttributes() as $attribute) {
             $string .= $this->getYmlAttribute($attribute);
         }
+
+        foreach ($this->params as $name => $value) {
+            $string .= $this->getYmlParamTag($name, $value);
+        }
+
+        foreach ($this->pictures as $picture) {
+            $string .= $this->getYmlPictureTag($picture);
+        }
+
+        return $string;
+    }
+
+
+    /**
+     * @param string $attribute
+     * @param string $value
+     * @return string
+     */
+    protected function getYmlParamTag($attribute, $value)
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        $string = '<param name="' . $attribute . '">' . $value . '</param>' . PHP_EOL;
+
+        return $string;
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    protected function getYmlPictureTag($value)
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        $string = '<picture>' . $value . '</picture>' . PHP_EOL;
 
         return $string;
     }

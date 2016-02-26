@@ -153,6 +153,12 @@ class YmlCatalog
         }
 
         $model->load($attributes, '');
+        if (method_exists($valuesModel, 'getParams')) {
+            $model->setParams($valuesModel->getParams());
+        }
+        if (method_exists($valuesModel, 'getPictures')) {
+            $model->setPictures($valuesModel->getPictures());
+        }
 
         if (!$model->validate()) {
             throw new Exception('Model values is invalid ' . serialize($model->getErrors()));

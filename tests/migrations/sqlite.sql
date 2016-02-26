@@ -30,3 +30,10 @@ CREATE TABLE "currency" (
   "rate"        TEXT,
   "plus"        FLOAT
 );
+
+DROP TABLE IF EXISTS "picture";
+
+CREATE TABLE "picture" (
+  "item_id"    INTEGER,
+  "url"        TEXT
+);
