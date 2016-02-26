@@ -21,25 +21,42 @@ $ composer require pastuhov/yii2-yml-catalog
 
 ## Usage
 
-Configure the [[yii\base\Application::controllerMap|controller map]] in the application configuration. For example:
+Create console controller. For example:
 ```php
-[
-    'controllerMap' => [
-        ...
-        // declares "yml" controller using a configuration array
-        'yml' => [
-            'class' => 'pastuhov\ymlcatalog\controllers\YmlCatalogController',
-            'shopClass' => 'frontend\models\Shop',
-            'categoryClass' => 'frontend\models\Category',
-            'offerClass' => [
-                'frontend\models\Item'
+namespace console\controllers;
+
+use pastuhov\ymlcatalog\actions\GenerateAction;
+use yii\console\Controller;
+
+/**
+ * Class GenerateController
+ */
+class YmlController extends Controller
+{
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'generate' => [
+                'class' => GenerateAction::className(),
+                'enableGzip' => true, # gzip yml after generation
+                'fileName' => 'yml-test.xml', # target file name
+                'publicPath' => '@runtime/public', # pulic directory
+                'runtimePath' => '@runtime', # temp directory
+                'keepBoth' => true # publish yml and .gz
+                'shopClass' => 'pastuhov\ymlcatalog\Test\models\Shop',
+                'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
+                'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
+                'localDeliveryCostClass' => 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
+                'offerClasses' => [
+                    'pastuhov\ymlcatalog\Test\models\SimpleOffer'
+                ],
             ],
-            'fileName' => 'yml.xml',
-            'enableGzip' => true,
-            'publicPath' => '@frontend/web'
-        ],
-    ],
-]
+        ];
+    }
+}
 ```
 Then you may type:
 ```bash
