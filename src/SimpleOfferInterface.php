@@ -90,6 +90,9 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * Максимальная длина URL — 512 символов.
      * Необязательный элемент.
      *
+     * Для каждого товарного предложения в элементе <offer> можно указать до десяти URL-адресов изображений,
+     * соответствующих данному товарному предложению.
+     *
      * @return array
      */
     public function getPictures();

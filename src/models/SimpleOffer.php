@@ -132,6 +132,24 @@ class SimpleOffer extends BaseModel
                 'string',
                 'max' => 175,
             ],
+            [
+                ['pictures'],
+                function ($attribute, $params) {
+                    if (count($this->pictures) > 10) {
+                        $this->addError('pictures', 'maximum 10 pictures');
+                    }
+                }
+            ],
+            [
+                ['params'],
+                'each',
+                'rule' => ['string']
+            ],
+            [
+                ['pictures'],
+                'each',
+                'rule' => ['url']
+            ]
         ];
     }
 
