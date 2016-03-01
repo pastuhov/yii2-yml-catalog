@@ -171,6 +171,8 @@ class YmlCatalog
         if (!$model->validate()) {
             if (is_callable($onValidationError = $this->onValidationError)) {
                 $onValidationError($model);
+            } else {
+                throw new Exception('Model values is invalid ' . serialize($model->getErrors()));
             }
         }
 
