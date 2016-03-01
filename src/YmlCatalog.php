@@ -174,11 +174,11 @@ class YmlCatalog
             } else {
                 throw new Exception('Model values is invalid ' . serialize($model->getErrors()));
             }
+        } else {
+            $string = $model->getYml();
+
+            $this->write($string);
         }
-
-        $string = $model->getYml();
-
-        $this->write($string);
     }
 
     /**
