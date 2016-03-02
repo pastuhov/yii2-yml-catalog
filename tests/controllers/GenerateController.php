@@ -29,6 +29,9 @@ class GenerateController extends Controller
                 'offerClasses' => [
                     'pastuhov\ymlcatalog\Test\models\SimpleOffer'
                 ],
+                'onValidationError' => function () {
+
+                }
             ],
         ];
     }

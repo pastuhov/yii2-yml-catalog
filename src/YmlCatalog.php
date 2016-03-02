@@ -48,6 +48,11 @@ class YmlCatalog
     protected $date;
 
     /**
+     * @var null|callable
+     */
+    protected $onValidationError;
+
+    /**
      * @param BaseFileStream $handle
      * @param string $shopClass class name
      * @param string $currencyClass class name
@@ -55,6 +60,7 @@ class YmlCatalog
      * @param string $localDeliveryCostClass class name
      * @param array $offerClasses
      * @param null|string $date
+     * @param null|callable $onValidationError
      */
     public function __construct(
         BaseFileStream $handle,
@@ -63,7 +69,8 @@ class YmlCatalog
         $categoryClass,
         $localDeliveryCostClass,
         Array $offerClasses,
-        $date = null
+        $date = null,
+        $onValidationError = null
     ) {
         $this->handle = $handle;
         $this->shopClass = $shopClass;
@@ -72,6 +79,7 @@ class YmlCatalog
         $this->localDeliveryCostClass = $localDeliveryCostClass;
         $this->offerClasses = $offerClasses;
         $this->date = $date;
+        $this->onValidationError = $onValidationError;
     }
 
     /**
@@ -161,12 +169,16 @@ class YmlCatalog
         }
 
         if (!$model->validate()) {
-            throw new Exception('Model values is invalid ' . serialize($model->getErrors()));
+            if (is_callable($onValidationError = $this->onValidationError)) {
+                $onValidationError($model);
+            } else {
+                throw new Exception('Model values is invalid ' . serialize($model->getErrors()));
+            }
+        } else {
+            $string = $model->getYml();
+
+            $this->write($string);
         }
-
-        $string = $model->getYml();
-
-        $this->write($string);
     }
 
     /**

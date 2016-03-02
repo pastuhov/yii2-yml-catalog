@@ -41,7 +41,10 @@ class YmlCatalogTest extends DatabaseTestCase
             [
                 'pastuhov\ymlcatalog\Test\models\SimpleOffer'
             ],
-            '2015-01-01 14:00'
+            '2015-01-01 14:00',
+            function () {
+
+            }
         );
         $generator->generate();
 

@@ -67,6 +67,11 @@ class GenerateAction extends Action
     public $offerClasses;
 
     /**
+     * @var callable
+     */
+    public $onValidationError;
+
+    /**
      * @var string
      */
     public $handleClass = 'pastuhov\FileStream\BaseFileStream';
@@ -93,7 +98,9 @@ class GenerateAction extends Action
             $this->currencyClass,
             $this->categoryClass,
             $this->localDeliveryCostClass,
-            $this->offerClasses
+            $this->offerClasses,
+            null,
+            $this->onValidationError
         );
         $generator->generate();
 
