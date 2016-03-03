@@ -36,7 +36,7 @@ class Currency extends ActiveRecord implements CurrencyInterface
     /**
      * @inheritdoc
      */
-    public static function findYml()
+    public static function findYml($findParams = [])
     {
         $query = self::find();
         $query->orderBy('id');

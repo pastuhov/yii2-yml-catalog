@@ -39,7 +39,14 @@ class YmlCatalogTest extends DatabaseTestCase
             'pastuhov\ymlcatalog\Test\models\Category',
             'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
             [
-                'pastuhov\ymlcatalog\Test\models\SimpleOffer'
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'findParams' => [
+                        'excluded' => [
+                            13
+                        ]
+                    ]
+                ]
             ],
             '2015-01-01 14:00',
             function () {
