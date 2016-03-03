@@ -39,7 +39,7 @@ class Category extends ActiveRecord implements CategoryInterface
     /**
      * @inheritdoc
      */
-    public static function findYml($params = [])
+    public static function findYml($findParams = [])
     {
         $query = self::find();
         $query->orderBy('id');

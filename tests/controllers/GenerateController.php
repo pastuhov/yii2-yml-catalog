@@ -29,7 +29,7 @@ class GenerateController extends Controller
                 'offerClasses' => [
                     [
                         'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
-                        'params' => [
+                        'findParams' => [
                             'excluded' => [
                                 13
                             ]

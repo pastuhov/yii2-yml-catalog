@@ -187,12 +187,12 @@ class YmlCatalog
     protected function writeEachModel($modelClass)
     {
         $class = isset($modelClass['class']) ? $modelClass['class'] : $modelClass;
-        $params = isset($modelClass['params']) ? $modelClass['params'] : [];
+        $findParams = isset($modelClass['findParams']) ? $modelClass['findParams'] : [];
 
         $newModel = $this->getNewModel($class);
 
         /* @var \yii\db\ActiveQuery $query */
-        $query = $class::findYml($params);
+        $query = $class::findYml($findParams);
 
         foreach ($query->batch(100) as $models) {
             foreach ($models as $model) {

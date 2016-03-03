@@ -41,7 +41,7 @@ class YmlCatalogTest extends DatabaseTestCase
             [
                 [
                     'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
-                    'params' => [
+                    'findParams' => [
                         'excluded' => [
                             13
                         ]
