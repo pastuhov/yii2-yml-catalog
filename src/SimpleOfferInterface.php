@@ -290,7 +290,9 @@ interface SimpleOfferInterface extends ActiveRecordInterface
     public function getAvailable();
 
     /**
+     * @param array $params Массив параметров.
+     *
      * @return \yii\db\ActiveQuery
      */
-    public static function findYml();
+    public static function findYml($params = []);
 }

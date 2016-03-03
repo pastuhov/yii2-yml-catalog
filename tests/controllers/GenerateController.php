@@ -27,7 +27,14 @@ class GenerateController extends Controller
                 'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
                 'localDeliveryCostClass' => 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
                 'offerClasses' => [
-                    'pastuhov\ymlcatalog\Test\models\SimpleOffer'
+                    [
+                        'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                        'params' => [
+                            'excluded' => [
+                                13
+                            ]
+                        ]
+                    ]
                 ],
                 'onValidationError' => function () {
 

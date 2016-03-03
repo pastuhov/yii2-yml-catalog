@@ -211,10 +211,13 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     /**
      * @inheritdoc
      */
-    public static function findYml()
+    public static function findYml($params = [])
     {
         $query = self::find();
         $query->orderBy('id');
+        if (isset ($params['excluded'])) {
+            $query->andWhere(['not in', 'id', $params['excluded']]);
+        }
 
         return $query;
     }

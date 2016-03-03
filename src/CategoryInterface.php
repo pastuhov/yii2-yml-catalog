@@ -37,7 +37,9 @@ interface CategoryInterface extends ActiveRecordInterface
     public function getParentId();
 
     /**
+     * @param array $params Массив параметров.
+     *
      * @return \yii\db\ActiveQuery
      */
-    public static function findYml();
+    public static function findYml($params = []);
 }

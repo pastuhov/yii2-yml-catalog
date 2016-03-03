@@ -59,7 +59,9 @@ interface CurrencyInterface extends ActiveRecordInterface
     public function getPlus();
 
     /**
+     * @param array $params Массив параметров.
+     *
      * @return \yii\db\ActiveQuery
      */
-    public static function findYml();
+    public static function findYml($params = []);
 }
