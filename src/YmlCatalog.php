@@ -53,6 +53,11 @@ class YmlCatalog
     protected $onValidationError;
 
     /**
+     * @var null|string
+     */
+    protected $customOfferClass;
+
+    /**
      * @param BaseFileStream $handle
      * @param string $shopClass class name
      * @param string $currencyClass class name
@@ -61,6 +66,7 @@ class YmlCatalog
      * @param array $offerClasses
      * @param null|string $date
      * @param null|callable $onValidationError
+     * @param null|string $customOfferClass
      */
     public function __construct(
         BaseFileStream $handle,
@@ -70,7 +76,8 @@ class YmlCatalog
         $localDeliveryCostClass,
         Array $offerClasses,
         $date = null,
-        $onValidationError = null
+        $onValidationError = null,
+        $customOfferClass = null
     ) {
         $this->handle = $handle;
         $this->shopClass = $shopClass;
@@ -80,6 +87,7 @@ class YmlCatalog
         $this->offerClasses = $offerClasses;
         $this->date = $date;
         $this->onValidationError = $onValidationError;
+        $this->customOfferClass = $customOfferClass;
     }
 
     /**
@@ -214,6 +222,9 @@ class YmlCatalog
             $model = new Currency();
         } elseif ($obj instanceof CategoryInterface) {
             $model = new Category();
+        } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null) {
+            $class = $this->customOfferClass;
+            $model = new $class();
         } elseif ($obj instanceof SimpleOfferInterface) {
             $model = new SimpleOffer();
         } else {
