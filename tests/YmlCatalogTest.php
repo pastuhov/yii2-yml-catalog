@@ -3,6 +3,7 @@ namespace pastuhov\ymlcatalog\Test;
 
 use pastuhov\FileStream\BaseFileStream;
 use pastuhov\ymlcatalog\Test\controllers\GenerateController;
+use pastuhov\ymlcatalog\Test\models\CustomOffer;
 use pastuhov\ymlcatalog\YmlCatalog;
 use Yii;
 use yii\console\Controller;
@@ -56,6 +57,30 @@ class YmlCatalogTest extends DatabaseTestCase
         $generator->generate();
 
         $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog.xml', __DIR__ . '/runtime/yml-catalog.xml');
+    }
+
+    /**
+     * Custom offer model test
+     */
+    public function testYmlCatalogWithCustomModel()
+    {
+        $this->setExpectedException('yii\base\Exception', 'custom offer model exception');
+        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+
+        $generator = new YmlCatalog(
+            $handle,
+            'pastuhov\ymlcatalog\Test\models\Shop',
+            'pastuhov\ymlcatalog\Test\models\Currency',
+            'pastuhov\ymlcatalog\Test\models\Category',
+            'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
+            ['pastuhov\ymlcatalog\Test\models\CustomItem'],
+            '2015-01-01 14:00',
+            function () {
+
+            },
+            CustomOffer::className()
+        );
+        $generator->generate();
     }
 
     /**

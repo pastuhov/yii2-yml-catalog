@@ -222,7 +222,7 @@ class YmlCatalog
             $model = new Currency();
         } elseif ($obj instanceof CategoryInterface) {
             $model = new Category();
-        } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null) {
+        } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null && class_exists($this->customOfferClass)) {
             $class = $this->customOfferClass;
             $model = new $class();
         } elseif ($obj instanceof SimpleOfferInterface) {
