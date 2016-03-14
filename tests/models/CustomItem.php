@@ -6,6 +6,6 @@ use pastuhov\ymlcatalog\CustomOfferInterface;
 /**
  * @inheritdoc
  */
-class SimpleItem extends SimpleOffer implements CustomOfferInterface
+class CustomItem extends SimpleOffer implements CustomOfferInterface
 {
 }
