@@ -130,7 +130,6 @@ class SimpleOffer extends BaseModel
             [
                 ['description'],
                 'string',
-                'max' => 175,
             ],
             [
                 ['pictures'],
