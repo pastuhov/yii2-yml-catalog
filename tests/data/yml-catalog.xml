@@ -9,6 +9,7 @@
 <version>2.3</version>
 <agency>Agency</agency>
 <email>CMS@CMS.ru</email>
+
 <currencies>
 <currency id="RUR" rate="1"/>
 <currency id="EUR" rate="CBRF"/>
@@ -37,8 +38,7 @@
 </categories>
 <local_delivery_cost>300</local_delivery_cost>
 <offers>
-<offer id="12" bid="13" cbid="20" available="false">
-<url>http://magazin.ru/product_page.asp?pid=12</url>
+<offer id="12" bid="13" cbid="20" available="false"><url>http://magazin.ru/product_page.asp?pid=12</url>
 <price>1000</price>
 <currencyId>RUR</currencyId>
 <categoryId>10</categoryId>
@@ -48,8 +48,7 @@
 <picture>http://magazin.ru/img/device12.jpg</picture>
 <picture>http://magazin.ru/img/device12_2.jpg</picture>
 </offer>
-<offer id="12341" bid="13" cbid="20" available="true">
-<url>http://magazin.ru/product_page.asp?pid=12341</url>
+<offer id="12341" bid="13" cbid="20" available="true"><url>http://magazin.ru/product_page.asp?pid=12341</url>
 <price>15000</price>
 <currencyId>RUR</currencyId>
 <categoryId>1</categoryId>
