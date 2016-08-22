@@ -72,6 +72,11 @@ class GenerateAction extends Action
     public $customOfferClass;
 
     /**
+     * @var string
+     */
+    public $deliveryOptionClass;
+
+    /**
      * @var callable
      */
     public $onValidationError;

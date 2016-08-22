@@ -59,6 +59,43 @@ class YmlCatalogTest extends DatabaseTestCase
         $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog.xml', __DIR__ . '/runtime/yml-catalog.xml');
     }
 
+
+    /**
+     * Component test
+     */
+    public function testYmlCatalogGenerateWithDeliveryOptions()
+    {
+        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+
+        $generator = new YmlCatalog(
+            $handle,
+            'pastuhov\ymlcatalog\Test\models\Shop',
+            'pastuhov\ymlcatalog\Test\models\Currency',
+            'pastuhov\ymlcatalog\Test\models\Category',
+            //'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
+            null,
+            [
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'findParams' => [
+                        'excluded' => [
+                            13
+                        ]
+                    ]
+                ]
+            ],
+            '2015-01-01 14:00',
+            function () {
+
+            },
+            null,
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
+        );
+        $generator->generate();
+
+        $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog-delivery.xml', __DIR__ . '/runtime/yml-catalog.xml');
+    }
+
     /**
      * Custom offer model test
      */

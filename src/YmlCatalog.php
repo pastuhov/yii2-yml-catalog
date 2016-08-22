@@ -7,6 +7,7 @@ use pastuhov\ymlcatalog\models\Currency;
 use pastuhov\ymlcatalog\models\LocalDeliveryCost;
 use pastuhov\ymlcatalog\models\Shop;
 use pastuhov\ymlcatalog\models\SimpleOffer;
+use pastuhov\ymlcatalog\models\DeliveryOption;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
@@ -35,7 +36,7 @@ class YmlCatalog
      */
     protected $categoryClass;
     /**
-     * @var string
+     * @var null|string
      */
     protected $localDeliveryCostClass;
     /**
@@ -58,6 +59,11 @@ class YmlCatalog
     protected $customOfferClass;
 
     /**
+     * @var null|string
+     */
+    protected $deliveryOptionClass;
+
+    /**
      * @param BaseFileStream $handle
      * @param string $shopClass class name
      * @param string $currencyClass class name
@@ -73,11 +79,12 @@ class YmlCatalog
         $shopClass,
         $currencyClass,
         $categoryClass,
-        $localDeliveryCostClass,
+        $localDeliveryCostClass = null,
         Array $offerClasses,
         $date = null,
         $onValidationError = null,
-        $customOfferClass = null
+        $customOfferClass = null,
+        $deliveryOptionClass = null
     ) {
         $this->handle = $handle;
         $this->shopClass = $shopClass;
@@ -88,6 +95,7 @@ class YmlCatalog
         $this->date = $date;
         $this->onValidationError = $onValidationError;
         $this->customOfferClass = $customOfferClass;
+        $this->deliveryOptionClass = $deliveryOptionClass;
     }
 
     /**
@@ -111,7 +119,14 @@ class YmlCatalog
         $this->writeTag('categories');
         $this->writeEachModel($this->categoryClass);
         $this->writeTag('/categories');
-        $this->writeModel(new LocalDeliveryCost(), new $this->localDeliveryCostClass());
+        if($this->deliveryOptionClass) {
+            $this->writeTag('delivery-options');
+            $this->writeModel(new DeliveryOption(), new $this->deliveryOptionClass());
+            $this->writeTag('/delivery-options');
+        }
+        if($this->localDeliveryCostClass) {
+            $this->writeModel(new LocalDeliveryCost(), new $this->localDeliveryCostClass());
+        }
         $this->writeTag('offers');
         foreach ($this->offerClasses as $offerClass) {
             $this->writeEachModel($offerClass);
