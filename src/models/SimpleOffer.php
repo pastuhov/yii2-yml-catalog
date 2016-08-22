@@ -106,6 +106,10 @@ class SimpleOffer extends BaseModel
                 'integer',
             ],
             [
+                ['name', 'market_Category'],
+                'string',
+            ],
+            [
                 ['url'],
                 'url',
             ],
