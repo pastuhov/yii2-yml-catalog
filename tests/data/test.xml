@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <item id="12341" category_id="1" name="Наручные часы Casio A1234567B" price="15000" description="Изящные наручные часы." is_available="1"/>
+    <item id="12341" category_id="1" name="Наручные часы Casio A1234567B" price="15000" description="Изящные наручные часы." is_available="1" sales_notes="по предоплате" />
     <item id="12" category_id="10" name="Лазернй принтер 234234234" price="1000" description="Крутой принтер на лазере." is_available="0"/>
-    <item id="13" category_id="10" name="Товар, исключаемый из генерации" price="1000" description="Товар, исключаемый из генерации" is_available="0"/>
+    <item id="13" category_id="10" name="Товар, исключаемый из генерации" price="1000" description="Товар, исключаемый из генерации" is_available="0" sales_notes="минимальная партия 50 шт." />
 
     <category id="1" name="Оргтехника" />
     <category id="10" parent_id="1" name="Принтеры" />
