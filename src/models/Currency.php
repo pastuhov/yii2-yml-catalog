@@ -61,6 +61,7 @@ class Currency extends BaseModel
                 'in',
                 'range' => [
                     'RUR',
+                    'RUB',
                     'UAH',
                     'BYR',
                     'KZT',
