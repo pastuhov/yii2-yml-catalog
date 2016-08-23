@@ -72,7 +72,6 @@ class YmlCatalogTest extends DatabaseTestCase
             'pastuhov\ymlcatalog\Test\models\Shop',
             'pastuhov\ymlcatalog\Test\models\Currency',
             'pastuhov\ymlcatalog\Test\models\Category',
-            //'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
             null,
             [
                 [
