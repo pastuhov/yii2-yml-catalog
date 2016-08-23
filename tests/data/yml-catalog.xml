@@ -36,7 +36,9 @@
 <category id="100" parentId="10">Струйные принтеры</category>
 <category id="101" parentId="10">Лазерные принтеры</category>
 </categories>
-<local_delivery_cost>300</local_delivery_cost>
+<delivery-options>
+<option cost="0" days="1-2"/>
+</delivery-options>
 <offers>
 <offer id="12" bid="13" cbid="20" available="false"><url>http://magazin.ru/product_page.asp?pid=12</url>
 <price>1000</price>
