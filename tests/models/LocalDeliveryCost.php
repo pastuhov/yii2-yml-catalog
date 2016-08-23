@@ -5,6 +5,7 @@ use pastuhov\ymlcatalog\LocalDeliveryCostInterface;
 
 /**
  * @inheritdoc
+ * @deprecated
  */
 class LocalDeliveryCost implements LocalDeliveryCostInterface
 {

@@ -27,7 +27,7 @@ class YmlCatalogTest extends DatabaseTestCase
     }
 
     /**
-     * Component test
+     * Тестирование генерации yml файла и сравнение с эталонным файлом
      */
     public function testYmlCatalogGenerate()
     {
@@ -38,7 +38,7 @@ class YmlCatalogTest extends DatabaseTestCase
             'pastuhov\ymlcatalog\Test\models\Shop',
             'pastuhov\ymlcatalog\Test\models\Currency',
             'pastuhov\ymlcatalog\Test\models\Category',
-            'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
+            null,
             [
                 [
                     'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
@@ -52,7 +52,9 @@ class YmlCatalogTest extends DatabaseTestCase
             '2015-01-01 14:00',
             function () {
 
-            }
+            },
+            null,
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
         );
         $generator->generate();
 

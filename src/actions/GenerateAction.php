@@ -72,6 +72,11 @@ class GenerateAction extends Action
     public $customOfferClass;
 
     /**
+     * @var string
+     */
+    public $deliveryOptionClass;
+
+    /**
      * @var callable
      */
     public $onValidationError;
@@ -106,7 +111,8 @@ class GenerateAction extends Action
             $this->offerClasses,
             null,
             $this->onValidationError,
-            $this->customOfferClass
+            $this->customOfferClass,
+            $this->deliveryOptionClass
         );
         $generator->generate();
 
