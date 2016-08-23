@@ -97,7 +97,7 @@ class SimpleOffer extends BaseModel
                 'max' => 120,
             ],
             [
-                ['delivery'],
+                ['delivery', 'pickup'],
                 'string',
                 'max' => 4,
             ],
@@ -124,6 +124,7 @@ class SimpleOffer extends BaseModel
                 'in',
                 'range' => [
                     'RUR',
+                    'RUB',
                     'UAH',
                     'BYR',
                     'KZT',
