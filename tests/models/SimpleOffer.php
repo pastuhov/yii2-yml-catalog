@@ -147,9 +147,9 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     /**
      * @inheritdoc
      */
-    public function getSales_Notes()
+    public function getSales_notes()
     {
-        return null;
+        return $this->attributes['sales_notes'];
     }
 
     /**

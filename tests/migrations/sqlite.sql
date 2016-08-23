@@ -11,7 +11,8 @@ CREATE TABLE "item" (
   "price"        FLOAT   NOT NULL,
   "old_price"    FLOAT,
   "is_available" INTEGER NOT NULL DEFAULT 0,
-  "description"  TEXT    NOT NULL
+  "description"  TEXT    NOT NULL,
+  "sales_notes"  TEXT    NULL
 );
 
 DROP TABLE IF EXISTS "category";

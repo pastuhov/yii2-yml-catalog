@@ -193,7 +193,7 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      *
      * @return string
      */
-    public function getSales_Notes();
+    public function getSales_notes();
 
     /**
      * Элемент предназначен для отметки товаров, имеющих официальную гарантию производителя.

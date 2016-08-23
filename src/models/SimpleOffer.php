@@ -36,7 +36,7 @@ class SimpleOffer extends BaseModel
     public $vendor;
     public $vendorCode;
     public $description;
-    public $sales_Notes;
+    public $sales_notes;
     public $manufacturer_Warranty;
     public $country_Of_Origin;
     public $adult;
@@ -66,7 +66,7 @@ class SimpleOffer extends BaseModel
             'vendor',
             'vendorCode',
             'description',
-            'sales_Notes',
+            'sales_notes',
             'manufacturer_Warranty',
             'country_Of_Origin',
             'adult',
@@ -87,7 +87,7 @@ class SimpleOffer extends BaseModel
                 'required',
             ],
             [
-                ['sales_Notes'],
+                ['sales_notes'],
                 'string',
                 'max' => 50,
             ],
