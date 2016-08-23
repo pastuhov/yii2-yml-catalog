@@ -5,6 +5,7 @@ namespace pastuhov\ymlcatalog;
  * Стоимость доставки для своего региона, для всех товаров.
  *
  * @package pastuhov\yml
+ * @deprecated
  */
 interface LocalDeliveryCostInterface
 {

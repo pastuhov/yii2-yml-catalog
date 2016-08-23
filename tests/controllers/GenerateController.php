@@ -6,6 +6,7 @@ use yii\console\Controller;
 
 /**
  * Class GenerateController
+ *
  * @package pastuhov\ymlcatalog\Test\controllers
  */
 class GenerateController extends Controller
@@ -25,7 +26,6 @@ class GenerateController extends Controller
                 'shopClass' => 'pastuhov\ymlcatalog\Test\models\Shop',
                 'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
                 'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
-                //'localDeliveryCostClass' => 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
                 'deliveryOptionClass' => 'pastuhov\ymlcatalog\Test\models\DeliveryOption',
                 'offerClasses' => [
                     [

@@ -1,27 +1,27 @@
 <?php
+
 namespace pastuhov\ymlcatalog\Test\models;
 
 use pastuhov\ymlcatalog\DeliveryOptionInterface;
 
-class DeliveryOption implements DeliveryOptionInterface 
+/**
+ * @inheritdoc
+ */
+class DeliveryOption implements DeliveryOptionInterface
 {
     /**
-     * Returns the fully qualified name of this class.
-     * @return string the fully qualified name of this class.
+     * @inheritdoc
      */
-    public static function className()
-    {
-        return get_called_class();
-    }
-
     public function getCost()
     {
         return 0;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getDays()
     {
         return '1-2';
     }
-
 }

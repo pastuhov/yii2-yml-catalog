@@ -1,6 +1,12 @@
 <?php
 namespace pastuhov\ymlcatalog\models;
 
+/**
+ * Class LocalDeliveryCost
+ * 
+ * @package pastuhov\ymlcatalog\models
+ * @deprecated
+ */
 class LocalDeliveryCost extends BaseModel
 {
     /**

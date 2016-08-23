@@ -3,6 +3,8 @@ namespace pastuhov\ymlcatalog\models;
 
 /**
  * Class DeliveryOption
+ *
+ * Модель опции условий доставки - тега option в секции delivery-option
  * @package pastuhov\ymlcatalog\models
  */
 class DeliveryOption extends BaseModel
@@ -20,7 +22,10 @@ class DeliveryOption extends BaseModel
         'days',
     ];
 
+    /** @var int Стоимость доставки в рублях. */
     public $cost;
+
+    /** @var string Срок доставки в рабочих днях. */
     public $days;
 
     /**
