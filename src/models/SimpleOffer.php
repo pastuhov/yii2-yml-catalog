@@ -97,7 +97,15 @@ class SimpleOffer extends BaseModel
                 'max' => 120,
             ],
             [
-                ['delivery', 'pickup'],
+                ['delivery'],
+                'in',
+                'range' => [
+                    'true',
+                    'false'
+                ]
+            ],
+            [
+                ['pickup'],
                 'string',
                 'max' => 4,
             ],
