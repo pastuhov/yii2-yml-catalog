@@ -79,4 +79,25 @@ class Currency extends BaseModel
     {
         return null;
     }
+    
+    /**
+     * @return string
+     */
+    protected function getYmlEndTag()
+    {
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getYmlStartTag()
+    {
+        $string = '';
+        if (static::$tag) {
+            $string = '<' . static::$tag . $this->getYmlTagProperties() . ' />';
+        }
+
+        return $string;
+    }
 }
