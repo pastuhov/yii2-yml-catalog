@@ -20,7 +20,9 @@ $ composer require pastuhov/yii2-yml-catalog
 
 ## Использование
 
-Создаем консольный контроллер:
+1. Реализуем интерфейсы (примеры реализации всех классов смотри в директории `tests`)
+
+2. Создаем консольный контроллер:
 ```php
 namespace console\controllers;
 
@@ -57,7 +59,7 @@ class YmlController extends Controller
     }
 }
 ```
-Запускаем из консоли:
+3. Запускаем из консоли:
 ```bash
 $ yii yml/generate
 ```
