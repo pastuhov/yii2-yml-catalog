@@ -176,10 +176,13 @@ class YmlCatalog
     protected function writeModel(BaseModel $model, $valuesModel)
     {
         $attributes = [];
+        $deliveryOptions = [];
         foreach ($model->attributes() as $attribute) {
             $methodName = 'get' . ucfirst($attribute);
             $attributeValue = $valuesModel->$methodName();
-
+            if($attribute == 'delivery_options') {
+                $deliveryOptions = $attributeValue;
+            }
             $attributes[$attribute] = $attributeValue;
         }
 
@@ -198,9 +201,15 @@ class YmlCatalog
                 throw new Exception('Model values is invalid ' . serialize($model->getErrors()));
             }
         } else {
-            $string = $model->getYml();
-
-            $this->write($string);
+            if($model instanceof SimpleOffer && count($deliveryOptions) > 0) {
+                $string = $model->getYmlWithoutEndTag();
+                $this->write($string);
+                $this->writeDeliveryOptions($deliveryOptions);
+                $this->writeTag('/offer');
+            } else {
+                $string = $model->getYml();
+                $this->write($string);
+            }
         }
     }
 
@@ -247,5 +256,22 @@ class YmlCatalog
         }
 
         return $model;
+    }
+
+    /**
+     * Записывает в тело xml документа опции доставки
+     *
+     * @param $deliveryOptions[]
+     * @throws Exception
+     */
+    protected function writeDeliveryOptions($deliveryOptions) {
+        if(count($deliveryOptions) > 5) {
+            throw new Exception('Maximum count of delivery options array is 5');
+        }
+        $this->writeTag('delivery-options');
+        foreach($deliveryOptions as $deliveryOption) {
+            $this->writeModel(new DeliveryOption(), $deliveryOption);
+        }
+        $this->writeTag('/delivery-options');
     }
 }

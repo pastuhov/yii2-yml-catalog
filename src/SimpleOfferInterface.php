@@ -292,6 +292,13 @@ interface SimpleOfferInterface extends ActiveRecordInterface
     public function getAvailable();
 
     /**
+     * Опции доставки
+     *
+     * @return \pastuhov\ymlcatalog\models\DeliveryOption []
+     */
+    public function getDelivery_Options();
+
+    /**
      * @param array $findParams Массив дополнительных параметров для поиска.
      *
      * @return \yii\db\ActiveQuery

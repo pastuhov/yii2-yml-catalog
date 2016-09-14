@@ -43,6 +43,7 @@ class SimpleOffer extends BaseModel
     public $age;
     public $barcode;
     public $cpa;
+    public $delivery_options;
     public $params = [];
     public $pictures = [];
 
@@ -73,6 +74,7 @@ class SimpleOffer extends BaseModel
             'age',
             'barcode',
             'cpa',
+            'delivery_options',
         ];
     }
 
@@ -156,7 +158,7 @@ class SimpleOffer extends BaseModel
                 ['pictures'],
                 'each',
                 'rule' => ['url']
-            ]
+            ],
         ];
     }
 
