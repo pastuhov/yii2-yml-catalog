@@ -255,6 +255,9 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
         return 'false';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getDelivery_Options()
     {
         $result = [];
@@ -268,7 +271,7 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
                 'days' => '1'
             ],
         ];
-        
+
         foreach($options as $option) {
             $deliveryOption = new DeliveryOption();
             $deliveryOption->cost = $option['cost'];
