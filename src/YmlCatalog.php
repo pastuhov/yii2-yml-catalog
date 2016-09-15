@@ -169,37 +169,24 @@ class YmlCatalog
     }
 
     /**
-     * @param BaseModel $model model
+     * @param BaseModel $model
      * @param $valuesModel
      * @throws Exception
      */
     protected function writeModel(BaseModel $model, $valuesModel)
     {
-        $attributes = [];
-        foreach ($model->attributes() as $attribute) {
-            $methodName = 'get' . ucfirst($attribute);
-            $attributeValue = $valuesModel->$methodName();
-
-            $attributes[$attribute] = $attributeValue;
-        }
-
-        $model->load($attributes, '');
         if (method_exists($valuesModel, 'getParams')) {
             $model->setParams($valuesModel->getParams());
         }
         if (method_exists($valuesModel, 'getPictures')) {
             $model->setPictures($valuesModel->getPictures());
         }
+        if(method_exists($valuesModel, 'getDeliveryOptions')) {
+            $model->setDeliveryOptions($valuesModel->getDeliveryOptions());
+        }
 
-        if (!$model->validate()) {
-            if (is_callable($onValidationError = $this->onValidationError)) {
-                $onValidationError($model);
-            } else {
-                throw new Exception('Model values is invalid ' . serialize($model->getErrors()));
-            }
-        } else {
+        if($model->loadModel($valuesModel, $this->onValidationError)) {
             $string = $model->getYml();
-
             $this->write($string);
         }
     }

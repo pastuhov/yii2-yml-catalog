@@ -2,6 +2,7 @@
 namespace pastuhov\ymlcatalog\models;
 
 use yii\base\Model;
+use yii\base\Exception;
 
 /**
  * Base model.
@@ -43,6 +44,21 @@ class BaseModel extends Model
     }
 
     /**
+     * Возвращает текст xml без закрытого тэга
+     *
+     * @return string
+     */
+    public function getYmlWithoutEndTag()
+    {
+        $string = '';
+
+        $string .= $this->getYmlStartTag();
+        $string .= $this->getYmlBody();
+
+        return $string;
+    }
+
+    /**
      * @param array $params
      */
     public function setParams(array $params)
@@ -56,6 +72,45 @@ class BaseModel extends Model
     public function setPictures(array $pictures)
     {
 
+    }
+
+    /**
+     * @param array $options
+     */
+    public function setDeliveryOptions(array $options)
+    {
+
+    }
+
+    /**
+     * @param $valuesModel
+     * @param null $onValidationError
+     * 
+     * @return bool
+     * @throws Exception
+     */
+    public function loadModel($valuesModel, $onValidationError = null)
+    {
+        $attributes = [];
+        foreach ($this->attributes() as $attribute) {
+            $methodName = 'get' . ucfirst($attribute);
+            $attributeValue = $valuesModel->$methodName();
+
+            $attributes[$attribute] = $attributeValue;
+        }
+
+        $this->load($attributes, '');
+
+        if (!$this->validate()) {
+            if (is_callable($onValidationError)) {
+                $onValidationError($this);
+                return false;
+            } else {
+                throw new Exception('Model values is invalid ' . serialize($this->getErrors()));
+            }
+        }
+
+        return true;
     }
 
     /**
