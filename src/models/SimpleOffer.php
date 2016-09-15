@@ -231,6 +231,9 @@ class SimpleOffer extends BaseModel
      * @throws Exception
      */
     protected function appendDeliveryOptions(&$string) {
+        if(count($this->deliveryOptions) < 1) {
+            return;
+        }
         $string .= '<delivery-options>' . PHP_EOL;
         $deliveryOptionBase = new DeliveryOption();
 
