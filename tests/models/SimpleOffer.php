@@ -261,25 +261,25 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     public function getDeliveryOptions()
     {
         $result = [];
-        if($this->getId() == 12) {
-            return $result;
-        }
-        $options = [
-            [
-                'cost' => 123,
-                'days' => '2'
-            ],
-            [
-                'cost' => 100,
-                'days' => '1'
-            ],
-        ];
+        // если id товарного предложения равен 12, то для теста возвращаем пустой массив опций
+        if($this->getId() != 12) {
+            $options = [
+                [
+                    'cost' => 123,
+                    'days' => '2'
+                ],
+                [
+                    'cost' => 100,
+                    'days' => '1'
+                ],
+            ];
 
-        foreach($options as $option) {
-            $deliveryOption = new DeliveryOption();
-            $deliveryOption->cost = $option['cost'];
-            $deliveryOption->days = $option['days'];
-            $result[] = $deliveryOption;
+            foreach($options as $option) {
+                $deliveryOption = new DeliveryOption();
+                $deliveryOption->cost = $option['cost'];
+                $deliveryOption->days = $option['days'];
+                $result[] = $deliveryOption;
+            }
         }
 
         return $result;
