@@ -261,6 +261,9 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     public function getDeliveryOptions()
     {
         $result = [];
+        if($this->getId() == 12) {
+            return $result;
+        }
         $options = [
             [
                 'cost' => 123,
