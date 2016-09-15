@@ -44,21 +44,6 @@ class BaseModel extends Model
     }
 
     /**
-     * Возвращает текст xml без закрытого тэга
-     *
-     * @return string
-     */
-    public function getYmlWithoutEndTag()
-    {
-        $string = '';
-
-        $string .= $this->getYmlStartTag();
-        $string .= $this->getYmlBody();
-
-        return $string;
-    }
-
-    /**
      * @param array $params
      */
     public function setParams(array $params)
@@ -85,7 +70,7 @@ class BaseModel extends Model
     /**
      * @param $valuesModel
      * @param null $onValidationError
-     * 
+     *
      * @return bool
      * @throws Exception
      */

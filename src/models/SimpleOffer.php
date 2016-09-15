@@ -3,6 +3,7 @@
 namespace pastuhov\ymlcatalog\models;
 
 use yii\base\Exception;
+use yii\base\InvalidParamException;
 
 class SimpleOffer extends BaseModel
 {
@@ -193,7 +194,7 @@ class SimpleOffer extends BaseModel
     public function setDeliveryOptions(array $options)
     {
         if(count($options) > 5) {
-            throw new Exception('Maximum count of delivery options array is 5');
+            throw new InvalidParamExceptionException('Maximum count of delivery options array is 5');
         }
         $this->deliveryOptions = $options;
     }
@@ -232,6 +233,7 @@ class SimpleOffer extends BaseModel
     protected function appendDeliveryOptions(&$string) {
         $string .= '<delivery-options>' . PHP_EOL;
         $deliveryOptionBase = new DeliveryOption();
+
         foreach($this->deliveryOptions as $deliveryOption) {
             $deliveryOptionBase->loadModel($deliveryOption);
             $string .= $deliveryOptionBase->getYml();
