@@ -258,7 +258,7 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     /**
      * @inheritdoc
      */
-    public function getDelivery_Options()
+    public function getDeliveryOptions()
     {
         $result = [];
         $options = [
