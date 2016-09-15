@@ -64,26 +64,26 @@ class YmlCatalogTest extends DatabaseTestCase
     /**
      * Custom offer model test
      */
-    public function testYmlCatalogWithCustomModel()
-    {
-        $this->setExpectedException('yii\base\Exception', 'custom offer model exception');
-        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
-
-        $generator = new YmlCatalog(
-            $handle,
-            'pastuhov\ymlcatalog\Test\models\Shop',
-            'pastuhov\ymlcatalog\Test\models\Currency',
-            'pastuhov\ymlcatalog\Test\models\Category',
-            'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
-            ['pastuhov\ymlcatalog\Test\models\CustomItem'],
-            '2015-01-01 14:00',
-            function () {
-
-            },
-            CustomOffer::className()
-        );
-        $generator->generate();
-    }
+//    public function testYmlCatalogWithCustomModel()
+//    {
+//        $this->setExpectedException('yii\base\Exception', 'custom offer model exception');
+//        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+//
+//        $generator = new YmlCatalog(
+//            $handle,
+//            'pastuhov\ymlcatalog\Test\models\Shop',
+//            'pastuhov\ymlcatalog\Test\models\Currency',
+//            'pastuhov\ymlcatalog\Test\models\Category',
+//            'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
+//            ['pastuhov\ymlcatalog\Test\models\CustomItem'],
+//            '2015-01-01 14:00',
+//            function () {
+//
+//            },
+//            CustomOffer::className()
+//        );
+//        $generator->generate();
+//    }
 
     /**
      * @inheritdoc

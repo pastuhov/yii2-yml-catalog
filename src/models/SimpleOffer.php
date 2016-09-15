@@ -230,13 +230,13 @@ class SimpleOffer extends BaseModel
      * @throws Exception
      */
     protected function appendDeliveryOptions(&$string) {
-        $string .= '<delivery-options>';
+        $string .= '<delivery-options>' . PHP_EOL;
         $deliveryOptionBase = new DeliveryOption();
         foreach($this->deliveryOptions as $deliveryOption) {
             $deliveryOptionBase->loadModel($deliveryOption);
             $string .= $deliveryOptionBase->getYml();
         }
-        $string .= '</delivery-options>';
+        $string .= '</delivery-options>' . PHP_EOL;
     }
 
 
