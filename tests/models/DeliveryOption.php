@@ -10,11 +10,25 @@ use pastuhov\ymlcatalog\DeliveryOptionInterface;
 class DeliveryOption implements DeliveryOptionInterface
 {
     /**
+     * Стоимость доставки
+     *
+     * @var int
+     */
+    public $cost = 0;
+
+    /**
+     * Срок доставки
+     *
+     * @var string
+     */
+    public $days = '1-2';
+
+    /**
      * @inheritdoc
      */
     public function getCost()
     {
-        return 0;
+        return $this->cost;
     }
 
     /**
@@ -22,6 +36,6 @@ class DeliveryOption implements DeliveryOptionInterface
      */
     public function getDays()
     {
-        return '1-2';
+        return $this->days;
     }
 }

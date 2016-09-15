@@ -57,4 +57,20 @@ class DeliveryOption extends BaseModel
     {
         return null;
     }
+
+    /**
+     * @return string
+     */
+    protected function getYmlStartTag()
+    {
+        return str_replace('>', ' />', parent::getYmlStartTag());
+    }
+
+    /**
+     * @return string
+     */
+    protected function getYmlEndTag()
+    {
+        return '';
+    }
 }

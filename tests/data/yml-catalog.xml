@@ -37,7 +37,7 @@
 <category id="101" parentId="10">Лазерные принтеры</category>
 </categories>
 <delivery-options>
-<option cost="0" days="1-2"/>
+<option cost="0" days="1-2" />
 </delivery-options>
 <offers>
 <offer id="12" bid="13" cbid="20" available="false"><url>http://magazin.ru/product_page.asp?pid=12</url>
@@ -49,6 +49,10 @@
 <description>Крутой принтер на лазере.</description>
 <picture>http://magazin.ru/img/device12.jpg</picture>
 <picture>http://magazin.ru/img/device12_2.jpg</picture>
+<delivery-options>
+<option cost="123" days="2" />
+<option cost="100" days="1" />
+</delivery-options>
 </offer>
 <offer id="12341" bid="13" cbid="20" available="true"><url>http://magazin.ru/product_page.asp?pid=12341</url>
 <price>15000</price>
@@ -59,6 +63,10 @@
 <description>Изящные наручные часы.</description>
 <sales_notes>по предоплате</sales_notes>
 <picture>http://magazin.ru/img/device12341.jpg</picture>
+<delivery-options>
+<option cost="123" days="2" />
+<option cost="100" days="1" />
+</delivery-options>
 </offer>
 </offers>
 </shop>

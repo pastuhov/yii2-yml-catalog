@@ -1,5 +1,9 @@
 <?php
+
 namespace pastuhov\ymlcatalog\models;
+
+use yii\base\Exception;
+use yii\base\InvalidParamException;
 
 class SimpleOffer extends BaseModel
 {
@@ -45,6 +49,12 @@ class SimpleOffer extends BaseModel
     public $cpa;
     public $params = [];
     public $pictures = [];
+    /**
+     * Опции доставки
+     *
+     * @var array
+     */
+    public $deliveryOptions = [];
 
     /**
      * @inheritdoc
@@ -156,7 +166,7 @@ class SimpleOffer extends BaseModel
                 ['pictures'],
                 'each',
                 'rule' => ['url']
-            ]
+            ],
         ];
     }
 
@@ -174,6 +184,19 @@ class SimpleOffer extends BaseModel
     public function setPictures(array $pictures)
     {
         $this->pictures = $pictures;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @throws Exception
+     */
+    public function setDeliveryOptions(array $options)
+    {
+        if(count($options) > 5) {
+            throw new InvalidParamException('Maximum count of delivery options array is 5');
+        }
+        $this->deliveryOptions = $options;
     }
 
     /**
@@ -195,7 +218,27 @@ class SimpleOffer extends BaseModel
             $string .= $this->getYmlPictureTag($picture);
         }
 
+        $this->appendDeliveryOptions($string);
+
         return $string;
+    }
+
+    /**
+     * Добавляет теги ддля опций доставки
+     *
+     * @param $string
+     *
+     * @throws Exception
+     */
+    protected function appendDeliveryOptions(&$string) {
+        $string .= '<delivery-options>' . PHP_EOL;
+        $deliveryOptionBase = new DeliveryOption();
+
+        foreach($this->deliveryOptions as $deliveryOption) {
+            $deliveryOptionBase->loadModel($deliveryOption);
+            $string .= $deliveryOptionBase->getYml();
+        }
+        $string .= '</delivery-options>' . PHP_EOL;
     }
 
 
