@@ -194,7 +194,7 @@ class SimpleOffer extends BaseModel
     public function setDeliveryOptions(array $options)
     {
         if(count($options) > 5) {
-            throw new InvalidParamExceptionException('Maximum count of delivery options array is 5');
+            throw new InvalidParamException('Maximum count of delivery options array is 5');
         }
         $this->deliveryOptions = $options;
     }
