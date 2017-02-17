@@ -121,11 +121,11 @@ class YmlCatalog
         $this->writeTag('/categories');
         if($this->deliveryOptionClass) {
             $this->writeTag('delivery-options');
-            $this->writeModel(new DeliveryOption(), new $this->deliveryOptionClass());
+            $this->writeModel(new DeliveryOption(), \Yii::createObject($this->deliveryOptionClass));
             $this->writeTag('/delivery-options');
         }
         if($this->localDeliveryCostClass) {
-            $this->writeModel(new LocalDeliveryCost(), new $this->localDeliveryCostClass());
+            $this->writeModel(new LocalDeliveryCost(), \Yii::createObject($this->localDeliveryCostClass));
         }
         $this->writeTag('offers');
         foreach ($this->offerClasses as $offerClass) {
@@ -196,8 +196,12 @@ class YmlCatalog
      */
     protected function writeEachModel($modelClass)
     {
-        $class = isset($modelClass['class']) ? $modelClass['class'] : $modelClass;
-        $findParams = isset($modelClass['findParams']) ? $modelClass['findParams'] : [];
+        $findParams = [];
+        if (is_array($modelClass) && array_key_exists('findParams', $modelClass)) {
+            $findParams = $modelClass['findParams'];
+            unset($modelClass['findParams']);
+        }
+        $class = \Yii::createObject($modelClass);
 
         $newModel = $this->getNewModel($class);
 
@@ -218,19 +222,18 @@ class YmlCatalog
      */
     protected function getNewModel($modelClass)
     {
-        $obj = new $modelClass();
+        $obj = is_object($modelClass) ? $modelClass : \Yii::createObject($modelClass);
 
         if ($obj instanceof CurrencyInterface) {
             $model = new Currency();
         } elseif ($obj instanceof CategoryInterface) {
             $model = new Category();
         } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null && class_exists($this->customOfferClass)) {
-            $class = $this->customOfferClass;
-            $model = new $class();
+            $model = \Yii::createObject($this->customOfferClass);
         } elseif ($obj instanceof SimpleOfferInterface) {
             $model = new SimpleOffer();
         } else {
-            throw new Exception('Model ' . $modelClass. ' has unknown interface');
+            throw new Exception('Model ' . get_class($obj) . ' has unknown interface');
         }
 
         return $model;
