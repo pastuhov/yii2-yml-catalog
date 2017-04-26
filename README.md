@@ -46,7 +46,7 @@ class YmlController extends Controller
                 'fileName' => 'yml-test.xml', # желаемое название файла
                 'publicPath' => '@runtime/public', # публичная директория (обычно корень веб сервера)
                 'runtimePath' => '@runtime', # временная директория
-                'keepBoth' => true # опубликовать yml и .gz
+                'keepBoth' => true, # опубликовать yml и .gz
                 'shopClass' => 'pastuhov\ymlcatalog\Test\models\Shop',
                 'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
                 'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
