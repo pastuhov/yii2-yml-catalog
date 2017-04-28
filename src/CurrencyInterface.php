@@ -18,7 +18,7 @@ use yii\db\ActiveRecordInterface;
  *
  * @package pastuhov\yml
  */
-interface CurrencyInterface extends ActiveRecordInterface
+interface CurrencyInterface
 {
     /**
      * ID валюты.

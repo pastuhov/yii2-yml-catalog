@@ -12,17 +12,20 @@ class Category extends BaseModel
      */
     public static $tag = 'category';
 
-    /**
-     * @inheritdoc
-     */
-    public static $tagProperties = [
-        'id',
-        'parentId',
-    ];
-
     public $name;
     public $parentId;
     public $id;
+
+    /**
+     * @inheritdoc
+     */
+    public static function getTagProperties()
+    {
+        return [
+            'id',
+            'parentId',
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -42,6 +45,8 @@ class Category extends BaseModel
             [
                 ['id', 'parentId'],
                 'integer',
+                'min' => 1,
+                'max' => SimpleOffer::NUMBER_LIMIT,
             ],
         ];
     }

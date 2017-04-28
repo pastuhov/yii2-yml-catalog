@@ -19,7 +19,9 @@ class BaseModel extends Model
     /**
      * @var string[]
      */
-    public static $tagProperties = [];
+    public static function getTagProperties() {
+        return [];
+    }
 
     /**
      * @return string[]
@@ -68,6 +70,29 @@ class BaseModel extends Model
     }
 
     /**
+     * @param $data
+     * @param null $onValidationError
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function loadAndValidate($data, $onValidationError = null)
+    {
+        $this->load($data, '');
+
+        if (!$this->validate()) {
+            if (is_callable($onValidationError)) {
+                $onValidationError($this);
+                return false;
+            } else {
+                throw new Exception('Model values is invalid ' . serialize($this->getErrors()));
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * @param $valuesModel
      * @param null $onValidationError
      *
@@ -91,7 +116,7 @@ class BaseModel extends Model
                 $onValidationError($this);
                 return false;
             } else {
-                throw new Exception('Model values is invalid ' . serialize($this->getErrors()));
+                throw new Exception('Model values is invalid ' . implode("\r\n", $this->getErrors()) . ' values: ' . var_export($attributes, true));
             }
         }
 
@@ -138,7 +163,7 @@ class BaseModel extends Model
     protected function getYmlTagProperties()
     {
         $string = '';
-        $properties = static::$tagProperties;
+        $properties = static::getTagProperties();
 
         foreach ($properties as $property) {
             $value = $this->getAttributeValue($property);
@@ -168,6 +193,11 @@ class BaseModel extends Model
         $value = $this->getAttributeValue($attribute);
         if ($value === null) {
             return '';
+        }
+
+
+        if (($key = array_search($attribute, $this->getYmlAttributes())) !== false && is_string($key)) {
+            $attribute = $key;
         }
 
         $string = '<' . $attribute . '>' . $value . '</' . $attribute. '>' . PHP_EOL;

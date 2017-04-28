@@ -4,13 +4,14 @@ namespace pastuhov\ymlcatalog;
 use pastuhov\ymlcatalog\models\BaseModel;
 use pastuhov\ymlcatalog\models\Category;
 use pastuhov\ymlcatalog\models\Currency;
-use pastuhov\ymlcatalog\models\LocalDeliveryCost;
+use pastuhov\ymlcatalog\models\CustomOffer;
 use pastuhov\ymlcatalog\models\Shop;
 use pastuhov\ymlcatalog\models\SimpleOffer;
 use pastuhov\ymlcatalog\models\DeliveryOption;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
+use yii\db\ActiveRecordInterface;
 
 /**
  * Yml генератор каталога.
@@ -35,10 +36,6 @@ class YmlCatalog
      * @var string
      */
     protected $categoryClass;
-    /**
-     * @var null|string
-     */
-    protected $localDeliveryCostClass;
     /**
      * @var string
      */
@@ -68,7 +65,6 @@ class YmlCatalog
      * @param string $shopClass class name
      * @param string $currencyClass class name
      * @param string $categoryClass class name
-     * @param string $localDeliveryCostClass class name
      * @param array $offerClasses
      * @param null|string $date
      * @param null|callable $onValidationError
@@ -79,22 +75,18 @@ class YmlCatalog
         $shopClass,
         $currencyClass,
         $categoryClass,
-        $localDeliveryCostClass = null,
         Array $offerClasses,
         $date = null,
         $onValidationError = null,
-        $customOfferClass = null,
         $deliveryOptionClass = null
     ) {
         $this->handle = $handle;
         $this->shopClass = $shopClass;
         $this->currencyClass = $currencyClass;
         $this->categoryClass = $categoryClass;
-        $this->localDeliveryCostClass = $localDeliveryCostClass;
         $this->offerClasses = $offerClasses;
         $this->date = $date;
         $this->onValidationError = $onValidationError;
-        $this->customOfferClass = $customOfferClass;
         $this->deliveryOptionClass = $deliveryOptionClass;
     }
 
@@ -107,7 +99,6 @@ class YmlCatalog
 
         $this->write(
             '<?xml version="1.0" encoding="utf-8"?>' . PHP_EOL .
-            '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">' . PHP_EOL .
             '<yml_catalog date="' . $date . '">' . PHP_EOL
         );
 
@@ -115,6 +106,7 @@ class YmlCatalog
         $this->writeModel(new Shop(), new $this->shopClass());
         $this->writeTag('currencies');
         $this->writeEachModel($this->currencyClass);
+
         $this->writeTag('/currencies');
         $this->writeTag('categories');
         $this->writeEachModel($this->categoryClass);
@@ -123,9 +115,6 @@ class YmlCatalog
             $this->writeTag('delivery-options');
             $this->writeModel(new DeliveryOption(), \Yii::createObject($this->deliveryOptionClass));
             $this->writeTag('/delivery-options');
-        }
-        if($this->localDeliveryCostClass) {
-            $this->writeModel(new LocalDeliveryCost(), \Yii::createObject($this->localDeliveryCostClass));
         }
         $this->writeTag('offers');
         foreach ($this->offerClasses as $offerClass) {
@@ -175,16 +164,6 @@ class YmlCatalog
      */
     protected function writeModel(BaseModel $model, $valuesModel)
     {
-        if (method_exists($valuesModel, 'getParams')) {
-            $model->setParams($valuesModel->getParams());
-        }
-        if (method_exists($valuesModel, 'getPictures')) {
-            $model->setPictures($valuesModel->getPictures());
-        }
-        if(method_exists($valuesModel, 'getDeliveryOptions')) {
-            $model->setDeliveryOptions($valuesModel->getDeliveryOptions());
-        }
-
         if($model->loadModel($valuesModel, $this->onValidationError)) {
             $string = $model->getYml();
             $this->write($string);
@@ -196,6 +175,10 @@ class YmlCatalog
      */
     protected function writeEachModel($modelClass)
     {
+        if (!is_subclass_of($modelClass, ActiveRecordInterface::class)) {
+            return $this->writeModel($this->getNewModel($modelClass), \Yii::createObject($modelClass));
+        }
+
         $findParams = [];
         if (is_array($modelClass) && array_key_exists('findParams', $modelClass)) {
             $findParams = $modelClass['findParams'];
@@ -228,8 +211,8 @@ class YmlCatalog
             $model = new Currency();
         } elseif ($obj instanceof CategoryInterface) {
             $model = new Category();
-        } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null && class_exists($this->customOfferClass)) {
-            $model = \Yii::createObject($this->customOfferClass);
+        } elseif ($obj instanceof CustomOfferInterface) {
+            $model = new CustomOffer();
         } elseif ($obj instanceof SimpleOfferInterface) {
             $model = new SimpleOffer();
         } else {

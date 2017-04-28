@@ -8,18 +8,21 @@ class Currency extends BaseModel
      */
     public static $tag = 'currency';
 
-    /**
-     * @inheritdoc
-     */
-    public static $tagProperties = [
-        'id',
-        'rate',
-        'plus',
-    ];
-
     public $id;
     public $rate;
     public $plus;
+
+    /**
+     * @inheritdoc
+     */
+    public static function getTagProperties()
+    {
+        return [
+            'id',
+            'rate',
+            'plus',
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -63,7 +66,6 @@ class Currency extends BaseModel
                     'RUR',
                     'RUB',
                     'UAH',
-                    'BYR',
                     'KZT',
                     'USD',
                     'EUR'

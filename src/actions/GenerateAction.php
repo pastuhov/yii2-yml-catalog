@@ -54,11 +54,6 @@ class GenerateAction extends Action
     /**
      * @var string
      */
-    public $localDeliveryCostClass;
-
-    /**
-     * @var string
-     */
     public $categoryClass;
 
     /**
@@ -107,11 +102,9 @@ class GenerateAction extends Action
             $this->shopClass,
             $this->currencyClass,
             $this->categoryClass,
-            $this->localDeliveryCostClass,
             $this->offerClasses,
             null,
             $this->onValidationError,
-            $this->customOfferClass,
             $this->deliveryOptionClass
         );
         $generator->generate();

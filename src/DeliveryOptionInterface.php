@@ -24,4 +24,11 @@ interface DeliveryOptionInterface
      * @return string
      */
     public function getDays();
+
+    /**
+     * Укажите местное время (в часовом поясе магазина)
+     *
+     * @var int
+     */
+    public function getOrderBefore();
 }
