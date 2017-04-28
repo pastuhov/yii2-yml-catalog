@@ -24,6 +24,13 @@ class DeliveryOption implements DeliveryOptionInterface
     public $days = '1-2';
 
     /**
+     * До скольки заказ
+     *
+     * @var int
+     */
+    public $orderBefore = null;
+
+    /**
      * @inheritdoc
      */
     public function getCost()
@@ -37,5 +44,13 @@ class DeliveryOption implements DeliveryOptionInterface
     public function getDays()
     {
         return $this->days;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOrderBefore()
+    {
+        return $this->orderBefore;
     }
 }

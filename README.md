@@ -46,11 +46,10 @@ class YmlController extends Controller
                 'fileName' => 'yml-test.xml', # желаемое название файла
                 'publicPath' => '@runtime/public', # публичная директория (обычно корень веб сервера)
                 'runtimePath' => '@runtime', # временная директория
-                'keepBoth' => true # опубликовать yml и .gz
+                'keepBoth' => true, # опубликовать yml и .gz
                 'shopClass' => 'pastuhov\ymlcatalog\Test\models\Shop',
                 'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
                 'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
-                'localDeliveryCostClass' => 'pastuhov\ymlcatalog\Test\models\LocalDeliveryCost',
                 'offerClasses' => [
                     'pastuhov\ymlcatalog\Test\models\SimpleOffer'
                 ],
@@ -77,6 +76,14 @@ $ phpunit
 1. Официальным валидатором https://old.webmaster.yandex.ru/xsdtest.xml 
 2. При помощи `xmllint` (пример: xmllint --valid --noout yml-test.xml)
 3. IDE PhpStorm также может помочь
+
+
+## Планы
+
+* Поддержка price from="true"
+* Поддержка age
+* Поддержка нескольких barcode
+* Поддержка в expiry формата вида P1Y2M10DT2H30M
 
 ## Security
 

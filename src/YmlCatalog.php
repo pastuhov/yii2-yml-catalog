@@ -175,15 +175,16 @@ class YmlCatalog
      */
     protected function writeEachModel($modelClass)
     {
-        if (!is_subclass_of($modelClass, ActiveRecordInterface::class)) {
-            return $this->writeModel($this->getNewModel($modelClass), \Yii::createObject($modelClass));
-        }
-
         $findParams = [];
         if (is_array($modelClass) && array_key_exists('findParams', $modelClass)) {
             $findParams = $modelClass['findParams'];
             unset($modelClass['findParams']);
         }
+
+        if (!is_subclass_of($modelClass, ActiveRecordInterface::class)) {
+            return $this->writeModel($this->getNewModel($modelClass), \Yii::createObject($modelClass));
+        }
+
         $class = \Yii::createObject($modelClass);
 
         $newModel = $this->getNewModel($class);
