@@ -98,7 +98,7 @@ class GenerateAction extends Action
     {
         Yii::beginProfile('yml generate');
 
-        $fileName = \Yii::getAlias($this->runtimePath) . '/' . $this->fileName;
+        $fileName = \Yii::getAlias($this->runtimePath) . DIRECTORY_SEPARATOR . $this->fileName;
         $handle = new $this->handleClass($fileName);
 
         $generator = new YmlCatalog(
