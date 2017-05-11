@@ -84,7 +84,7 @@ class GenerateAction extends Action
     /**
      * @var string
      */
-    public $gzipCommand = 'gzip {keep_src} {src}';
+    public $gzipCommand = 'gzip -f {keep_src} {src}';
 
     /**
      * Генерация YML.
