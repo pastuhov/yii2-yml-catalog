@@ -8,4 +8,22 @@ use pastuhov\ymlcatalog\CustomOfferInterface;
  */
 class CustomItem extends SimpleOffer implements CustomOfferInterface
 {
+
+    /**
+     * Тип / категория товара (например, «мобильный телефон», «стиральная машина», «угловой диван»).
+     *
+     * @return string|null
+     */
+    public function getTypePrefix() {
+        return null;
+    }
+
+    /**
+     * Тип описания предложения. Значение должно быть vendor.model.
+     *
+     * @return string
+     */
+    public function getType() {
+        return null;
+    }
 }
