@@ -43,8 +43,7 @@ class Shop extends BaseModel
             ],
             [
                 ['cpa'],
-                'in',
-                'range' => ['1', '2'],
+                'boolean',
             ],
         ];
     }
