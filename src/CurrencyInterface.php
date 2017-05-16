@@ -1,8 +1,6 @@
 <?php
 namespace pastuhov\ymlcatalog;
 
-use yii\db\ActiveRecordInterface;
-
 /**
  * Курс валюты магазина.
  *
