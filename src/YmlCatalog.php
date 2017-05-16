@@ -11,6 +11,11 @@ use pastuhov\ymlcatalog\models\DeliveryOption;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
+use yii\db\ActiveQuery;
+use yii\db\BatchQueryResult;
 
 /**
  * Yml генератор каталога.
@@ -62,6 +67,31 @@ class YmlCatalog
      * @var null|string
      */
     protected $deliveryOptionClass;
+
+    /**
+     * @var ActiveQuery
+     */
+    private $query = null;
+
+    /**
+     * @var BatchQueryResult
+     */
+    private $queryIterator = null;
+
+    /**
+     * @var ActiveDataProvider
+     */
+    private $dataProvider = null;
+
+    /**
+     * @var Pagination
+     */
+    private $pagination = null;
+
+    /**
+     * @var int
+     */
+    private $paginationPage = 0;
 
     /**
      * @param BaseFileStream $handle
@@ -192,27 +222,109 @@ class YmlCatalog
     }
 
     /**
-     * @param string|array $modelClass class name
+     * @param string|array $modelClass class name or yii configuration array. You can also set params:
+     *      `findParams`:   array of additional find params;
+     *      `query`:        ActiveQuery object to generate yml use already created object;
+     *      `dataProvider`: ActiveDataProvider or true to generate yml with pagination;
      */
     protected function writeEachModel($modelClass)
     {
+        /**
+         * @var mixed
+         */
         $findParams = [];
-        if (is_array($modelClass) && array_key_exists('findParams', $modelClass)) {
-            $findParams = $modelClass['findParams'];
-            unset($modelClass['findParams']);
+
+        /**
+         * @var ActiveQuery
+         */
+        $query = null;
+
+        /**
+         * @var ActiveDataProvider
+         */
+        $dataProvider = null;
+
+        $this->query = null;
+        $this->dataProvider = null;
+        $this->pagination = null;
+        $this->paginationPage = 0;
+        $this->queryIterator = null;
+
+        if (is_array($modelClass)) {
+            foreach (['findParams', 'query', 'dataProvider'] as $name) {
+                if (array_key_exists($name, $modelClass)) {
+                    $$name = $modelClass[$name];
+                    unset($modelClass[$name]);
+                }
+            }
         }
+
+        /**
+         * @var BaseFindYmlInterface $class
+         */
         $class = \Yii::createObject($modelClass);
+
+        if (!empty($dataProvider)) {
+            if ($dataProvider instanceof ActiveDataProvider) {
+                $query = $dataProvider->query;
+            } elseif ($dataProvider === true) {
+                if (!$query) {
+                    $query = $class::findYml($findParams);
+                }
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query,
+                    'pagination' => [
+                        'pageSize' => 100
+                    ]
+                ]);
+            } else {
+                $dataProvider = null;
+            }
+            $this->dataProvider = $dataProvider;
+        }
+
+        $this->query = ($query ? : $class::findYml($findParams));
 
         $newModel = $this->getNewModel($class);
 
-        /* @var \yii\db\ActiveQuery $query */
-        $query = $class::findYml($findParams);
+        if ($this->dataProvider) {
+            $this->pagination = $this->dataProvider->getPagination();
+        } else {
+            $this->queryIterator = $this->query->batch();
+        }
 
-        foreach ($query->batch(100) as $models) {
+        while (($models = $this->getModels()) !== false) {
             foreach ($models as $model) {
                 $this->writeModel($newModel, $model);
             }
+            $this->gc();
         }
+    }
+
+    /**
+     * @return Model[]|false
+     */
+    protected function getModels()
+    {
+        $result = false;
+
+        if ($this->dataProvider) {
+            if ($this->paginationPage === 0 || $this->paginationPage < $this->pagination->pageCount) {
+                if ($this->paginationPage > 0) {
+                    $this->pagination->setPage($this->paginationPage);
+                    $this->dataProvider->prepare(true);
+                }
+                ++$this->paginationPage;
+                $result = $this->dataProvider->getModels();
+            }
+        } else {
+            $this->queryIterator->next();
+            if ($this->queryIterator->valid()) {
+                $result = $this->queryIterator->current();
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -237,5 +349,16 @@ class YmlCatalog
         }
 
         return $model;
+    }
+    
+    /**
+     * Performs PHP memory garbage collection.
+     */
+    protected function gc()
+    {
+        if (!gc_enabled()) {
+            gc_enable();
+        }
+        gc_collect_cycles();
     }
 }
