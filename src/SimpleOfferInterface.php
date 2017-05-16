@@ -1,23 +1,14 @@
 <?php
 namespace pastuhov\ymlcatalog;
 
-use yii\db\ActiveRecordInterface;
-
 /**
  * Простое товарное предложение.
  *
  * @link https://yandex.st/market-export/1.0-17/partner/help/YML.xml
- * @package pastuhov\yml
+ * @package pastuhov\ymlcatalog
  */
-interface SimpleOfferInterface extends ActiveRecordInterface
+interface SimpleOfferInterface extends BaseFindYmlInterface
 {
-    /**
-     * ID.
-     *
-     * @return integer
-     */
-    public function getId();
-
     /**
      * URL страницы товара.
      *
@@ -297,11 +288,4 @@ interface SimpleOfferInterface extends ActiveRecordInterface
      * @return array
      */
     public function getDeliveryOptions();
-
-    /**
-     * @param array $findParams Массив дополнительных параметров для поиска.
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public static function findYml($findParams = []);
 }
