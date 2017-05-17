@@ -103,7 +103,7 @@ class YmlCatalogTest extends DatabaseTestCase
             [
                 [
                     'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
-                    'dataProvider' = new ActiveDataProvider([
+                    'dataProvider' => new ActiveDataProvider([
                         'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', 13]),
                         'pagination' => [
                             'pageSize' => 100,
