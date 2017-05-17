@@ -104,7 +104,7 @@ class YmlCatalogTest extends DatabaseTestCase
                 [
                     'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
                     'dataProvider' => new ActiveDataProvider([
-                        'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', 13]),
+                        'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', [13]]),
                         'pagination' => [
                             'pageSize' => 100,
                          ],
@@ -139,7 +139,7 @@ class YmlCatalogTest extends DatabaseTestCase
             [
                 [
                     'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
-                    'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', 13]),
+                    'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', [13]]),
                 ]
             ],
             '2015-01-01 14:00',
