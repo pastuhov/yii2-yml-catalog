@@ -44,9 +44,8 @@
 <price>1000</price>
 <currencyId>RUR</currencyId>
 <categoryId>10</categoryId>
-<delivery>true</delivery>
-<name>Лазернй принтер 234234234</name>
 <description>Крутой принтер на лазере.</description>
+<name>Лазернй принтер 234234234</name>
 <picture>http://magazin.ru/img/device12.jpg</picture>
 <picture>http://magazin.ru/img/device12_2.jpg</picture>
 </offer>
@@ -55,9 +54,9 @@
 <currencyId>RUR</currencyId>
 <categoryId>1</categoryId>
 <delivery>true</delivery>
-<name>Наручные часы Casio A1234567B</name>
 <description>Изящные наручные часы.</description>
 <sales_notes>по предоплате</sales_notes>
+<name>Наручные часы Casio A1234567B</name>
 <picture>http://magazin.ru/img/device12341.jpg</picture>
 <delivery-options>
 <option cost="123" days="2" />

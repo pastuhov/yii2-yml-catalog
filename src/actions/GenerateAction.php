@@ -96,16 +96,21 @@ class GenerateAction extends Action
         $fileName = \Yii::getAlias($this->runtimePath) . DIRECTORY_SEPARATOR . $this->fileName;
         $handle = new $this->handleClass($fileName);
 
-        $generator = new YmlCatalog(
-            $handle,
-            $this->shopClass,
-            $this->currencyClass,
-            $this->categoryClass,
-            $this->offerClasses,
-            null,
-            $this->onValidationError,
-            $this->deliveryOptionClass
-        );
+        $generatorAttributes = [
+            'shopClass',
+            'currencyClass',
+            'categoryClass',
+            'offerClasses',
+            'onValidationError',
+            'deliveryOptionClass'
+        ];
+        $generatorParams = [
+            'handle' => $handle,
+        ];
+        foreach ($generatorAttributes as $attribute) {
+            $generatorParams[$attribute] = $this->$attribute;
+        }
+        $generator = new YmlCatalog($generatorParams);
         $generator->generate();
 
         if ($this->enableGzip === true) {

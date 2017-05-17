@@ -104,6 +104,10 @@ class SimpleOffer extends Offer
         $deliveryOptionBase = new DeliveryOption();
 
         foreach($this->deliveryOptions as $deliveryOption) {
+            if (empty($deliveryOption['class'])) {
+                $deliveryOption['class'] = DeliveryOption::class;
+            }
+
             $deliveryOptionBase->loadModel($deliveryOption);
             $string .= $deliveryOptionBase->getYml();
         }

@@ -101,6 +101,10 @@ class BaseModel extends Model
      */
     public function loadModel($valuesModel, $onValidationError = null)
     {
+        if (is_array($valuesModel)) {
+            $valuesModel = \yii::createObject($valuesModel);
+        }
+
         $attributes = [];
         foreach ($this->attributes() as $attribute) {
             $methodName = 'get' . ucfirst($attribute);
@@ -112,11 +116,12 @@ class BaseModel extends Model
         $this->load($attributes, '');
 
         if (!$this->validate()) {
+            $e = new Exception('Model ' . get_class($this) . ' values is invalid ' . var_export($this->getErrors(), true) . ' values: ' . var_export($attributes, true));
             if (is_callable($onValidationError)) {
-                $onValidationError($this);
+                $onValidationError($this, $e);
                 return false;
             } else {
-                throw new Exception('Model values is invalid ' . implode("\r\n", $this->getErrors()) . ' values: ' . var_export($attributes, true));
+                throw $e;
             }
         }
 

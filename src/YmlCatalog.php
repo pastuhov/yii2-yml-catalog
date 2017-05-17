@@ -11,6 +11,7 @@ use pastuhov\ymlcatalog\models\DeliveryOption;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
+use yii\base\Object;
 use yii\db\ActiveRecordInterface;
 
 /**
@@ -18,84 +19,54 @@ use yii\db\ActiveRecordInterface;
  *
  * @package pastuhov\ymlcatalog
  */
-class YmlCatalog
+class YmlCatalog extends Object
 {
     /**
      * @var BaseFileStream
      */
-    protected $handle;
+    public $handle;
     /**
      * @var string
      */
-    protected $shopClass;
+    public $shopClass;
     /**
      * @var string
      */
-    protected $currencyClass;
+    public $currencyClass;
     /**
      * @var string
      */
-    protected $categoryClass;
+    public $categoryClass;
     /**
      * @var string
      */
-    protected $offerClass;
+    public $offerClasses;
     /**
      * @var null|string
      */
-    protected $date;
+    public $date;
 
     /**
      * @var null|callable
      */
-    protected $onValidationError;
+    public $onValidationError;
 
     /**
      * @var null|string
      */
-    protected $customOfferClass;
+    public $customOfferClass;
 
     /**
      * @var null|string
      */
-    protected $deliveryOptionClass;
-
-    /**
-     * @param BaseFileStream $handle
-     * @param string $shopClass class name
-     * @param string $currencyClass class name
-     * @param string $categoryClass class name
-     * @param array $offerClasses
-     * @param null|string $date
-     * @param null|callable $onValidationError
-     * @param null|string $customOfferClass
-     */
-    public function __construct(
-        BaseFileStream $handle,
-        $shopClass,
-        $currencyClass,
-        $categoryClass,
-        Array $offerClasses,
-        $date = null,
-        $onValidationError = null,
-        $deliveryOptionClass = null
-    ) {
-        $this->handle = $handle;
-        $this->shopClass = $shopClass;
-        $this->currencyClass = $currencyClass;
-        $this->categoryClass = $categoryClass;
-        $this->offerClasses = $offerClasses;
-        $this->date = $date;
-        $this->onValidationError = $onValidationError;
-        $this->deliveryOptionClass = $deliveryOptionClass;
-    }
+    public $deliveryOptionClass;
 
     /**
      * @throws Exception
      */
     public function generate()
     {
-        $date = $this->getDate();
+        $date = $this->getFormattedDate();
 
         $this->write(
             '<?xml version="1.0" encoding="utf-8"?>' . PHP_EOL .
@@ -117,6 +88,7 @@ class YmlCatalog
             $this->writeTag('/delivery-options');
         }
         $this->writeTag('offers');
+
         foreach ($this->offerClasses as $offerClass) {
             $this->writeEachModel($offerClass);
         }
@@ -129,7 +101,7 @@ class YmlCatalog
     /**
      * @return null|string
      */
-    protected function getDate()
+    protected function getFormattedDate()
     {
         $date = $this->date;
 
@@ -176,12 +148,16 @@ class YmlCatalog
     protected function writeEachModel($modelClass)
     {
         $findParams = [];
-        if (is_array($modelClass) && array_key_exists('findParams', $modelClass)) {
+        if (is_string($modelClass)) {
+            $modelClass = ['class' => $modelClass];
+        }
+
+        if (array_key_exists('findParams', $modelClass)) {
             $findParams = $modelClass['findParams'];
             unset($modelClass['findParams']);
         }
 
-        if (!is_subclass_of($modelClass, ActiveRecordInterface::class)) {
+        if (!is_subclass_of($modelClass['class'], ActiveRecordInterface::class)) {
             return $this->writeModel($this->getNewModel($modelClass), \Yii::createObject($modelClass));
         }
 

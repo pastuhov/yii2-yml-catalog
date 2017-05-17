@@ -93,7 +93,11 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getDelivery()
     {
-        return 'true';
+        if ($this->getId() != 12) {
+            return 'true';
+        } else {
+            return null;
+        }
     }
 
     /**
