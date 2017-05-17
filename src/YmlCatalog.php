@@ -315,7 +315,9 @@ class YmlCatalog
                     $this->dataProvider->prepare(true);
                 }
                 ++$this->paginationPage;
-                $result = $this->dataProvider->getModels();
+                if ($this->dataProvider->count > 0) {
+                    $result = $this->dataProvider->getModels();
+                }
             }
         } else {
             $this->queryIterator->next();
