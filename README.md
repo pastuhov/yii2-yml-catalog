@@ -63,6 +63,32 @@ class YmlController extends Controller
 $ yii yml/generate
 ```
 
+## Использование справочника категорий YML
+Если многие категории сайта распознаются Яндексом не правильно, необходимо категории сайта сопоставить
+с категориями маркета. Для того, чтобы вам помочь в этом нами создан справочник категорий Яндекса. Он имеется в двух форматах:
+в виде ассоциативного массива или в виде таблицы в БД.
+##### Справочник из массива PHP
+Массив можно найти в файле src/categories/data/categories.php.
+##### Справочник в БД
+Чтобы залить категории Яндекса в свою БД необходимо применить миграции:
+```bash
+$ yii migrate/up --migrationPath=vendor/pastuhov/yii2-yml-catalog/src/categories/migrations
+```
+После этого необходимо залить в БД данные командой, добавив её в конфиг консольного приложения
+```php
+...
+    'controllerMap' => [
+        'ymlConvert' => pastuhov\ymlcatalog\categories\controllers\ConvertController::class,
+    ]
+...
+```
+и выполнить консольную команду
+```bash
+$ yii .ymlConvert/to-database
+```
+После этого модель pastuhov\ymlcatalog\categories\models\yml\Categories можно использовать для генерации категорий YML
+и связывать её со своими категориями.
+
 ## Тестирование
 
 ```bash
