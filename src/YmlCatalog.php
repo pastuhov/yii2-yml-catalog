@@ -138,7 +138,7 @@ class YmlCatalog extends Object
         }
     }
 
-    protected function writeTags($tags): void
+    protected function writeTags($tags)
     {
         foreach ($tags as $tagName => $tagParams) {
             if (is_string($tagName)) {
