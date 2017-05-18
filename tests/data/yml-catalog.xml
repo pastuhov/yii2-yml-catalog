@@ -52,7 +52,7 @@
 <picture>http://magazin.ru/img/device12.jpg</picture>
 <picture>http://magazin.ru/img/device12_2.jpg</picture>
 <outlet>
-    <outlet booking="true" id="1" instock="20"/>
+<outlet booking="true" id="1" instock="20"/>
 </outlet>
 </offer>
 <offer id="12341" bid="13" cbid="20" available="true"><url>http://magazin.ru/product_page.asp?pid=12341</url>
