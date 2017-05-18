@@ -11,11 +11,8 @@ use pastuhov\ymlcatalog\models\DeliveryOption;
 use Yii;
 use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\data\Pagination;
 use yii\db\ActiveQuery;
-use yii\db\BatchQueryResult;
 
 /**
  * Yml генератор каталога.
@@ -67,31 +64,6 @@ class YmlCatalog
      * @var null|string
      */
     protected $deliveryOptionClass;
-
-    /**
-     * @var ActiveQuery
-     */
-    private $query = null;
-
-    /**
-     * @var BatchQueryResult
-     */
-    private $queryIterator = null;
-
-    /**
-     * @var ActiveDataProvider
-     */
-    private $dataProvider = null;
-
-    /**
-     * @var Pagination
-     */
-    private $pagination = null;
-
-    /**
-     * @var int
-     */
-    private $paginationPage = 0;
 
     /**
      * @param BaseFileStream $handle
@@ -244,12 +216,6 @@ class YmlCatalog
          */
         $dataProvider = null;
 
-        $this->query = null;
-        $this->dataProvider = null;
-        $this->pagination = null;
-        $this->paginationPage = 0;
-        $this->queryIterator = null;
-
         if (is_array($modelClass)) {
             foreach (['findParams', 'query', 'dataProvider'] as $name) {
                 if (array_key_exists($name, $modelClass)) {
@@ -264,69 +230,24 @@ class YmlCatalog
          */
         $class = \Yii::createObject($modelClass);
 
-        if (!empty($dataProvider)) {
-            if ($dataProvider instanceof ActiveDataProvider) {
-                $query = $dataProvider->query;
-            } elseif ($dataProvider === true) {
-                if (!$query) {
-                    $query = $class::findYml($findParams);
-                }
-                $dataProvider = new ActiveDataProvider([
-                    'query' => $query,
-                    'pagination' => [
-                        'pageSize' => 100
-                    ]
-                ]);
-            } else {
-                $dataProvider = null;
-            }
-            $this->dataProvider = $dataProvider;
-        }
-
-        $this->query = ($query ? : $class::findYml($findParams));
+        /**
+         * @var ReaderInterface
+         */
+        $reader = ReaderFactory::build(
+            $class,
+            $dataProvider,
+            $query,
+            $findParams
+        );
 
         $newModel = $this->getNewModel($class);
 
-        if ($this->dataProvider) {
-            $this->pagination = $this->dataProvider->getPagination();
-        } else {
-            $this->queryIterator = $this->query->batch();
-        }
-
-        while (($models = $this->getModels()) !== false) {
+        foreach ($reader as $models) {
             foreach ($models as $model) {
                 $this->writeModel($newModel, $model);
             }
             $this->gc();
         }
-    }
-
-    /**
-     * @return Model[]|false
-     */
-    protected function getModels()
-    {
-        $result = false;
-
-        if ($this->dataProvider) {
-            if ($this->paginationPage === 0 || $this->paginationPage < $this->pagination->pageCount) {
-                if ($this->paginationPage > 0) {
-                    $this->pagination->setPage($this->paginationPage);
-                    $this->dataProvider->prepare(true);
-                }
-                ++$this->paginationPage;
-                if ($this->dataProvider->count > 0) {
-                    $result = $this->dataProvider->getModels();
-                }
-            }
-        } else {
-            $this->queryIterator->next();
-            if ($this->queryIterator->valid()) {
-                $result = $this->queryIterator->current();
-            }
-        }
-
-        return $result;
     }
 
     /**
