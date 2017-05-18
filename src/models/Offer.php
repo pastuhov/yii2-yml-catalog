@@ -243,6 +243,10 @@ abstract class Offer extends BaseModel
                 'skipOnEmpty' => false,
             ],
             [
+                ['outlets'],
+                'safe',
+            ],
+            [
                 ['description'],
                 'string',
                 'max' => 3000,
@@ -294,7 +298,7 @@ abstract class Offer extends BaseModel
             [
                 'dimensionsValues',
                 'each',
-                'rule' => ['number', 'numberPattern' => '/^\[0-9]*\.?[0-9]+\s*$/'],
+                'rule' => ['number', 'numberPattern' => '/^[0-9]*\.?[0-9]+\s*$/'],
             ],
             [
                 'dimensionsValues',

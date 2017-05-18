@@ -62,6 +62,20 @@ class YmlCatalog extends Object
     public $deliveryOptionClass;
 
     /**
+     * @return null|string
+     */
+    protected function getFormattedDate()
+    {
+        $date = $this->date;
+
+        if ($date === null) {
+            $date = Yii::$app->formatter->asDatetime(new \DateTime(), 'php:Y-m-d H:i');
+        }
+
+        return $date;
+    }
+
+    /**
      * @throws Exception
      */
     public function generate()
@@ -89,23 +103,9 @@ class YmlCatalog extends Object
             ],
         ];
 
-        $this->parseTags($tags);
+        $this->writeTags($tags);
 
         $this->write('</yml_catalog>');
-    }
-
-    /**
-     * @return null|string
-     */
-    protected function getFormattedDate()
-    {
-        $date = $this->date;
-
-        if ($date === null) {
-            $date = Yii::$app->formatter->asDatetime(new \DateTime(), 'php:Y-m-d H:i');
-        }
-
-        return $date;
     }
 
     /**
@@ -138,33 +138,43 @@ class YmlCatalog extends Object
         }
     }
 
+    protected function writeTags($tags): void
+    {
+        foreach ($tags as $tagName => $tagParams) {
+            if (is_string($tagName)) {
+                $this->writeTag($tagName);
+                $this->writeTags($tagParams);
+                $this->writeTag('/' . $tagName);
+            } else if (!is_null($tagParams)) {
+                $this->writeEachModel($tagParams);
+            }
+        }
+    }
+
     /**
      * @param string|array $modelClass class name
      */
     protected function writeEachModel($modelClass)
     {
         $findParams = [];
-        if (is_string($modelClass)) {
-            $modelClass = ['class' => $modelClass];
+        if (is_array($modelClass)) {
+            if (array_key_exists('findParams', $modelClass)) {
+                $findParams = $modelClass['findParams'];
+                unset($modelClass['findParams']);
+            }
+
+            $modelClass = $modelClass['class'];
         }
 
-        if (array_key_exists('findParams', $modelClass)) {
-            $findParams = $modelClass['findParams'];
-            unset($modelClass['findParams']);
-        }
-
-        $interfaces = class_implements($modelClass['class']);
+        $interfaces = class_implements($modelClass);
         if (!isset($interfaces[ActiveRecordInterface::class])) {
             return $this->writeModel($this->getNewModel($modelClass), \Yii::createObject($modelClass));
         }
 
-        $class = \Yii::createObject($modelClass);
-
-        $newModel = $this->getNewModel($class);
-
         /* @var \yii\db\ActiveQuery $query */
-        $query = $class::findYml($findParams);
+        $query = $modelClass::findYml($findParams);
 
+        $newModel = $this->getNewModel($modelClass);
         foreach ($query->batch(100) as $models) {
             foreach ($models as $model) {
                 $this->writeModel($newModel, $model);
@@ -179,27 +189,10 @@ class YmlCatalog extends Object
      */
     protected function getNewModel($modelClass)
     {
-        if (is_array($modelClass)) {
-            $modelClass = $modelClass['class'];
-        }
-
         $factory = new ModelsFactory([
             'modelClass' => $modelClass,
         ]);
 
         return $factory->create();
-    }
-
-    protected function parseTags($tags): void
-    {
-        foreach ($tags as $tagName => $tagParams) {
-            if (is_string($tagName)) {
-                $this->writeTag($tagName);
-                $this->parseTags($tagParams);
-                $this->writeTag('/' . $tagName);
-            } else if (!is_null($tagParams)) {
-                $this->writeEachModel($tagParams);
-            }
-        }
     }
 }

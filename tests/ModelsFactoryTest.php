@@ -6,9 +6,10 @@
  * Time: 5:49 PM
  */
 
-namespace pastuhov\ymlcatalog;
+namespace pastuhov\ymlcatalog\Test;
 
 
+use pastuhov\ymlcatalog\ModelsFactory;
 use pastuhov\ymlcatalog\Test\models\Currency;
 use yii\base\Exception;
 

@@ -70,6 +70,6 @@ class Shop implements ShopInterface
      */
     public function getCpa()
     {
-        return null;
+        return '1';
     }
 }

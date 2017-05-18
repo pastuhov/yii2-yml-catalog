@@ -24,7 +24,6 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     public function getVendor()
     {
         return null;
-        return $this->attributes['vendor'];
     }
 
     /**
@@ -288,7 +287,16 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getOutlets()
     {
-        return [];
+        if($this->getId() != 12) {
+            return [];
+        }
+        return [
+            [
+                'id' => 1,
+                'instock' => 20,
+                'booking' => 'true',
+            ]
+        ];
     }
 
     /**
@@ -328,7 +336,11 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getDimensionsValues()
     {
-        return [];
+        if ($this->getId() != 12) {
+            return [];
+        }
+
+        return [1, 2.1, 3.1];
     }
 
     /**
@@ -352,6 +364,10 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getRecValues()
     {
-        return [];
+        if ($this->getId() != 12) {
+            return [];
+        }
+
+        return [1,2,3];
     }
 }
