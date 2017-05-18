@@ -27,7 +27,7 @@ class GenerateController extends Controller
                 'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
                 'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
                 'deliveryOptionClass' => 'pastuhov\ymlcatalog\Test\models\DeliveryOption',
-                'offerClasses' => [
+                'offerClass' => [
                     [
                         'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
                         'findParams' => [

@@ -45,7 +45,7 @@ class YmlCatalogTest extends DatabaseTestCase
             'shopClass' => Shop::class,
             'currencyClass' => Currency::class,
             'categoryClass' => Category::class,
-            'offerClasses' => [
+            'offerClass' => [
                 [
                     'class' => SimpleOffer::class,
                     'findParams' => [

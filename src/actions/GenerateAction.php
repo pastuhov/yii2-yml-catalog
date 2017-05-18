@@ -59,7 +59,7 @@ class GenerateAction extends Action
     /**
      * @var string[]
      */
-    public $offerClasses;
+    public $offerClass;
 
     /**
      * @var string
@@ -100,7 +100,7 @@ class GenerateAction extends Action
             'shopClass',
             'currencyClass',
             'categoryClass',
-            'offerClasses',
+            'offerClass',
             'onValidationError',
             'deliveryOptionClass'
         ];

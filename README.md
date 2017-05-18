@@ -50,7 +50,7 @@ class YmlController extends Controller
                 'shopClass' => 'pastuhov\ymlcatalog\Test\models\Shop',
                 'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
                 'categoryClass' => 'pastuhov\ymlcatalog\Test\models\Category',
-                'offerClasses' => [
+                'offerClass' => [
                     'pastuhov\ymlcatalog\Test\models\SimpleOffer'
                 ],
             ],

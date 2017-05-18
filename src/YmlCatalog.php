@@ -40,7 +40,7 @@ class YmlCatalog extends Object
     /**
      * @var string
      */
-    public $offerClasses;
+    public $offerClass;
     /**
      * @var null|string
      */
@@ -90,16 +90,10 @@ class YmlCatalog extends Object
         $tags = [
             'shop' => [
                 $this->shopClass,
-                'currencies' => [
-                    $this->currencyClass,
-                ],
-                'categories' => [
-                    $this->categoryClass,
-                ],
-                'delivery-options' => [
-                    $this->deliveryOptionClass,
-                ],
-                'offers' => $this->offerClasses,
+                'currencies' => $this->currencyClass,
+                'categories' => $this->categoryClass,
+                'delivery-options' => $this->deliveryOptionClass,
+                'offers' => $this->offerClass,
             ],
         ];
 
@@ -143,7 +137,12 @@ class YmlCatalog extends Object
         foreach ($tags as $tagName => $tagParams) {
             if (is_string($tagName)) {
                 $this->writeTag($tagName);
-                $this->writeTags($tagParams);
+                if (is_string($tagParams) || isset($tagParams['class'])) {
+                    $this->writeEachModel($tagParams);
+                } else {
+                    $this->writeTags($tagParams);
+                }
+
                 $this->writeTag('/' . $tagName);
             } else if (!is_null($tagParams)) {
                 $this->writeEachModel($tagParams);
