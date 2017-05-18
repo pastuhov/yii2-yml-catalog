@@ -13,6 +13,23 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     /**
      * @inheritdoc
      */
+    public function getName()
+    {
+        return $this->attributes['name'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getVendor()
+    {
+        return null;
+        return $this->attributes['vendor'];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getId()
     {
         return $this->attributes['id'];
@@ -98,22 +115,6 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
         } else {
             return null;
         }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getName()
-    {
-        return $this->attributes['name'];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getVendor()
-    {
-        return null;
     }
 
     /**

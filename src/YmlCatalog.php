@@ -73,27 +73,23 @@ class YmlCatalog extends Object
             '<yml_catalog date="' . $date . '">' . PHP_EOL
         );
 
-        $this->writeTag('shop');
-        $this->writeModel(new Shop(), new $this->shopClass());
-        $this->writeTag('currencies');
-        $this->writeEachModel($this->currencyClass);
+        $tags = [
+            'shop' => [
+                $this->shopClass,
+                'currencies' => [
+                    $this->currencyClass,
+                ],
+                'categories' => [
+                    $this->categoryClass,
+                ],
+                'delivery-options' => [
+                    $this->deliveryOptionClass,
+                ],
+                'offers' => $this->offerClasses,
+            ],
+        ];
 
-        $this->writeTag('/currencies');
-        $this->writeTag('categories');
-        $this->writeEachModel($this->categoryClass);
-        $this->writeTag('/categories');
-        if($this->deliveryOptionClass) {
-            $this->writeTag('delivery-options');
-            $this->writeModel(new DeliveryOption(), \Yii::createObject($this->deliveryOptionClass));
-            $this->writeTag('/delivery-options');
-        }
-        $this->writeTag('offers');
-
-        foreach ($this->offerClasses as $offerClass) {
-            $this->writeEachModel($offerClass);
-        }
-        $this->writeTag('/offers');
-        $this->writeTag('/shop');
+        $this->parseTags($tags);
 
         $this->write('</yml_catalog>');
     }
@@ -157,7 +153,8 @@ class YmlCatalog extends Object
             unset($modelClass['findParams']);
         }
 
-        if (!is_subclass_of($modelClass['class'], ActiveRecordInterface::class)) {
+        $interfaces = class_implements($modelClass['class']);
+        if (!isset($interfaces[ActiveRecordInterface::class])) {
             return $this->writeModel($this->getNewModel($modelClass), \Yii::createObject($modelClass));
         }
 
@@ -182,20 +179,27 @@ class YmlCatalog extends Object
      */
     protected function getNewModel($modelClass)
     {
-        $obj = is_object($modelClass) ? $modelClass : \Yii::createObject($modelClass);
-
-        if ($obj instanceof CurrencyInterface) {
-            $model = new Currency();
-        } elseif ($obj instanceof CategoryInterface) {
-            $model = new Category();
-        } elseif ($obj instanceof CustomOfferInterface) {
-            $model = new CustomOffer();
-        } elseif ($obj instanceof SimpleOfferInterface) {
-            $model = new SimpleOffer();
-        } else {
-            throw new Exception('Model ' . get_class($obj) . ' has unknown interface');
+        if (is_array($modelClass)) {
+            $modelClass = $modelClass['class'];
         }
 
-        return $model;
+        $factory = new ModelsFactory([
+            'modelClass' => $modelClass,
+        ]);
+
+        return $factory->create();
+    }
+
+    protected function parseTags($tags): void
+    {
+        foreach ($tags as $tagName => $tagParams) {
+            if (is_string($tagName)) {
+                $this->writeTag($tagName);
+                $this->parseTags($tagParams);
+                $this->writeTag('/' . $tagName);
+            } else if (!is_null($tagParams)) {
+                $this->writeEachModel($tagParams);
+            }
+        }
     }
 }
