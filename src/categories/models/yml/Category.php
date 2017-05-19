@@ -9,10 +9,11 @@
 namespace pastuhov\ymlcatalog\categories\models\yml;
 
 
+use pastuhov\ymlcatalog\BaseFindYmlInterface;
 use pastuhov\ymlcatalog\CategoryInterface;
 use pastuhov\ymlcatalog\categories\models\Category as CategoryModel;
 
-class Category extends CategoryModel implements CategoryInterface
+class Category extends CategoryModel implements CategoryInterface, BaseFindYmlInterface
 {
     public static function find()
     {
