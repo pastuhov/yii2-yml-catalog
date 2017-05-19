@@ -16,7 +16,7 @@ namespace pastuhov\ymlcatalog;
  *
  * @package pastuhov\ymlcatalog
  */
-interface CurrencyInterface extends BaseFindYmlInterface
+interface CurrencyInterface
 {
     /**
      * Множитель.

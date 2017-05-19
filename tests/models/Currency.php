@@ -1,13 +1,14 @@
 <?php
 namespace pastuhov\ymlcatalog\Test\models;
 
+use pastuhov\ymlcatalog\BaseFindYmlInterface;
 use pastuhov\ymlcatalog\CurrencyInterface;
 use yii\db\ActiveRecord;
 
 /**
  * @inheritdoc
  */
-class Currency extends ActiveRecord implements CurrencyInterface
+class Currency extends ActiveRecord implements CurrencyInterface, BaseFindYmlInterface
 {
     /**
      * @inheritdoc

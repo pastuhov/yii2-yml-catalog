@@ -1,13 +1,14 @@
 <?php
 namespace pastuhov\ymlcatalog\Test\models;
 
+use pastuhov\ymlcatalog\BaseFindYmlInterface;
 use pastuhov\ymlcatalog\SimpleOfferInterface;
 use yii\db\ActiveRecord;
 
 /**
  * @inheritdoc
  */
-class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
+class SimpleOffer extends ActiveRecord implements SimpleOfferInterface, BaseFindYmlInterface
 {
 
     /**

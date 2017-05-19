@@ -9,7 +9,7 @@ use yii\db\ActiveRecordInterface;
  * @link https://yandex.st/market-export/1.0-17/partner/help/YML.xml
  * @package pastuhov\yml
  */
-interface OfferInterface extends BaseFindYmlInterface
+interface OfferInterface
 {
     /**
      * Ставка на клик для карточек.

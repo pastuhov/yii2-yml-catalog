@@ -1,6 +1,7 @@
 <?php
 namespace pastuhov\ymlcatalog\Test\models;
 
+use pastuhov\ymlcatalog\BaseFindYmlInterface;
 use pastuhov\ymlcatalog\CategoryInterface;
 use yii\db\ActiveRecord;
 
@@ -9,7 +10,7 @@ use yii\db\ActiveRecord;
  *
  * @property string name
  */
-class Category extends ActiveRecord implements CategoryInterface
+class Category extends ActiveRecord implements CategoryInterface, BaseFindYmlInterface
 {
 
     /**

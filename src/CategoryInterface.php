@@ -6,7 +6,7 @@ namespace pastuhov\ymlcatalog;
  *
  * @package pastuhov\ymlcatalog
  */
-interface CategoryInterface extends BaseFindYmlInterface
+interface CategoryInterface
 {
     /**
      * Название категории.
