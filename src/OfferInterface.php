@@ -9,15 +9,8 @@ use yii\db\ActiveRecordInterface;
  * @link https://yandex.st/market-export/1.0-17/partner/help/YML.xml
  * @package pastuhov\yml
  */
-interface OfferInterface extends ActiveRecordInterface
+interface OfferInterface extends BaseFindYmlInterface
 {
-    /**
-     * ID. Должен быть уникальным и постоянным для одного и того же предложения во всех версиях одного прайс-листа.
-     *
-     * @return integer
-     */
-    public function getId();
-
     /**
      * Ставка на клик для карточек.
      *
@@ -373,11 +366,4 @@ interface OfferInterface extends ActiveRecordInterface
      * @return array|null
      */
     public function getRecValues();
-
-    /**
-     * @param array $findParams Массив дополнительных параметров для поиска.
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public static function findYml($findParams = []);
 }

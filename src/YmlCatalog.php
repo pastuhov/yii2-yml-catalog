@@ -13,6 +13,8 @@ use pastuhov\FileStream\BaseFileStream;
 use yii\base\Exception;
 use yii\base\Object;
 use yii\db\ActiveRecordInterface;
+use yii\data\ActiveDataProvider;
+use yii\db\ActiveQuery;
 
 /**
  * Yml генератор каталога.
@@ -151,10 +153,16 @@ class YmlCatalog extends Object
     }
 
     /**
-     * @param string|array $modelClass class name
+     * @param string|array $modelClass class name or yii configuration array. You can also set params:
+     *      `findParams`:   array of additional find params;
+     *      `query`:        ActiveQuery object to generate yml use already created object;
+     *      `dataProvider`: ActiveDataProvider or true to generate yml with pagination;
      */
     protected function writeEachModel($modelClass)
     {
+        /**
+         * @var mixed
+         */
         $findParams = [];
         if (is_array($modelClass)) {
             if (array_key_exists('findParams', $modelClass)) {
@@ -175,9 +183,48 @@ class YmlCatalog extends Object
 
         $newModel = $this->getNewModel($modelClass);
         foreach ($query->batch(100) as $models) {
+//
+//        /**
+//         * @var ActiveQuery
+//         */
+//        $query = null;
+//
+//        /**
+//         * @var ActiveDataProvider
+//         */
+//        $dataProvider = null;
+//
+//        if (is_array($modelClass)) {
+//            foreach (['findParams', 'query', 'dataProvider'] as $name) {
+//                if (array_key_exists($name, $modelClass)) {
+//                    $$name = $modelClass[$name];
+//                    unset($modelClass[$name]);
+//                }
+//            }
+//        }
+//
+//        /**
+//         * @var BaseFindYmlInterface $class
+//         */
+//        $class = \Yii::createObject($modelClass);
+//
+//        /**
+//         * @var ReaderInterface
+//         */
+//        $reader = ReaderFactory::build(
+//            $class,
+//            $dataProvider,
+//            $query,
+//            $findParams
+//        );
+//
+//        $newModel = $this->getNewModel($class);
+//
+//        foreach ($reader as $models) {
             foreach ($models as $model) {
                 $this->writeModel($newModel, $model);
             }
+            $this->gc();
         }
     }
 
@@ -193,5 +240,16 @@ class YmlCatalog extends Object
         ]);
 
         return $factory->create();
+    }
+    
+    /**
+     * Performs PHP memory garbage collection.
+     */
+    protected function gc()
+    {
+        if (!gc_enabled()) {
+            gc_enable();
+        }
+        gc_collect_cycles();
     }
 }

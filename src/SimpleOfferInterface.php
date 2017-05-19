@@ -1,13 +1,11 @@
 <?php
 namespace pastuhov\ymlcatalog;
 
-use yii\db\ActiveRecordInterface;
-
 /**
  * Простое товарное предложение.
  *
  * @link https://yandex.st/market-export/1.0-17/partner/help/YML.xml
- * @package pastuhov\yml
+ * @package pastuhov\ymlcatalog
  */
 interface SimpleOfferInterface extends OfferInterface
 {

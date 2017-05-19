@@ -1,8 +1,6 @@
 <?php
 namespace pastuhov\ymlcatalog;
 
-use yii\db\ActiveRecordInterface;
-
 /**
  * Курс валюты магазина.
  *
@@ -16,20 +14,10 @@ use yii\db\ActiveRecordInterface;
  * используется точка (не запятая!). При слишком значительном (больше 30%) отличии значения курса валюты от курса ЦБ РФ
  * или НБУ информационные материалы считаются невалидными.
  *
- * @package pastuhov\yml
+ * @package pastuhov\ymlcatalog
  */
-interface CurrencyInterface
+interface CurrencyInterface extends BaseFindYmlInterface
 {
-    /**
-     * ID валюты.
-     *
-     * В качестве основной валюты (для которой установлено rate="1") могут быть использованы только рубль (RUR, RUB),
-     * белорусский рубль (BYR), гривна (UAH) или тенге (KZT).
-     *
-     * @return string Название валюты, может иметь значение: RUR|RUB|UAH|BYR|KZT|EUR|USD
-     */
-    public function getId();
-
     /**
      * Множитель.
      *
@@ -57,11 +45,4 @@ interface CurrencyInterface
      * @return integer
      */
     public function getPlus();
-
-    /**
-     * @param array $findParams Массив дополнительных параметров для поиска.
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public static function findYml($findParams = []);
 }
