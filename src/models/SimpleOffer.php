@@ -107,19 +107,22 @@ class SimpleOffer extends BaseModel
                 'max' => 120,
             ],
             [
-                ['delivery', 'pickup'],
-                'in',
-                'range' => [
-                    'true',
-                    'false'
-                ]
+                ['delivery', 'pickup', 'store', 'manufacturer_Warranty', 'adult'],
+                'boolean',
+                'trueValue' => 'true',
+                'falseValue' => 'false',
+                'strict' => true,
             ],
             [
-                ['id', 'categoryId', 'bid', 'cbid'],
+                ['cpa'],
+                'boolean'
+            ],
+            [
+                ['id', 'categoryId', 'bid', 'cbid', 'age'],
                 'integer',
             ],
             [
-                ['name', 'market_Category'],
+                ['name', 'market_Category', 'vendorCode', 'country_Of_Origin', 'barcode'],
                 'string',
             ],
             [
@@ -127,7 +130,7 @@ class SimpleOffer extends BaseModel
                 'url',
             ],
             [
-                ['price', 'oldprice'],
+                ['price', 'oldprice', 'local_Delivery_Cost'],
                 'double',
             ],
             [
