@@ -4,10 +4,12 @@ namespace pastuhov\ymlcatalog\Test;
 use pastuhov\FileStream\BaseFileStream;
 use pastuhov\ymlcatalog\Test\controllers\GenerateController;
 use pastuhov\ymlcatalog\Test\models\CustomOffer;
+use pastuhov\ymlcatalog\Test\models\SimpleOffer;
 use pastuhov\ymlcatalog\YmlCatalog;
 use Yii;
 use yii\console\Controller;
 use yii\db\Connection;
+use yii\data\ActiveDataProvider;
 
 class YmlCatalogTest extends DatabaseTestCase
 {
@@ -83,6 +85,73 @@ class YmlCatalogTest extends DatabaseTestCase
             CustomOffer::className()
         );
         $generator->generate();
+    }
+    
+    /**
+     * Тестирование генерации yml файла с использованием ActiveDataProvider и сравнение с эталонным файлом
+     */
+    public function testYmlCatalogGenerateActiveDataProvider()
+    {
+        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+
+        $generator = new YmlCatalog(
+            $handle,
+            'pastuhov\ymlcatalog\Test\models\Shop',
+            'pastuhov\ymlcatalog\Test\models\Currency',
+            'pastuhov\ymlcatalog\Test\models\Category',
+            null,
+            [
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'dataProvider' => new ActiveDataProvider([
+                        'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', [13]]),
+                        'pagination' => [
+                            'pageSize' => 100,
+                         ],
+                    ]),
+                ]
+            ],
+            '2015-01-01 14:00',
+            function () {
+
+            },
+            null,
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
+        );
+        $generator->generate();
+
+        $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog.xml', __DIR__ . '/runtime/yml-catalog.xml');
+    }
+    
+    /**
+     * Тестирование генерации yml файла с использованием ActiveQuery и сравнение с эталонным файлом
+     */
+    public function testYmlCatalogGenerateActiveQuery()
+    {
+        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+
+        $generator = new YmlCatalog(
+            $handle,
+            'pastuhov\ymlcatalog\Test\models\Shop',
+            'pastuhov\ymlcatalog\Test\models\Currency',
+            'pastuhov\ymlcatalog\Test\models\Category',
+            null,
+            [
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', [13]]),
+                ]
+            ],
+            '2015-01-01 14:00',
+            function () {
+
+            },
+            null,
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
+        );
+        $generator->generate();
+
+        $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog.xml', __DIR__ . '/runtime/yml-catalog.xml');
     }
 
     /**
