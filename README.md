@@ -64,6 +64,68 @@ class YmlController extends Controller
 $ yii yml/generate
 ```
 
+## Скачивание файла самим Яндекс Маркетом
+
+Создаём фронтенд контроллер, который позволяет скачивать сгенерированные через консоль или cron сервис файлы:
+```
+namespace frontend\controllers;
+
+use pastuhov\ymlcatalog\actions\DownloadAction;
+use yii\web\Controller;
+
+/**
+ * Class GenerateController
+ */
+class YmlController extends Controller
+{
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'download' => [
+                'class' => DownloadAction::className(),
+                'fileName' => 'yml-test.xml.gz', # название сгенерированного файла
+                'publicPath' => '@console/runtime', # директория со сгенерированным файлом
+            ],
+        ];
+    }
+}
+```
+
+При желании можно сделать авторизацию через фильтры контроллера:
+```php
+...
+    public function behaviors()
+    {
+        return [
+            'auth' => [
+                'class' => \yii\filters\auth\HttpBasicAuth::className(),
+                'auth' => function ($username, $password) {
+                    $model = \Yii::createObject(\common\models\LoginForm::className());
+                    $model->login = $username;
+                    $model->password = $password;
+
+                    if ($model->login()) {
+                        return \yii::$app->user->identity;
+                    }
+                },
+            ],
+            'accessControll' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['market'],
+                    ],
+                ],
+            ]
+        ];
+    }
+...
+```
+
 ## Тестирование
 
 ```bash
