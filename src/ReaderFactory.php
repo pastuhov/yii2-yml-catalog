@@ -41,8 +41,6 @@ class ReaderFactory
                         ]
                     ])
                 );
-            } else {
-                $dataProvider = null;
             }
         }
 
