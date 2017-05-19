@@ -117,6 +117,10 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
      */
     public function getName()
     {
+        if ($this->getId() == 12) {
+            return 'Лазернй принтер 234234234"&><\'';
+        }
+
         return $this->attributes['name'];
     }
 
