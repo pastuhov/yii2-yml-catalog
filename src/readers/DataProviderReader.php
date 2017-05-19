@@ -19,7 +19,7 @@ class DataProviderReader implements ReaderInterface
     protected $dataProvider = null;
 
     /**
-     * @var \yii\data\Pagination|null
+     * @var \yii\data\Pagination|boolean|null
      */
     protected $pagination = null;
 
