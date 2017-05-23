@@ -121,6 +121,35 @@ class YmlCatalogTest extends DatabaseTestCase
         $generator->generate();
 
         $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog.xml', __DIR__ . '/runtime/yml-catalog.xml');
+
+        // Тестирование генерации yml файла с использованием ActiveDataProvider без пагитнации
+        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+
+        $generator = new YmlCatalog(
+            $handle,
+            'pastuhov\ymlcatalog\Test\models\Shop',
+            'pastuhov\ymlcatalog\Test\models\Currency',
+            'pastuhov\ymlcatalog\Test\models\Category',
+            null,
+            [
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'dataProvider' => new ActiveDataProvider([
+                        'query' => SimpleOffer::findYml()->andWhere(['not in', 'id', [13]]),
+                        'pagination' => false
+                    ]),
+                ]
+            ],
+            '2015-01-01 14:00',
+            function () {
+
+            },
+            null,
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
+        );
+        $generator->generate();
+
+        $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog.xml', __DIR__ . '/runtime/yml-catalog.xml');
     }
     
     /**
