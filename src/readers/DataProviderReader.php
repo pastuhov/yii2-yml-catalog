@@ -4,6 +4,7 @@ namespace pastuhov\ymlcatalog\readers;
 
 use pastuhov\ymlcatalog\ReaderInterface;
 use yii\base\Exception;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -24,6 +25,11 @@ class DataProviderReader implements ReaderInterface
     protected $pagination = null;
 
     /**
+     * @var Model[]|null
+     */
+    protected $models = null;
+
+    /**
      * @inheritdoc
      *
      * @param ActiveDataProvider   $dataProvider
@@ -42,10 +48,11 @@ class DataProviderReader implements ReaderInterface
      */
     public function rewind()
     {
-        if ($this->pagination->getPage() != 0) {
+        if ($this->pagination && $this->pagination->getPage() != 0) {
             $this->pagination->setPage(0);
             $this->dataProvider->prepare(true);
         }
+        $this->models = $this->dataProvider->getModels();
     }
 
     /**
@@ -53,8 +60,13 @@ class DataProviderReader implements ReaderInterface
      */
     public function next()
     {
-        $this->pagination->setPage($this->pagination->getPage() + 1);
-        $this->dataProvider->prepare(true);
+        if ($this->pagination) {
+            $this->pagination->setPage($this->pagination->getPage() + 1);
+            $this->dataProvider->prepare(true);
+            $this->models = $this->dataProvider->getModels();
+        } else {
+            $this->models = null;
+        }
     }
 
     /**
@@ -62,7 +74,7 @@ class DataProviderReader implements ReaderInterface
      */
     public function valid()
     {
-        return !empty($this->dataProvider->getModels());
+        return !empty($this->models);
     }
 
     /**
@@ -70,7 +82,7 @@ class DataProviderReader implements ReaderInterface
      */
     public function current()
     {
-        return $this->dataProvider->getModels();
+        return $this->models;
     }
 
     /**
@@ -78,6 +90,10 @@ class DataProviderReader implements ReaderInterface
      */
     public function key()
     {
-        return $this->pagination->getPage();
+        $key = 0;
+        if ($this->pagination) {
+            $key = $this->pagination->getPage();
+        }
+        return $key;
     }
 }

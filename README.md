@@ -63,7 +63,6 @@ class YmlController extends Controller
 ```bash
 $ yii yml/generate
 ```
-
 ## Использование справочника категорий YML
 Если многие категории сайта распознаются Яндексом не правильно, необходимо категории сайта сопоставить
 с категориями маркета. Для того, чтобы вам помочь в этом нами создан справочник категорий Яндекса. Он имеется в двух форматах:
@@ -89,6 +88,51 @@ $ yii .ymlConvert/to-database
 ```
 После этого модель pastuhov\ymlcatalog\categories\models\yml\Categories можно использовать для генерации категорий YML
 и связывать её со своими категориями.
+
+## Дополнительно
+
+Дополнительно с именем класса, реализации интерфейса, можно передавать следующие параметры:
+1. Объект класса ActiveQuery, или его наследника.
+```php
+'categoryClass' => [
+    'class' => 'pastuhov\ymlcatalog\Test\models\Category',
+    'query' => \pastuhov\ymlcatalog\Test\models\Category\Category::find(),
+]
+```
+В данном случае, выборка данных будет производиться с помощью передаваемого ActiveQuery или его наследника;
+Позволяет использовать уже созданный объект, для выборки данных.
+
+2. Объект класса ActiveDataProvider, или его наследника.
+```php
+'categoryClass' => [
+    'class' => 'class' => 'pastuhov\ymlcatalog\Test\models\Category',
+    'dataProvider' => new ActiveDataProvider([
+        'query' => Category::find(),
+        'pagination' => [
+            'pageSize' => 1000,
+        ]
+    ]),
+]
+```
+В данном случае, выборка данных будет производиться с помощью передаваемого ActiveDataProvider или его наследника;
+
+Позволяет делать выборку данных с использованием постраничной пагинации.
+
+Так-же может быть передан true, в качестве параметра, для автоматического создания объекта класса ActiveDataProvider 
+со значением количества строк в странице равной 1000.
+```php
+'categoryClass' => [
+    'class' => 'class' => 'pastuhov\ymlcatalog\Test\models\Category',
+    'dataProvider' => new ActiveDataProvider([
+        'query' => Category::find(),
+        'pagination' => true,
+    ]
+]
+```
+На больших объемах данных, выборка, с использованием ActiveQuery->batch(), расходует оперативную память, 
+гораздо большую, чем значение установленное в конфигурацилнных файлах. (Скорее всего особенности работы библиотеки PDO).
+
+**Внимание:** Использование ActiveDataProvider увеличивает время генерации выгрузки.
 
 ## Тестирование
 
