@@ -109,6 +109,26 @@ $ yii yml/generate
 
 **Внимание:** Использование ActiveDataProvider увеличивает время генерации выгрузки.
 
+## Преобразование символов " & > < ' в html-сущности
+Яндекс Маркет ругается на символы " & > < '. Их нужно преобразовывать в html-сущности, чтобы проверка прайса проходила
+успешно. Чтобы это сделать, в модели необходимо реализовать интерфейс pastuhov\ymlcatalog\EscapedAttributes и определить
+метод getEscapedAttributes, который возвращает список необходимых для чистки атрибутов. В примере ниже мы указываем, что
+атрибут name необходимо фильтровать:
+```php
+use pastuhov\ymlcatalog\EscapedAttributes;
+use pastuhov\ymlcatalog\SimpleOfferInterface;
+class SimpleOffer extends ActiveRecord implements SimpleOfferInterface, EscapedAttributes
+{
+...
+    public function getEscapedAttributes() {
+        return [
+            'name'
+        ];
+    }
+...
+}
+```
+
 ## Тестирование
 
 ```bash

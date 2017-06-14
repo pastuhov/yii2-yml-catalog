@@ -1,13 +1,14 @@
 <?php
 namespace pastuhov\ymlcatalog\Test\models;
 
+use pastuhov\ymlcatalog\EscapedAttributes;
 use pastuhov\ymlcatalog\SimpleOfferInterface;
 use yii\db\ActiveRecord;
 
 /**
  * @inheritdoc
  */
-class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
+class SimpleOffer extends ActiveRecord implements SimpleOfferInterface, EscapedAttributes
 {
 
     /**
@@ -110,6 +111,12 @@ class SimpleOffer extends ActiveRecord implements SimpleOfferInterface
     public function getLocal_Delivery_Cost()
     {
         return null;
+    }
+
+    public function getEscapedAttributes() {
+        return [
+            'name'
+        ];
     }
 
     /**
