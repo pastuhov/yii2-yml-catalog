@@ -23,6 +23,8 @@ class BaseModel extends Model
     public static $tagProperties = [];
 
     /**
+     * Список атрибутов модели значений для фильтрации согласно требованиям Яндекс Маркета
+     *
      * @var string[]
      */
     protected $escapedAttributes = [];
@@ -83,7 +85,12 @@ class BaseModel extends Model
     public function loadModel($valuesModel, $onValidationError = null)
     {
         if ($valuesModel instanceof EscapedAttributes) {
-            $this->escapedAttributes = $valuesModel->getEscapedAttributes();
+            $escapedAttributes = $valuesModel->getEscapedAttributes();
+            if (!is_array($escapedAttributes)) {
+                throw new Exception('Escaped attributes is not array');
+            }
+
+            $this->escapedAttributes = $escapedAttributes;
         }
 
         $attributes = [];
