@@ -1,6 +1,7 @@
 <?php
 namespace pastuhov\ymlcatalog\models;
 
+use pastuhov\ymlcatalog\EscapedAttributes;
 use yii\base\Model;
 use yii\base\Exception;
 
@@ -20,6 +21,13 @@ class BaseModel extends Model
      * @var string[]
      */
     public static $tagProperties = [];
+
+    /**
+     * Список атрибутов модели значений для фильтрации согласно требованиям Яндекс Маркета
+     *
+     * @var string[]
+     */
+    protected $escapedAttributes = [];
 
     /**
      * @return string[]
@@ -76,6 +84,15 @@ class BaseModel extends Model
      */
     public function loadModel($valuesModel, $onValidationError = null)
     {
+        if ($valuesModel instanceof EscapedAttributes) {
+            $escapedAttributes = $valuesModel->getEscapedAttributes();
+            if (!is_array($escapedAttributes)) {
+                throw new Exception('Escaped attributes is not array');
+            }
+
+            $this->escapedAttributes = $escapedAttributes;
+        }
+
         $attributes = [];
         foreach ($this->attributes() as $attribute) {
             $methodName = 'get' . ucfirst($attribute);
@@ -156,7 +173,14 @@ class BaseModel extends Model
      */
     protected function getAttributeValue($attribute)
     {
-        return $this->$attribute;
+        if ($this->$attribute !== null) {
+            $result = trim($this->$attribute);
+            if (in_array($attribute, $this->escapedAttributes)) {
+                $result = htmlspecialchars($result);
+            }
+
+            return $result;
+        }
     }
 
     /**
