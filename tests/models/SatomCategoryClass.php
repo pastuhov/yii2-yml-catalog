@@ -3,6 +3,9 @@ namespace pastuhov\ymlcatalog\Test\models;
 
 use yii\helpers\ArrayHelper;
 
+/**
+ * Пример пользовательского класса с собственным атрибутом.
+ */
 class SatomCategoryClass extends \pastuhov\ymlcatalog\models\Category
 {
     /**

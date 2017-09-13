@@ -1,18 +1,15 @@
 <?php
 namespace pastuhov\ymlcatalog\Test\models;
 
+use pastuhov\ymlcatalog\CustomCategoryInterface;
+
 /**
  * @inheritdoc
  *
  * @property string name
  */
-class CustomCategory extends Category
+class CustomCategory extends Category implements CustomCategoryInterface
 {
-    /**
-     * @var string Класс для подмены Category
-     */
-    public $customCategoryClass = SatomCategoryClass::class;
-
     /**
      * @inheritdoc
      */

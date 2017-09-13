@@ -63,6 +63,11 @@ class YmlCatalog
     /**
      * @var null|string
      */
+    protected $customCategoryClass;
+
+    /**
+     * @var null|string
+     */
     protected $deliveryOptionClass;
 
     /**
@@ -75,6 +80,7 @@ class YmlCatalog
      * @param null|string $date
      * @param null|callable $onValidationError
      * @param null|string $customOfferClass
+     * @param null|string $customCategoryClass
      */
     public function __construct(
         BaseFileStream $handle,
@@ -86,7 +92,8 @@ class YmlCatalog
         $date = null,
         $onValidationError = null,
         $customOfferClass = null,
-        $deliveryOptionClass = null
+        $deliveryOptionClass = null,
+        $customCategoryClass = null
     ) {
         $this->handle = $handle;
         $this->shopClass = $shopClass;
@@ -98,6 +105,7 @@ class YmlCatalog
         $this->onValidationError = $onValidationError;
         $this->customOfferClass = $customOfferClass;
         $this->deliveryOptionClass = $deliveryOptionClass;
+        $this->customCategoryClass = $customCategoryClass;
     }
 
     /**
@@ -261,12 +269,10 @@ class YmlCatalog
 
         if ($obj instanceof CurrencyInterface) {
             $model = new Currency();
+        } elseif ($obj instanceof CustomCategoryInterface && !empty($this->customCategoryClass) && class_exists($this->customCategoryClass)) {
+            $model = \Yii::createObject($this->customCategoryClass);
         } elseif ($obj instanceof CategoryInterface) {
-            if (!empty($obj->customCategoryClass) && class_exists($obj->customCategoryClass)) {
-                $model = \Yii::createObject($obj->customCategoryClass);
-            } else {
-                $model = new Category();
-            }
+            $model = new Category();
         } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null && class_exists($this->customOfferClass)) {
             $model = \Yii::createObject($this->customOfferClass);
         } elseif ($obj instanceof SimpleOfferInterface) {
@@ -277,7 +283,7 @@ class YmlCatalog
 
         return $model;
     }
-    
+
     /**
      * Performs PHP memory garbage collection.
      */

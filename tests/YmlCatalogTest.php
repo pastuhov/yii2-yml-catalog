@@ -233,7 +233,8 @@ class YmlCatalogTest extends DatabaseTestCase
 
             },
             null,
-            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption',
+            'pastuhov\ymlcatalog\Test\models\SatomCategoryClass'
         );
         $generator->generate();
 
