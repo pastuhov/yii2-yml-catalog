@@ -262,7 +262,11 @@ class YmlCatalog
         if ($obj instanceof CurrencyInterface) {
             $model = new Currency();
         } elseif ($obj instanceof CategoryInterface) {
-            $model = new Category();
+            if (!empty($obj->customCategoryClass) && class_exists($obj->customCategoryClass)) {
+                $model = \Yii::createObject($obj->customCategoryClass);
+            } else {
+                $model = new Category();
+            }
         } elseif ($obj instanceof CustomOfferInterface && $this->customOfferClass !== null && class_exists($this->customOfferClass)) {
             $model = \Yii::createObject($this->customOfferClass);
         } elseif ($obj instanceof SimpleOfferInterface) {
