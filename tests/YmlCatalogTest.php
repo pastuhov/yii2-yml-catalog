@@ -204,4 +204,39 @@ class YmlCatalogTest extends DatabaseTestCase
             Yii::$app->clear('db');
         }
     }
+
+    /**
+     * Тест для пользовательской категории.
+     */
+    public function testCustomCategory()
+    {
+        $handle = new BaseFileStream(__DIR__ . '/runtime/yml-catalog.xml');
+
+        $generator = new YmlCatalog(
+            $handle,
+            'pastuhov\ymlcatalog\Test\models\Shop',
+            'pastuhov\ymlcatalog\Test\models\Currency',
+            'pastuhov\ymlcatalog\Test\models\CustomCategory',
+            null,
+            [
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'findParams' => [
+                        'excluded' => [
+                            13
+                        ]
+                    ]
+                ]
+            ],
+            '2015-01-01 14:00',
+            function () {
+
+            },
+            null,
+            'pastuhov\ymlcatalog\Test\models\DeliveryOption'
+        );
+        $generator->generate();
+
+        $this->assertXmlFileEqualsXmlFile(__DIR__ . '/data/yml-catalog-custom-category.xml', __DIR__ . '/runtime/yml-catalog.xml');
+    }
 }

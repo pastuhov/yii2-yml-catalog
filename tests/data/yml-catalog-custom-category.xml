@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2015-01-01 14:00">
+<shop>
+<name>BestShop</name>
+<company>Best online seller Inc.</company>
+<url>http://best.seller.ru/</url>
+<platform>CMS</platform>
+<version>2.3</version>
+<agency>Agency</agency>
+<email>CMS@CMS.ru</email>
+
+<currencies>
+<currency id="RUR" rate="1"/>
+<currency id="EUR" rate="CBRF"/>
+<currency id="UAH" rate="NBU" plus="10"/>
+</currencies>
+<categories>
+<category id="1" portalid="portal-test">Оргтехника</category>
+<category id="2" portalid="portal-test">Фототехника</category>
+<category id="3" portalid="portal-test">Книги</category>
+<category id="4" portalid="portal-test">Музыка и видеофильмы</category>
+<category id="5" portalid="portal-test">Путешествия</category>
+<category id="6" portalid="portal-test">Билеты на мероприятия</category>
+<category id="10" parentId="1" portalid="portal-test">Принтеры</category>
+<category id="11" parentId="2" portalid="portal-test">Фотоаппараты</category>
+<category id="12" parentId="2" portalid="portal-test">Объективы</category>
+<category id="13" parentId="3" portalid="portal-test">Детективы</category>
+<category id="14" parentId="3" portalid="portal-test">Художественная литература</category>
+<category id="15" parentId="3" portalid="portal-test">Учебная литература</category>
+<category id="16" parentId="3" portalid="portal-test">Детская литература</category>
+<category id="17" parentId="4" portalid="portal-test">Музыка</category>
+<category id="18" parentId="4" portalid="portal-test">Видеофильмы</category>
+<category id="19" parentId="5" portalid="portal-test">Туры</category>
+<category id="20" parentId="5" portalid="portal-test">Авиабилеты</category>
+<category id="100" parentId="10" portalid="portal-test">Струйные принтеры</category>
+<category id="101" parentId="10" portalid="portal-test">Лазерные принтеры</category>
+</categories>
+<delivery-options>
+<option cost="0" days="1-2" />
+</delivery-options>
+<offers>
+<offer id="12" bid="13" cbid="20" available="false"><url>http://magazin.ru/product_page.asp?pid=12</url>
+<price>1000</price>
+<currencyId>RUR</currencyId>
+<categoryId>10</categoryId>
+<delivery>true</delivery>
+<name>Лазернй принтер 234234234&quot;&amp;&gt;&lt;'</name>
+<description>Крутой принтер на лазере.</description>
+<picture>http://magazin.ru/img/device12.jpg</picture>
+<picture>http://magazin.ru/img/device12_2.jpg</picture>
+</offer>
+<offer id="12341" bid="13" cbid="20" available="true"><url>http://magazin.ru/product_page.asp?pid=12341</url>
+<price>15000</price>
+<currencyId>RUR</currencyId>
+<categoryId>1</categoryId>
+<delivery>true</delivery>
+<name>Наручные часы Casio A1234567B</name>
+<description>Изящные наручные часы.</description>
+<sales_notes>по предоплате</sales_notes>
+<picture>http://magazin.ru/img/device12341.jpg</picture>
+<delivery-options>
+<option cost="123" days="2" />
+<option cost="100" days="1" />
+</delivery-options>
+</offer>
+</offers>
+</shop>
+</yml_catalog>
