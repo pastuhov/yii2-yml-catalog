@@ -116,8 +116,8 @@ class GenerateAction extends Action
             null,
             $this->onValidationError,
             $this->customOfferClass,
-            $this->customCategoryClass,
-            $this->deliveryOptionClass
+            $this->deliveryOptionClass,
+            $this->customCategoryClass
         );
         $generator->generate();
 
