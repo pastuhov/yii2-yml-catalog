@@ -3,6 +3,7 @@ namespace pastuhov\ymlcatalog\Test;
 
 use pastuhov\FileStream\BaseFileStream;
 use pastuhov\ymlcatalog\Test\controllers\GenerateController;
+use pastuhov\ymlcatalog\Test\controllers\GenerateControllerWithCustomCategory;
 use pastuhov\ymlcatalog\Test\models\CustomOffer;
 use pastuhov\ymlcatalog\Test\models\SimpleOffer;
 use pastuhov\ymlcatalog\YmlCatalog;
@@ -21,6 +22,21 @@ class YmlCatalogTest extends DatabaseTestCase
     public function testController()
     {
         $controller = new GenerateController('yml', Yii::$app);
+
+        $response = $controller->runAction('generate');
+
+        $this->assertEquals(Controller::EXIT_CODE_NORMAL, $response);
+        $this->assertFileExists(__DIR__ . '/runtime/public/yml-test.xml.gz');
+    }
+
+    /**
+     * Controller with stand alone action test with CustomCategoryClass
+     *
+     * @throws \yii\console\Exception
+     */
+    public function testCustomController()
+    {
+        $controller = new GenerateControllerWithCustomCategory('yml', Yii::$app);
 
         $response = $controller->runAction('generate');
 
