@@ -2,8 +2,8 @@
 namespace pastuhov\ymlcatalog\Test;
 
 use pastuhov\FileStream\BaseFileStream;
+use pastuhov\ymlcatalog\actions\GenerateAction;
 use pastuhov\ymlcatalog\Test\controllers\GenerateController;
-use pastuhov\ymlcatalog\Test\controllers\GenerateControllerWithCustomCategory;
 use pastuhov\ymlcatalog\Test\models\CustomOffer;
 use pastuhov\ymlcatalog\Test\models\SimpleOffer;
 use pastuhov\ymlcatalog\YmlCatalog;
@@ -30,18 +30,51 @@ class YmlCatalogTest extends DatabaseTestCase
     }
 
     /**
-     * Controller with stand alone action test with CustomCategoryClass
+     * Проверка генерации XML с пользовательскими категориями.
      *
      * @throws \yii\console\Exception
      */
-    public function testCustomController()
+    public function testGenerateYmlWithCustomCategory()
     {
-        $controller = new GenerateControllerWithCustomCategory('yml', Yii::$app);
+        $action = new GenerateAction('generate', $this, [
+            'enableGzip' => true,
+            'keepBoth' => true,
+            'fileName' => 'custom-yml-test.xml',
+            'publicPath' => '@runtime/public',
+            'runtimePath' => '@runtime',
+            'shopClass' => 'pastuhov\ymlcatalog\Test\models\Shop',
+            'currencyClass' => 'pastuhov\ymlcatalog\Test\models\Currency',
+            'categoryClass' => 'pastuhov\ymlcatalog\Test\models\CustomCategory',
+            'deliveryOptionClass' => 'pastuhov\ymlcatalog\Test\models\DeliveryOption',
+            'customCategoryClass' => 'pastuhov\ymlcatalog\Test\models\SatomCategoryClass',
+            'offerClasses' => [
+                [
+                    'class' => 'pastuhov\ymlcatalog\Test\models\SimpleOffer',
+                    'findParams' => [
+                        'excluded' => [
+                            13
+                        ]
+                    ]
+                ]
+            ],
+            'onValidationError' => function () {
 
-        $response = $controller->runAction('generate');
+            }
+        ]);
+        $response = $action->run();
 
         $this->assertEquals(Controller::EXIT_CODE_NORMAL, $response);
-        $this->assertFileExists(__DIR__ . '/runtime/public/yml-test.xml.gz');
+        $fileName = __DIR__ . '/runtime/public/custom-yml-test.xml';
+        $this->assertFileExists($fileName);
+
+        $fileContent = file_get_contents($fileName);
+        // Проверка на измененные тэги категорий
+        $this->assertContains(
+'<category id="1" portalid="portal-test">Оргтехника</category>
+<category id="2" portalid="portal-test">Фототехника</category>
+<category id="3" portalid="portal-test">Книги</category>
+<category id="4" portalid="portal-test">Музыка и видеофильмы</category>
+<category id="5" portalid="portal-test">Путешествия</category>', $fileContent);
     }
 
     /**
