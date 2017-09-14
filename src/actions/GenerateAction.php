@@ -26,7 +26,7 @@ class GenerateAction extends Action
 
     /**
      * Publish yml and .gz
-     * 
+     *
      * @var bool
      */
     public $keepBoth = false;
@@ -74,6 +74,11 @@ class GenerateAction extends Action
     /**
      * @var string
      */
+    public $customCategoryClass;
+
+    /**
+     * @var string
+     */
     public $deliveryOptionClass;
 
     /**
@@ -111,6 +116,7 @@ class GenerateAction extends Action
             null,
             $this->onValidationError,
             $this->customOfferClass,
+            $this->customCategoryClass,
             $this->deliveryOptionClass
         );
         $generator->generate();
