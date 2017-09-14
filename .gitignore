@@ -4,3 +4,4 @@
 /build
 /tests/runtime/*.xml
 /tests/runtime/public/*.gz
+/tests/runtime/public/*.xml
