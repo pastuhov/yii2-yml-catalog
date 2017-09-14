@@ -76,11 +76,12 @@ class YmlCatalog
      * @param string $currencyClass class name
      * @param string $categoryClass class name
      * @param string $localDeliveryCostClass class name
-     * @param array $offerClasses
+     * @param string[] $offerClasses
      * @param null|string $date
      * @param null|callable $onValidationError
      * @param null|string $customOfferClass
      * @param null|string $customCategoryClass
+     * @param string $deliveryOptionClass
      */
     public function __construct(
         BaseFileStream $handle,
@@ -259,7 +260,7 @@ class YmlCatalog
     }
 
     /**
-     * @param $modelClass
+     * @param BaseFindYmlInterface $modelClass
      * @return Category|Currency|SimpleOffer
      * @throws Exception
      */
