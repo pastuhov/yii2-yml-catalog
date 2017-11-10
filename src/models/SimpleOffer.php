@@ -8,6 +8,18 @@ use yii\base\InvalidParamException;
 class SimpleOffer extends BaseModel
 {
     /**
+     * @var int Максимальная длина тэга sales_notes
+     */
+    public static $max_length_sales_notes = 50;
+    /**
+     * @var int Максимальная длина тэга vendor
+     */
+    public static $max_length_vendor = 120;
+    /**
+     * @var int Максимальная длина тэга name
+     */
+    public static $max_length_name = 120;
+    /**
      * @inheritdoc
      */
     public static $tag = 'offer';
@@ -99,12 +111,17 @@ class SimpleOffer extends BaseModel
             [
                 ['sales_notes'],
                 'string',
-                'max' => 50,
+                'max' => static::$max_length_sales_notes,
             ],
             [
-                ['name', 'vendor'],
+                ['name'],
                 'string',
-                'max' => 120,
+                'max' => static::$max_length_name,
+            ],
+            [
+                ['vendor'],
+                'string',
+                'max' => static::$max_length_vendor,
             ],
             [
                 ['delivery', 'pickup', 'store', 'manufacturer_Warranty', 'adult'],
