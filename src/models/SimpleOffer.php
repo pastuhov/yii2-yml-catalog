@@ -10,15 +10,15 @@ class SimpleOffer extends BaseModel
     /**
      * @var int Максимальная длина тэга sales_notes
      */
-    public static $max_length_sales_notes = 50;
+    public static $maxLengthSalesNotes = 50;
     /**
      * @var int Максимальная длина тэга vendor
      */
-    public static $max_length_vendor = 120;
+    public static $maxLengthVendor = 120;
     /**
      * @var int Максимальная длина тэга name
      */
-    public static $max_length_name = 120;
+    public static $maxLengthName = 120;
     /**
      * @inheritdoc
      */
@@ -111,17 +111,17 @@ class SimpleOffer extends BaseModel
             [
                 ['sales_notes'],
                 'string',
-                'max' => static::$max_length_sales_notes,
-            ],
-            [
-                ['name'],
-                'string',
-                'max' => static::$max_length_name,
+                'max' => static::$maxLengthSalesNotes,
             ],
             [
                 ['vendor'],
                 'string',
-                'max' => static::$max_length_vendor,
+                'max' => static::$maxLengthVendor,
+            ],
+            [
+                ['name'],
+                'string',
+                'max' => static::$maxLengthName,
             ],
             [
                 ['delivery', 'pickup', 'store', 'manufacturer_Warranty', 'adult'],
