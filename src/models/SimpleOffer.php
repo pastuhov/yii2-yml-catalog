@@ -43,18 +43,18 @@ class SimpleOffer extends BaseModel
     public $oldprice;
     public $currencyId;
     public $categoryId;
-    public $market_Category;
+    public $market_category;
     public $store;
     public $pickup;
     public $delivery;
-    public $local_Delivery_Cost;
+    public $local_delivery_cost;
     public $name;
     public $vendor;
     public $vendorCode;
     public $description;
     public $sales_notes;
-    public $manufacturer_Warranty;
-    public $country_Of_Origin;
+    public $manufacturer_warranty;
+    public $country_of_origin;
     public $adult;
     public $age;
     public $barcode;
@@ -263,7 +263,6 @@ class SimpleOffer extends BaseModel
         }
         $string .= '</delivery-options>' . PHP_EOL;
     }
-
 
     /**
      * @param string $attribute
