@@ -1,4 +1,5 @@
 <?php
+
 namespace pastuhov\ymlcatalog;
 
 /**
@@ -18,7 +19,7 @@ interface ParamOfferInterface
 
     /**
      * Значение параметра.
-     * 
+     *
      * @return string
      */
     public function getValue();

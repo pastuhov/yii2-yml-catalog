@@ -204,12 +204,11 @@ class SimpleOffer extends BaseModel
 
     /**
      * @param array $options
-     *
      * @throws Exception
      */
     public function setDeliveryOptions(array $options)
     {
-        if(count($options) > 5) {
+        if (count($options) > 5) {
             throw new InvalidParamException('Maximum count of delivery options array is 5');
         }
         $this->deliveryOptions = $options;
@@ -240,17 +239,17 @@ class SimpleOffer extends BaseModel
      * Добавляет теги для опций доставки
      *
      * @param $string
-     *
      * @throws Exception
      */
-    protected function appendDeliveryOptions(&$string) {
-        if(count($this->deliveryOptions) < 1) {
+    protected function appendDeliveryOptions(&$string)
+    {
+        if (count($this->deliveryOptions) < 1) {
             return;
         }
         $string .= '<delivery-options>' . PHP_EOL;
         $deliveryOptionBase = new DeliveryOption();
 
-        foreach($this->deliveryOptions as $deliveryOption) {
+        foreach ($this->deliveryOptions as $deliveryOption) {
             $deliveryOptionBase->loadModel($deliveryOption);
             $string .= $deliveryOptionBase->getYml();
         }
@@ -261,7 +260,6 @@ class SimpleOffer extends BaseModel
      * @param string $attribute
      * @param string $value
      * @return string
-     *
      */
     protected function getYmlParamTag($attribute, $value)
     {
@@ -282,13 +280,13 @@ class SimpleOffer extends BaseModel
      */
     protected function appendParamTags(&$string)
     {
-        if(count($this->params) < 1) {
+        if (count($this->params) < 1) {
             return;
         }
 
         $paramOfferBase = new ParamOffer();
 
-        foreach($this->params as $name => $param) {
+        foreach ($this->params as $name => $param) {
             if (!($param instanceof ParamOfferInterface)) {
                 if (is_string($param)) {
                     $string .= $this->getYmlParamTag($name, $param);

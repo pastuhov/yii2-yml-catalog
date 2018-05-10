@@ -1,10 +1,11 @@
 <?php
+
 namespace pastuhov\ymlcatalog\models;
 
 /**
  * Class DeliveryOption
- *
  * Модель опции условий доставки - тега option в секции delivery-option
+ *
  * @package pastuhov\ymlcatalog\models
  */
 class ParamOffer extends BaseModel
