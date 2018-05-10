@@ -125,7 +125,7 @@ class SimpleOffer extends BaseModel
                 'max' => static::$maxLengthName,
             ],
             [
-                ['delivery', 'pickup', 'store', 'manufacturer_Warranty', 'adult'],
+                ['delivery', 'pickup', 'store', 'manufacturer_warranty', 'adult'],
                 'boolean',
                 'trueValue' => 'true',
                 'falseValue' => 'false',
@@ -140,7 +140,7 @@ class SimpleOffer extends BaseModel
                 'integer',
             ],
             [
-                ['name', 'market_Category', 'vendorCode', 'country_Of_Origin', 'barcode'],
+                ['name', 'market_category', 'vendorCode', 'country_of_origin', 'barcode'],
                 'string',
             ],
             [
@@ -148,7 +148,7 @@ class SimpleOffer extends BaseModel
                 'url',
             ],
             [
-                ['price', 'oldprice', 'local_Delivery_Cost'],
+                ['price', 'oldprice', 'local_delivery_cost'],
                 'double',
             ],
             [
