@@ -159,7 +159,7 @@ class BaseModel extends Model
         $properties = static::$tagProperties;
 
         foreach ($properties as $name => $property) {
-            if (!is_numeric($name)) {
+            if (is_numeric($name)) {
                 $name = $property;
             }
             $value = $this->getAttributeValue($name);
