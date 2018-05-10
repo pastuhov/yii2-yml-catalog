@@ -28,7 +28,7 @@ class DeliveryOption implements DeliveryOptionInterface
      *
      * @var int
      */
-    public $orderBefore = '1-2';
+    public $orderBefore = 13;
 
     /**
      * @inheritdoc
