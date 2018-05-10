@@ -42,10 +42,6 @@ class ParamOffer extends BaseModel
                 'required',
             ],
             [
-                ['cost'],
-                'integer',
-            ],
-            [
                 ['name', 'value', 'unit'],
                 'string',
             ],
