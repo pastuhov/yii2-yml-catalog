@@ -43,14 +43,8 @@ class DeliveryOption extends BaseModel
                 'required',
             ],
             [
-                ['cost'],
+                ['cost', 'orderBefore'],
                 'integer',
-            ],
-            [
-                ['orderBefore'],
-                'integer',
-                'min' => 0,
-                'max' => 24
             ],
             [
                 ['days'],
