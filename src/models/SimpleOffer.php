@@ -2,6 +2,7 @@
 
 namespace pastuhov\ymlcatalog\models;
 
+use pastuhov\ymlcatalog\ParamOfferInterface;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
 
@@ -178,11 +179,6 @@ class SimpleOffer extends BaseModel
                 }
             ],
             [
-                ['params'],
-                'each',
-                'rule' => ['string']
-            ],
-            [
                 ['pictures'],
                 'each',
                 'rule' => ['url']
@@ -230,21 +226,18 @@ class SimpleOffer extends BaseModel
             $string .= $this->getYmlAttribute($attribute);
         }
 
-        foreach ($this->params as $name => $value) {
-            $string .= $this->getYmlParamTag($name, $value);
-        }
-
         foreach ($this->pictures as $picture) {
             $string .= $this->getYmlPictureTag($picture);
         }
 
+        $this->appendParamTags($string);
         $this->appendDeliveryOptions($string);
 
         return $string;
     }
 
     /**
-     * Добавляет теги ддля опций доставки
+     * Добавляет теги для опций доставки
      *
      * @param $string
      *
@@ -268,6 +261,7 @@ class SimpleOffer extends BaseModel
      * @param string $attribute
      * @param string $value
      * @return string
+     *
      */
     protected function getYmlParamTag($attribute, $value)
     {
@@ -278,6 +272,32 @@ class SimpleOffer extends BaseModel
         $string = '<param name="' . $attribute . '">' . $value . '</param>' . PHP_EOL;
 
         return $string;
+    }
+
+    /**
+     * Добавляет теги для описания характеристик и параметров товара.
+     *
+     * @param string $string
+     * @throws Exception
+     */
+    protected function appendParamTags(&$string)
+    {
+        if(count($this->params) < 1) {
+            return;
+        }
+
+        $paramOfferBase = new ParamOffer();
+
+        foreach($this->params as $name => $param) {
+            if (!($param instanceof ParamOfferInterface)) {
+                if (is_string($param)) {
+                    $string .= $this->getYmlParamTag($name, $param);
+                }
+                continue;
+            }
+            $paramOfferBase->loadModel($param);
+            $string .= $paramOfferBase->getYml();
+        }
     }
 
     /**
