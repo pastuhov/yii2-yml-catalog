@@ -47,4 +47,9 @@ class ParamOffer extends BaseModel
             ],
         ];
     }
+
+    protected function getYmlBody()
+    {
+        return $this->value;
+    }
 }
