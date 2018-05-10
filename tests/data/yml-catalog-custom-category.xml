@@ -37,7 +37,7 @@
 <category id="101" parentId="10" portalid="portal-test">Лазерные принтеры</category>
 </categories>
 <delivery-options>
-<option cost="0" days="1-2" />
+<option cost="0" days="1-2" order-before="13"/>
 </delivery-options>
 <offers>
 <offer id="12" bid="13" cbid="20" available="false"><url>http://magazin.ru/product_page.asp?pid=12</url>
