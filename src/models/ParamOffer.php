@@ -4,7 +4,7 @@ namespace pastuhov\ymlcatalog\models;
 
 /**
  * Class ParamOffer
- * Модель опции условий доставки - тега option в секции delivery-option
+ * Модель все важные характеристики товара — цвет, размер, объем, материал, вес, возраст, пол, и т. д.
  *
  * @package pastuhov\ymlcatalog\models
  */
