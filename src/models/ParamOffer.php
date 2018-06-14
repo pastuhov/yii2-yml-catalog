@@ -3,7 +3,7 @@
 namespace pastuhov\ymlcatalog\models;
 
 /**
- * Class DeliveryOption
+ * Class ParamOffer
  * Модель опции условий доставки - тега option в секции delivery-option
  *
  * @package pastuhov\ymlcatalog\models
