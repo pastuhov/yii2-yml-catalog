@@ -2,6 +2,7 @@
 
 namespace pastuhov\ymlcatalog\models;
 
+use pastuhov\ymlcatalog\ParamOfferInterface;
 use yii\base\Exception;
 use yii\base\InvalidParamException;
 
@@ -43,18 +44,18 @@ class SimpleOffer extends BaseModel
     public $oldprice;
     public $currencyId;
     public $categoryId;
-    public $market_Category;
+    public $market_category;
     public $store;
     public $pickup;
     public $delivery;
-    public $local_Delivery_Cost;
+    public $local_delivery_cost;
     public $name;
     public $vendor;
     public $vendorCode;
     public $description;
     public $sales_notes;
-    public $manufacturer_Warranty;
-    public $country_Of_Origin;
+    public $manufacturer_warranty;
+    public $country_of_origin;
     public $adult;
     public $age;
     public $barcode;
@@ -79,18 +80,18 @@ class SimpleOffer extends BaseModel
             'oldprice',
             'currencyId',
             'categoryId',
-            'market_Category',
+            'market_category',
             'store',
             'pickup',
             'delivery',
-            'local_Delivery_Cost',
+            'local_delivery_cost',
             'name',
             'vendor',
             'vendorCode',
             'description',
             'sales_notes',
-            'manufacturer_Warranty',
-            'country_Of_Origin',
+            'manufacturer_warranty',
+            'country_of_origin',
             'adult',
             'age',
             'barcode',
@@ -124,7 +125,7 @@ class SimpleOffer extends BaseModel
                 'max' => static::$maxLengthName,
             ],
             [
-                ['delivery', 'pickup', 'store', 'manufacturer_Warranty', 'adult'],
+                ['delivery', 'pickup', 'store', 'manufacturer_warranty', 'adult'],
                 'boolean',
                 'trueValue' => 'true',
                 'falseValue' => 'false',
@@ -139,7 +140,7 @@ class SimpleOffer extends BaseModel
                 'integer',
             ],
             [
-                ['name', 'market_Category', 'vendorCode', 'country_Of_Origin', 'barcode'],
+                ['name', 'market_category', 'vendorCode', 'country_of_origin', 'barcode'],
                 'string',
             ],
             [
@@ -147,7 +148,7 @@ class SimpleOffer extends BaseModel
                 'url',
             ],
             [
-                ['price', 'oldprice', 'local_Delivery_Cost'],
+                ['price', 'oldprice', 'local_delivery_cost'],
                 'double',
             ],
             [
@@ -178,11 +179,6 @@ class SimpleOffer extends BaseModel
                 }
             ],
             [
-                ['params'],
-                'each',
-                'rule' => ['string']
-            ],
-            [
                 ['pictures'],
                 'each',
                 'rule' => ['url']
@@ -208,12 +204,11 @@ class SimpleOffer extends BaseModel
 
     /**
      * @param array $options
-     *
      * @throws Exception
      */
     public function setDeliveryOptions(array $options)
     {
-        if(count($options) > 5) {
+        if (count($options) > 5) {
             throw new InvalidParamException('Maximum count of delivery options array is 5');
         }
         $this->deliveryOptions = $options;
@@ -230,40 +225,36 @@ class SimpleOffer extends BaseModel
             $string .= $this->getYmlAttribute($attribute);
         }
 
-        foreach ($this->params as $name => $value) {
-            $string .= $this->getYmlParamTag($name, $value);
-        }
-
         foreach ($this->pictures as $picture) {
             $string .= $this->getYmlPictureTag($picture);
         }
 
+        $this->appendParamTags($string);
         $this->appendDeliveryOptions($string);
 
         return $string;
     }
 
     /**
-     * Добавляет теги ддля опций доставки
+     * Добавляет теги для опций доставки
      *
      * @param $string
-     *
      * @throws Exception
      */
-    protected function appendDeliveryOptions(&$string) {
-        if(count($this->deliveryOptions) < 1) {
+    protected function appendDeliveryOptions(&$string)
+    {
+        if (count($this->deliveryOptions) < 1) {
             return;
         }
         $string .= '<delivery-options>' . PHP_EOL;
         $deliveryOptionBase = new DeliveryOption();
 
-        foreach($this->deliveryOptions as $deliveryOption) {
+        foreach ($this->deliveryOptions as $deliveryOption) {
             $deliveryOptionBase->loadModel($deliveryOption);
             $string .= $deliveryOptionBase->getYml();
         }
         $string .= '</delivery-options>' . PHP_EOL;
     }
-
 
     /**
      * @param string $attribute
@@ -279,6 +270,32 @@ class SimpleOffer extends BaseModel
         $string = '<param name="' . $attribute . '">' . $value . '</param>' . PHP_EOL;
 
         return $string;
+    }
+
+    /**
+     * Добавляет теги для описания характеристик и параметров товара.
+     *
+     * @param string $string
+     * @throws Exception
+     */
+    protected function appendParamTags(&$string)
+    {
+        if (count($this->params) < 1) {
+            return;
+        }
+
+        $paramOfferBase = new ParamOffer();
+
+        foreach ($this->params as $name => $param) {
+            if (!($param instanceof ParamOfferInterface)) {
+                if (is_string($param)) {
+                    $string .= $this->getYmlParamTag($name, $param);
+                }
+                continue;
+            }
+            $paramOfferBase->loadModel($param);
+            $string .= $paramOfferBase->getYml();
+        }
     }
 
     /**

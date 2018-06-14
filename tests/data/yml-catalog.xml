@@ -37,7 +37,7 @@
 <category id="101" parentId="10">Лазерные принтеры</category>
 </categories>
 <delivery-options>
-<option cost="0" days="1-2" />
+<option cost="0" days="1-2" order-before="13"/>
 </delivery-options>
 <offers>
 <offer id="12" bid="13" cbid="20" available="false"><url>http://magazin.ru/product_page.asp?pid=12</url>
@@ -60,8 +60,8 @@
 <sales_notes>по предоплате</sales_notes>
 <picture>http://magazin.ru/img/device12341.jpg</picture>
 <delivery-options>
-<option cost="123" days="2" />
-<option cost="100" days="1" />
+<option cost="123" days="2" order-before="13"/>
+<option cost="100" days="1" order-before="13"/>
 </delivery-options>
 </offer>
 </offers>

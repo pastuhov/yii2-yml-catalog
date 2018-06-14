@@ -20,6 +20,7 @@ class DeliveryOption extends BaseModel
     public static $tagProperties = [
         'cost',
         'days',
+        'orderBefore' => 'order-before'
     ];
 
     /** @var int Стоимость доставки в рублях. */
@@ -27,6 +28,9 @@ class DeliveryOption extends BaseModel
 
     /** @var string Срок доставки в рабочих днях. */
     public $days;
+
+    /** @var int Время, до которого нужно сделать заказ, чтобы получить его в этот срок. */
+    public $orderBefore;
 
     /**
      * @inheritdoc
@@ -39,7 +43,7 @@ class DeliveryOption extends BaseModel
                 'required',
             ],
             [
-                ['cost'],
+                ['cost', 'orderBefore'],
                 'integer',
             ],
             [

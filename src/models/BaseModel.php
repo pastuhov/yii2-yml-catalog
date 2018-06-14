@@ -18,6 +18,7 @@ class BaseModel extends Model
     public static $tag;
 
     /**
+     * 'key' => 'value'. key = Attribute name in model is optional. `value` tag name in feed
      * @var string[]
      */
     public static $tagProperties = [];
@@ -157,8 +158,11 @@ class BaseModel extends Model
         $string = '';
         $properties = static::$tagProperties;
 
-        foreach ($properties as $property) {
-            $value = $this->getAttributeValue($property);
+        foreach ($properties as $name => $property) {
+            if (is_numeric($name)) {
+                $name = $property;
+            }
+            $value = $this->getAttributeValue($name);
             if ($value !== null) {
                 $string .= ' ' . $property . '="' . $value . '"';
             }
